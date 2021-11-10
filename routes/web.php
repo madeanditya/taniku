@@ -28,9 +28,11 @@ Route::get('/user/login', [UserController::class, 'login'])->name('login')->midd
 Route::post('/user/login', [UserController::class, 'authenticate']);
 Route::post('/user/logout', [UserController::class, 'logout']);
 
-Route::get('/product/create'  , [ProductController::class, 'create'])->middleware('auth');
-Route::post('/product/create', [ProductController::class, 'store']);
-Route::get('/product/read'  , [ProductController::class, 'read'])->middleware('auth');
-Route::get('/product/update/{id}'  , [ProductController::class, 'update'])->middleware('auth');
-Route::post('/product/update/{id}', [ProductController::class, 'restore']);
-Route::post('/product/delete/{id}', [ProductController::class, 'destroy']);
+Route::post('/{username}/catalog', [CatalogController::class, 'main'])->middleware('auth');
+
+Route::get('/{username}/product/create'  , [ProductController::class, 'create'])->middleware('auth');
+Route::post('/product/store', [ProductController::class, 'store']);
+Route::get('/{username}/product/show' , [ProductController::class, 'show'])->middleware('auth');
+Route::get('/{username}/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth');
+Route::post('/product/update/{id}', [ProductController::class, 'update']);
+Route::post('/product/destroy/{id}', [ProductController::class, 'destroy']);

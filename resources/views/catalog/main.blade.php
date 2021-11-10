@@ -8,7 +8,7 @@
 {{-- content --}}
 @section('content')
     <h3>Content</h3>
-    <div>Home</div>
+    <div>Catalog</div>
 @endsection
 
 {{-- footer --}}

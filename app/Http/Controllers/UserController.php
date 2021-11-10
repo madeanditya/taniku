@@ -14,7 +14,6 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
-
         if ($request['password'] != $request['confirm']) {
             return back()->withErrors([
                 'confirm' => ['The provided confirmation does not match the provided password']
