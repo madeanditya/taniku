@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Validation\Rules\In;
-use PhpParser\Node\Expr\Cast\Int_;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,26 +13,45 @@ class ProductController extends Controller
     }
 
     public function store(Request $request) {
-        $validatedData = $request->validate([
+        $product = $request->validate([
             'nama' => 'required|min:3|max:255',
             'deskripsi' => 'required|min:3|max:255',
             'harga' => 'required|numeric'
         ]);
 
-        Product::create($validatedData);
+        DB::table('products')->insert($product);
         return redirect('/product/create');
     }
 
     public function read() {
-        $products = Product::all();
+        $products = DB::table('products')->get();
 
         return view('product/read', [
-            "products" => $products
+            'products' => $products
         ]);
     }
 
+    public function update(int $id) {
+        $product = DB::table('products')->where('id', $id)->first();
+
+        return view('product/update', [
+            'product' => $product
+        ]);
+    }
+
+    public function restore(Request $request, int $id) {
+        $product = $request->validate([
+            'nama' => 'required|min:3|max:255',
+            'deskripsi' => 'required|min:3|max:255',
+            'harga' => 'required|numeric'
+        ]);
+
+        DB::table('products')->where('id', $id)->update($product);
+        return redirect('/product/read');
+    }
+
     public function destroy(int $id) {
-        Product::destroy($id);
+        DB::table('products')->where('id', $id)->delete();
         return redirect('/product/read');
     }
 }

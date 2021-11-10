@@ -31,6 +31,6 @@ Route::post('/user/logout', [UserController::class, 'logout']);
 Route::get('/product/create'  , [ProductController::class, 'create'])->middleware('auth');
 Route::post('/product/create', [ProductController::class, 'store']);
 Route::get('/product/read'  , [ProductController::class, 'read'])->middleware('auth');
-Route::get('/product/update'  , [ProductController::class, 'update'])->middleware('auth');
-Route::post('/product/update', [ProductController::class, 'restore']);
+Route::get('/product/update/{id}'  , [ProductController::class, 'update'])->middleware('auth');
+Route::post('/product/update/{id}', [ProductController::class, 'restore']);
 Route::post('/product/delete/{id}', [ProductController::class, 'destroy']);
