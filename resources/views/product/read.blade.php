@@ -25,7 +25,7 @@
         <div>{{ $product['nama'] }}</div>
         <div>{{ $product['harga'] }}</div>
         <div><a href="/product/update">Update</a></div>
-        <form action="/product/delete" method="post">
+        <form action="/product/delete/{{ $product->id }}" method="post">
             @csrf
             <button type="submit">Delete</button>
         </form>

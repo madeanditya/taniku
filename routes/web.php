@@ -33,4 +33,4 @@ Route::post('/product/create', [ProductController::class, 'store']);
 Route::get('/product/read'  , [ProductController::class, 'read'])->middleware('auth');
 Route::get('/product/update'  , [ProductController::class, 'update'])->middleware('auth');
 Route::post('/product/update', [ProductController::class, 'restore']);
-Route::post('/product/delete', [ProductController::class, 'delete']);
+Route::post('/product/delete/{id}', [ProductController::class, 'destroy']);

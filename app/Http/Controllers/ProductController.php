@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Validation\Rules\In;
+use PhpParser\Node\Expr\Cast\Int_;
 
 class ProductController extends Controller
 {
@@ -28,5 +30,10 @@ class ProductController extends Controller
         return view('product/read', [
             "products" => $products
         ]);
+    }
+
+    public function destroy(int $id) {
+        Product::destroy($id);
+        return redirect('/product/read');
     }
 }
