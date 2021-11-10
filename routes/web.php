@@ -22,13 +22,19 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'main']);
 
+Route::get('/{username}/catalog', [CatalogController::class, 'main']);
+
+Route::get('/{username}/cart', [CartController::class, 'main']);
+Route::post('/{username}/cart/store/{id}', [CartController::class, 'store']);
+
+Route::get('/{username}/whistlist', [CartController::class, 'main']);
+Route::post('/{username}/whistlist/store/{id}', [CartController::class, 'store']);
+
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store']);
 Route::get('/user/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/user/login', [UserController::class, 'authenticate']);
 Route::post('/user/logout', [UserController::class, 'logout']);
-
-Route::post('/{username}/catalog', [CatalogController::class, 'main'])->middleware('auth');
 
 Route::get('/{username}/product/create'  , [ProductController::class, 'create'])->middleware('auth');
 Route::post('/product/store', [ProductController::class, 'store']);

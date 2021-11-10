@@ -2,7 +2,7 @@
 
 {{-- header --}}
 @section('header')
-@include('partitions/navbar')
+    @include('partitions/navbar')
 @endsection
 
 {{-- content --}}
