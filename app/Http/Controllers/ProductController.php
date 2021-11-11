@@ -9,10 +9,8 @@ use PhpParser\Node\Expr\Cast\String_;
 
 class ProductController extends Controller
 {
-    public function create(String $username) {
-        return view('product/create', [
-            'username' => $username
-        ]);
+    public function create() {
+        return view('product/create');
     }
 
     public function store(Request $request) {
@@ -24,23 +22,22 @@ class ProductController extends Controller
         ]);
 
         DB::table('products')->insert($product);
-        return redirect('/' . auth()->user()->username . '/product/create');
+        return redirect('/product/create');
     }
 
-    public function show(String $username) {
-        $products = DB::table('products')->where('supplier', $username)->get();
+    public function show() {
+        $products = DB::table('products')->where('supplier', auth()->user()->username)->get();
 
         return view('product/show', [
             'products' => $products
         ]);
     }
 
-    public function edit(String $username, int $id) {
+    public function edit(int $id) {
         $product = DB::table('products')->where('id', $id)->first();
 
         return view('product/edit', [
             'product' => $product,
-            'username' => $username
         ]);
     }
 
@@ -53,11 +50,11 @@ class ProductController extends Controller
         ]);
 
         DB::table('products')->where('id', $id)->update($product);
-        return redirect('/' . auth()->user()->username . '/product/show');
+        return redirect('/product/show');
     }
 
     public function destroy(int $id) {
         DB::table('products')->where('id', $id)->delete();
-        return redirect('/' . auth()->user()->username . '/product/show');
+        return redirect('/product/show');
     }
 }

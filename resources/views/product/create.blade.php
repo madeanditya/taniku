@@ -32,7 +32,7 @@
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>
-                <input type="hidden" name="supplier" value="{{ $username }}">
+                <input type="hidden" name="supplier" value="{{ auth()->user()->username }}">
             </table>
             <button type="submit" class="submit-btn">Submit</button>
         </form>
