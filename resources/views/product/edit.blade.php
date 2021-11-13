@@ -13,23 +13,23 @@
             <h3>Input data produk</h3>
             <table>
                 <tr>
-                    <td><label for="deskripsi">Nama</label></td>
-                    <td><input type="text" name="nama" id="nama" value="{{ $product->nama }}" required></td>
-                    @error('nama')
+                    <td><label for="name">Nama</label></td>
+                    <td><input type="text" name="name" id="name" value="{{ $product->name }}" required></td>
+                    @error('name')
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>
                 <tr>
-                    <td><label for="deskripsi">Deskripsi</label></td>
-                    <td><textarea name="deskripsi" id="deskripsi" cols="25" rows="4" form="product-insertion-form" required>{{ $product->deskripsi }}</textarea></td>
-                    @error('deskripsi')
+                    <td><label for="description">Deskripsi</label></td>
+                    <td><textarea name="description" id="description" cols="25" rows="4" form="product-insertion-form" required>{{ $product->description }}</textarea></td>
+                    @error('description')
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>
                 <tr>
                     <td>Harga</td>
-                    <td><input type="text" name="harga" id="harga" value="{{ $product->harga }}" required></td>
-                    @error('harga')
+                    <td><input type="text" name="price" id="price" value="{{ $product->price }}" required></td>
+                    @error('price')
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>

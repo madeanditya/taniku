@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +29,11 @@ Route::get('/catalog/{username}', [CatalogController::class, 'main']);
 
 Route::get('/cart/show', [CartController::class, 'show']);
 Route::get('/cart/store/{id}', [CartController::class, 'store']);
+Route::get('/cart/destroy/{id}', [CartController::class, 'destroy']);
 
 Route::get('/wishlist/show', [WishlistController::class, 'show']);
 Route::get('/wishlist/store/{id}', [WishlistController::class, 'store']);
+Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy']);
 
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store']);

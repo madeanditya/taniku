@@ -19,10 +19,13 @@
     <div class="products">
         <h3>Wishlist</h3>
         @foreach ($products as $product)
-            <div>{{ $product->nama }}</div>
-            <div>{{ $product->harga }}</div>
-            <div>{{ $product->deskripsi }}</div>
+            <div>{{ $product->name }}</div>
+            <div>{{ $product->price }}</div>
+            <div>{{ $product->description }}</div>
             <div>{{ $product->supplier }}</div>
+            <div><a href="/">Pesan Sekarang</a></div>
+            <div><a href="/cart/store/{{ $product->id }}">Tambah ke Keranjang Belanja</a></div>
+            <div><a href="/wishlist/destroy/{{ $product->wishlist_id }}">delete</a></div>
             <hr>
         @endforeach
     </div>

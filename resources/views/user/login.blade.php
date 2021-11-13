@@ -22,4 +22,5 @@
         </table>
         <button type="submit" name="submit">Submit</button>
     </form>
+    <div>or <a href="/user/register">Register</a></div>
 @endsection

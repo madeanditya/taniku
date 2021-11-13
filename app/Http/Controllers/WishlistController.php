@@ -14,21 +14,22 @@ class WishlistController extends Controller
             'username' => auth()->user()->username,
             'id_product' => $id
         ];
+        
+        $flag = DB::table('wishlists')
+            ->where('username', $wishlist['username'])
+            ->where('id_product', $wishlist['id_product'])
+            ->count();
 
-        DB::table('wishlists')
-            ->insert($wishlist)
-            ->whereNotExist(function($query) {
-                $query->where('username', auth()->user()->username)
-                    ->where('id_product', $id)
-                    ->get();
-            });
+        if (!$flag) {
+            DB::table('wishlists')->insert($wishlist);
+        }
         
         return redirect('/');
     }
 
     public function show() {
         $products = DB::table('wishlists as w')
-            ->select('p.nama', 'p.deskripsi', 'p.harga', 'p.supplier')
+            ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'w.id as wishlist_id')
             ->join('products as p', 'w.id_product', '=', 'p.id')
             ->join('users as u', 'w.username', '=', 'u.username')
             ->where('w.username', '=', auth()->user()->username)
@@ -39,6 +40,11 @@ class WishlistController extends Controller
         return view('wishlist/show', [
             'products' => $products,
             'user' => $user
-        ]);   
+        ]);
+    }
+
+    public function destroy(int $id) {
+        DB::table('wishlists')->where('id', $id)->delete();
+        return redirect('/wishlist/show');
     }
 }

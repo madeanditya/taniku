@@ -11,8 +11,10 @@
     <div><a href="/product/create">Insert</a></div>
     <hr>
     @foreach ($products as $product)
-        <div>{{ $product->nama }}</div>
-        <div>{{ $product->harga }}</div>
+        <div>{{ $product->name }}</div>
+        <div>{{ $product->supplier }}</div>
+        <div>{{ $product->price }}</div>
+        <div>{{ $product->description }}</div>
         <div><a href="/product/edit/{{ $product->id }}">Edit</a></div>
         <div><a href="/product/destroy/{{ $product->id }}">Delete</a></div>
         <hr>
