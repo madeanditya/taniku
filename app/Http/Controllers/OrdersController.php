@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
+use App\Models\orders;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class CartController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +41,10 @@ class CartController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function show(Cart $cart)
+    public function show(orders $orders)
     {
         //
     }
@@ -53,10 +52,10 @@ class CartController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cart $cart)
+    public function edit(orders $orders)
     {
         //
     }
@@ -65,10 +64,10 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, orders $orders)
     {
         //
     }
@@ -76,10 +75,10 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cart  $cart
+     * @param  \App\Models\orders  $orders
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy(orders $orders)
     {
         //
     }

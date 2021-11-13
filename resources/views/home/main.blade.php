@@ -14,7 +14,7 @@
         <div>{{ $product->harga }}</div>
         <div><a href="/">Tambah ke Keranjang Belanja</a></div>
         <div><a href="/">Pesan Sekarang</a></div>
-        <div><a href="/">Tambah ke Daftar Keinginan</a></div>
+        <div><a href="/wishlist/store/{{ $product->id }}">Tambah ke Daftar Keinginan</a></div>
         <hr>
     @endforeach
 @endsection

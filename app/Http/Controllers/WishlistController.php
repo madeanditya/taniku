@@ -3,83 +3,42 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wishlist;
+use Facade\Ignition\QueryRecorder\Query;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function store(int $id) {
+        $wishlist = [
+            'username' => auth()->user()->username,
+            'id_product' => $id
+        ];
+
+        DB::table('wishlists')
+            ->insert($wishlist)
+            ->whereNotExist(function($query) {
+                $query->where('username', auth()->user()->username)
+                    ->where('id_product', $id)
+                    ->get();
+            });
+        
+        return redirect('/');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    public function show() {
+        $products = DB::table('wishlists as w')
+            ->select('p.nama', 'p.deskripsi', 'p.harga', 'p.supplier')
+            ->join('products as p', 'w.id_product', '=', 'p.id')
+            ->join('users as u', 'w.username', '=', 'u.username')
+            ->where('w.username', '=', auth()->user()->username)
+            ->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $user = DB::table('users')->where('username', auth()->user()->username)->first();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Wishlist $wishlist)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Wishlist $wishlist)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Wishlist $wishlist)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Wishlist $wishlist)
-    {
-        //
+        return view('wishlist/show', [
+            'products' => $products,
+            'user' => $user
+        ]);   
     }
 }

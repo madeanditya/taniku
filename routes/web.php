@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\WishlistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +27,10 @@ Route::get('/', [HomeController::class, 'main']);
 Route::get('/catalog/{username}', [CatalogController::class, 'main']);
 
 Route::get('/cart/show', [CartController::class, 'show']);
-Route::post('/cart/store/{id}', [CartController::class, 'store']);
+Route::get('/cart/store/{id}', [CartController::class, 'store']);
 
-Route::get('/whistlist/show', [CartController::class, 'show']);
-Route::post('/whistlist/store/{id}', [CartController::class, 'store']);
+Route::get('/wishlist/show', [WishlistController::class, 'show']);
+Route::get('/wishlist/store/{id}', [WishlistController::class, 'store']);
 
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store']);

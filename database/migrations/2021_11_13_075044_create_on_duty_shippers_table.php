@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWishlistsTable extends Migration
+class CreateOnDutyShippersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateWishlistsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wishlists', function (Blueprint $table) {
+        Schema::create('on_duty_shippers', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->integer('id_product');
+            $table->integer('order_id');
+            $table->integer('shipper_id');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateWishlistsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wishlists');
+        Schema::dropIfExists('on_duty_shippers');
     }
 }

@@ -5,6 +5,7 @@
     @include('partitions/navbar')
 @endsection
 
+{{-- content --}}
 @section('content')
     <div class="content">
         <form action="/product/store" method="post" id="product-insertion-form">
