@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class CatalogController extends Controller
 {
     public function main(String $username) {
-        $products = DB::table('products')->where('supplier', $username)->get();
-        $user = DB::table('users')->where('username', $username)->first();
 
         return view('catalog/main', [
-            'products' => $products,
-            'user' => $user
+            'products' => Product::supplier($username),
+            'user' => User::username($username)
         ]);
     }
 }
