@@ -31,7 +31,7 @@ class Cart extends Model
 
     public static function getSuppliersByUsername($username) {
         $suppliers = DB::table('carts as c')
-            ->select('p.supplier')
+            ->select('p.supplier as username')
             ->join('products as p', 'c.product_id', '=', 'p.id')
             ->where('c.username', '=', $username)
             ->distinct()

@@ -31,7 +31,7 @@ class Wishlist extends Model
 
     public static function getSuppliersByUsername($username) {
         $suppliers = DB::table('wishlists as w')
-            ->select('p.supplier')
+            ->select('p.supplier as username')
             ->join('products as p', 'w.product_id', '=', 'p.id')
             ->where('w.username', '=', $username)
             ->distinct()

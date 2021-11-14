@@ -20,13 +20,18 @@
         <h3>Cart</h3>
         <a href="/order/create">pesan sekarang</a>
         <hr>
-        @foreach ($products as $product)
-            <div>{{ $product->name }}</div>
-            <div>{{ $product->price }}</div>
-            <div>{{ $product->description }}</div>
-            <div>{{ $product->supplier }}</div>
-            <div><a href="/cart/destroy/{{ $product->cart_id }}">delete</a></div>
-            <hr>
+        @foreach ($suppliers as $supplier)
+            <h4>{{ $supplier->username }}</h4>
+            @foreach ($products as $product)
+                @if ($product->supplier == $supplier->username)
+                    <div>{{ $product->name }}</div>
+                    <div>{{ $product->price }}</div>
+                    <div>{{ $product->description }}</div>
+                    <div>{{ $product->supplier }}</div>
+                    <div><a href="/cart/destroy/{{ $product->cart_id }}">delete</a></div>
+                    <hr>
+                @endif
+            @endforeach
         @endforeach
     </div>
 @endsection
