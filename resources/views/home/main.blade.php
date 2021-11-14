@@ -13,7 +13,7 @@
         <div>{{ $product->supplier }}</div>
         <div>{{ $product->price }}</div>
         <div>{{ $product->description }}</div>
-        <div><a href="/">Pesan Sekarang</a></div>
+        <div><a href="/order/create/{{ $product->id }}">Pesan Sekarang</a></div>
         <div><a href="/cart/store/{{ $product->id }}">Tambah ke Keranjang Belanja</a></div>
         <div><a href="/wishlist/store/{{ $product->id }}">Tambah ke Daftar Keinginan</a></div>
         <hr>

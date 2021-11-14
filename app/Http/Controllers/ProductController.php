@@ -22,22 +22,18 @@ class ProductController extends Controller
         ]);
 
         DB::table('products')->insert($product);
-        return redirect('/product/create');
+        return redirect('/product/show');
     }
 
     public function show() {
-        $products = DB::table('products')->where('supplier', auth()->user()->username)->get();
-
         return view('product/show', [
-            'products' => $products
+            'products' => Product::supplier(auth()->user()->username)
         ]);
     }
 
     public function edit(int $id) {
-        $product = DB::table('products')->where('id', $id)->first();
-
         return view('product/edit', [
-            'product' => $product,
+            'product' => Product::id($id)
         ]);
     }
 

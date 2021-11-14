@@ -12,25 +12,25 @@ class WishlistController extends Controller
     public function store(int $id) {
         $wishlist = [
             'username' => auth()->user()->username,
-            'id_product' => $id
+            'product_id' => $id
         ];
         
         $flag = DB::table('wishlists')
             ->where('username', $wishlist['username'])
-            ->where('id_product', $wishlist['id_product'])
+            ->where('product_id', $wishlist['product_id'])
             ->count();
 
         if (!$flag) {
             DB::table('wishlists')->insert($wishlist);
         }
         
-        return redirect('/');
+        return back();
     }
 
     public function show() {
         $products = DB::table('wishlists as w')
             ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'w.id as wishlist_id')
-            ->join('products as p', 'w.id_product', '=', 'p.id')
+            ->join('products as p', 'w.product_id', '=', 'p.id')
             ->join('users as u', 'w.username', '=', 'u.username')
             ->where('w.username', '=', auth()->user()->username)
             ->get();
@@ -45,6 +45,6 @@ class WishlistController extends Controller
 
     public function destroy(int $id) {
         DB::table('wishlists')->where('id', $id)->delete();
-        return redirect('/wishlist/show');
+        return back();
     }
 }

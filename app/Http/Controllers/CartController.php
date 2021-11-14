@@ -11,25 +11,25 @@ class CartController extends Controller
     public function store(int $id) {
         $cart = [
             'username' => auth()->user()->username,
-            'id_product' => $id
+            'product_id' => $id
         ];
         
         $flag = DB::table('carts')
             ->where('username', $cart['username'])
-            ->where('id_product', $cart['id_product'])
+            ->where('product_id', $cart['product_id'])
             ->count();
 
         if (!$flag) {
             DB::table('carts')->insert($cart);
         }
         
-        return redirect('/');
+        return back();
     }
 
     public function show() {
         $products = DB::table('carts as c')
             ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'c.id as cart_id')
-            ->join('products as p', 'c.id_product', '=', 'p.id')
+            ->join('products as p', 'c.product_id', '=', 'p.id')
             ->join('users as u', 'c.username', '=', 'c.username')
             ->where('c.username', '=', auth()->user()->username)
             ->get();
@@ -44,6 +44,6 @@ class CartController extends Controller
 
     public function destroy(int $id) {
         DB::table('carts')->where('id', $id)->delete();
-        return redirect('/cart/show');
+        return back();
     }
 }
