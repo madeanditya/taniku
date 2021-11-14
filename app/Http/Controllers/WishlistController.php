@@ -25,8 +25,9 @@ class WishlistController extends Controller
 
     public function show() {
         return view('wishlist/show', [
-            'products' => Wishlist::username(auth()->user()->username),
-            'user' => User::username(auth()->user()->username)
+            'suppliers' => Wishlist::getSuppliersByUsername(auth()->user()->username),
+            'products' => Wishlist::getProductsByUsername(auth()->user()->username),
+            'user' => User::getUserByUsername(auth()->user()->username)
         ]);
     }
 

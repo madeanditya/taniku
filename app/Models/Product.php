@@ -14,17 +14,17 @@ class Product extends Model
         'id'
     ];
 
-    public static function complete() {
+    public static function getProducts() {
         $products = DB::table('products')->get();
         return $products;
     }
 
-    public static function supplier(String $supplier) {
+    public static function getProductsBySupplier(String $supplier) {
         $products = DB::table('products')->where('supplier', $supplier)->get();
         return $products;
     }
 
-    public static function id(int $id) {
+    public static function getProductById(int $id) {
         $product = DB::table('products')->where('id', $id)->first();
         return $product;
     }

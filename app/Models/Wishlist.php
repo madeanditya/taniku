@@ -19,14 +19,24 @@ class Wishlist extends Model
         return $flag;
     }
 
-    public static function username($username) {
+    public static function getProductsByUsername($username) {
         $products = DB::table('wishlists as w')
             ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'w.id as wishlist_id')
             ->join('products as p', 'w.product_id', '=', 'p.id')
-            ->join('users as u', 'w.username', '=', 'w.username')
             ->where('w.username', '=', $username)
             ->get();
 
         return $products;
+    }
+
+    public static function getSuppliersByUsername($username) {
+        $suppliers = DB::table('wishlists as w')
+            ->select('p.supplier')
+            ->join('products as p', 'w.product_id', '=', 'p.id')
+            ->where('w.username', '=', $username)
+            ->distinct()
+            ->get();
+
+        return $suppliers;
     }
 }

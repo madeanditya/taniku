@@ -47,7 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function username(String $username) {
+    public static function getUserByUsername(String $username) {
         $user = DB::table('users')->where('username', $username)->first();
         return $user;
     }

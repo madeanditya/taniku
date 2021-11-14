@@ -27,13 +27,13 @@ class ProductController extends Controller
 
     public function show() {
         return view('product/show', [
-            'products' => Product::supplier(auth()->user()->username)
+            'products' => Product::getProductsBySupplier(auth()->user()->username)
         ]);
     }
 
     public function edit(int $id) {
         return view('product/edit', [
-            'product' => Product::id($id)
+            'product' => Product::getProductById($id)
         ]);
     }
 

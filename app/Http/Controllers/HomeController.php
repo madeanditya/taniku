@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function main() {
         return view('home/main', [
-            'products' => Product::complete()
+            'products' => Product::getProducts()
         ]);
     }
 }

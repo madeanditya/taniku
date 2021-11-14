@@ -12,8 +12,8 @@ class CatalogController extends Controller
     public function main(String $username) {
 
         return view('catalog/main', [
-            'products' => Product::supplier($username),
-            'user' => User::username($username)
+            'products' => Product::getProductsBySupplier($username),
+            'user' => User::getUserByUsername($username)
         ]);
     }
 }

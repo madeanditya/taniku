@@ -1,3 +1,7 @@
+@php
+    var_dump($suppliers);
+@endphp
+
 @extends('layouts/main')
 
 {{-- header --}}
