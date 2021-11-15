@@ -13,7 +13,7 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        <div>{{ $user->kecamatan . ', ' .  $user->kabupaten . ', ' . $user->provinsi . ', ' . $user->postal_code}}</div>
+        <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
         <hr>
     </div>
     <div class="products">

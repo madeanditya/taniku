@@ -42,6 +42,9 @@ class ProductController extends Controller
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:255',
             'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'category' => 'required|min:3|max:255',
+            'weight' => 'required|numeric',
             'supplier' => 'required'
         ]);
 

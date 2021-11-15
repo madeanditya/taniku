@@ -26,9 +26,10 @@ class UserController extends Controller
             'username' => 'required|min:3|max:255',
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
-            'provinsi' => 'required|min:3|max:255',
-            'kabupaten' => 'required|min:3|max:255',
-            'kecamatan' => 'required|min:3|max:255',
+            'province' => 'required|min:3|max:255',
+            'city' => 'required|min:3|max:255',
+            'subdistrict' => 'required|min:3|max:255',
+            'address' => 'required|min:3|max:255',
             'postal_code' => 'required|min:3|max:255'
         ]);
 
