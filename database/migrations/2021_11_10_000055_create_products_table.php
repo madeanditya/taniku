@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->bigInteger('price');
-            $table->integer('stocks');
+            $table->integer('stock');
             $table->string('category');
             $table->integer('weight');
             $table->string('supplier');

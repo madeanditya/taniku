@@ -43,13 +43,15 @@
                 <tr>
                     <td><label for="category">Kategori</label></td>
                     <td>
-                        <select name="category" id="category">
-                            <option value="buah">Buah-buahan</option>
-                            <option value="sayur">Sayur-sayuran</option>
-                            <option value="biji">Biji-bijian</option>
-                            <option value="umbian">Umbi-umbian</option>
-                            <option value="rempah">Rempah-rempah</option>
-                        </select>
+                        <input list="categories" name="category" id="category" required>
+                        <datalist id="categories">
+                            <option value="daging">
+                            <option value="buah-buahan">
+                            <option value="sayur-sayuran">
+                            <option value="biji-bijian">
+                            <option value="umbi-umbian">
+                            <option value="rempah-rempah">
+                        </datalist>
                     </td>
                 </tr>
                 <tr>

@@ -16,7 +16,7 @@ class CreateShippersTable extends Migration
         Schema::create('shippers', function (Blueprint $table) {
             $table->id();
             $table->string('from');
-            $table->sstring('to');
+            $table->string('to');
             $table->string('max_weight');
             $table->bigInteger('courier');
             $table->bigInteger('service_type');

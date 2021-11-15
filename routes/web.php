@@ -25,6 +25,7 @@ use App\Http\Controllers\OrderController;
 // });
 
 Route::get('/', [HomeController::class, 'main']);
+Route::get('/taniku', [HomeController::class, 'taniku']);
 
 Route::get('/catalog/{username}', [CatalogController::class, 'main']);
 
@@ -42,7 +43,7 @@ Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'])->mi
 
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store']);
-Route::get('/user/login ', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/user/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/user/login', [UserController::class, 'authenticate']);
 Route::post('/user/logout', [UserController::class, 'logout']);
 

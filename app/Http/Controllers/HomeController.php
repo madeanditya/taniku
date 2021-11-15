@@ -13,4 +13,8 @@ class HomeController extends Controller
             'products' => Product::getProducts()
         ]);
     }
+
+    public function taniku() {
+        return view('home/taniku');
+    }
 }

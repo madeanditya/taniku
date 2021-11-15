@@ -1,5 +1,6 @@
 <h3>Header</h3>
 <div><a href="/">Home</a></div>
+<div><a href="/taniku">Taniku</a></div>
 
 @auth
     <div><a href="/product/show">Product</a></div>

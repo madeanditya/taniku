@@ -48,23 +48,30 @@
                 @enderror
             </tr>
             <tr>
-                <td><label for="provinsi">Provinsi</label></td>
-                <td><input type="text" name="provinsi" id="provinsi" required value="{{ old('provinsi') }}"></td>
-                @error('provinsi')
+                <td><label for="province">Provinsi</label></td>
+                <td><input type="text" name="province" id="province" required value="{{ old('province') }}"></td>
+                @error('province')
                 <td class="error-message">{{ $message }}</td>
                 @enderror
             </tr>
             <tr>
-                <td><label for="kabupaten">Kabupaten</label></td>
-                <td><input type="text" name="kabupaten" id="kabupaten" required value="{{ old('kabupaten') }}"></td>
-                @error('kabupaten')
+                <td><label for="city">Kabupaten</label></td>
+                <td><input type="text" name="city" id="city" required value="{{ old('city') }}"></td>
+                @error('city')
                 <td class="error-message">{{ $message }}</td>
                 @enderror
             </tr>
             <tr>
-                <td><label for="kecamatan">Kecamatan</label></td>
-                <td><input type="text" name="kecamatan" id="kecamatan" required value="{{ old('kecamatan') }}"></td>
-                @error('kecamatan')
+                <td><label for="subdistrict">Kecamatan</label></td>
+                <td><input type="text" name="subdistrict" id="subdistrict" required value="{{ old('subdistrict') }}"></td>
+                @error('subdistrict')
+                <td class="error-message">{{ $message }}</td>
+                @enderror
+            </tr>
+            <tr>
+                <td><label for="address">Alamat</label></td>
+                <td><input type="text" name="address" id="address" required value="{{ old('address') }}"></td>
+                @error('address')
                 <td class="error-message">{{ $message }}</td>
                 @enderror
             </tr>
