@@ -1,4 +1,6 @@
-
+@php
+    var_dump($title)
+@endphp
 
 @auth
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
@@ -10,19 +12,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link"  href="/" style="color:white">Home</a>
+                    <a class="nav-link {{ ($title == "Home") ? 'active' : '' }}"  href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product/show" style="color:white">Product</a>
+                    <a class="nav-link {{ ($title == "Product | Show") ? 'active' : '' }}" href="/product/show">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/catalog/{{ auth()->user()->username }}" style="color:white">Catalog</a>
+                    <a class="nav-link {{ ($title == "Catalog | Main") ? 'active' : '' }}" href="/catalog/{{ auth()->user()->username }}">Catalog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart/show" style="color:white">Shopping Cart</a>
+                    <a class="nav-link{{ ($title == "Cart | Show") ? 'active' : '' }}" href="/cart/show" >Shopping Cart</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/wishlist/show" style="color:white">Wishlist</a>
+                    <a class="nav-link{{ ($title == "Home") ? 'active' : '' }}" href="/wishlist/show" >Wishlist</a>
                 </li>
             </ul>
         </div>
