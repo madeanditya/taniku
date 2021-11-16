@@ -14,8 +14,8 @@
       <div class="row justify-content-between">
         <div class="col-lg-7 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
           <div data-aos="zoom-out">
-            <h1>Membeli Beras Lebih Muda Dengan<span> Taniku</span></h1>
-            <h2>Taniku adalah website jual beli beras secara online tanpa perantara tengkulak.</h2>
+            <h1>Membeli Hasil Pertanian Lebih Muda Dengan<span> Taniku</span></h1>
+            <h2>Taniku adalah website jual beli hasil pertanian secara online tanpa perantara tengkulak.</h2>
             <h2>Silahkan login untuk masuk website Taniku.</h2>
             <div class="text-center text-lg-start">
               <a href="/user/login" class="btn-get-started scrollto">Login</a>
@@ -59,20 +59,20 @@
           <h3>Keuntungan Menggunakan Taniku</h3>
           <div class="icon-box" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon"><i class="bx bx-fingerprint"></i></div>
-            <h4 class="title"><a href="">Mendapatkan Harga Beras Lebih Murah</a></h4>
-            <p class="description">Dengan hilangnya peran tengkulak dalam proses jual beli beras, membuat harga beras yang dijual kepembeli dapat menjadi lebih murah.</p>
+            <h4 class="title"><a href="">Mendapatkan Harga Hasil Pertanian Lebih Murah</a></h4>
+            <p class="description">Dengan hilangnya peran tengkulak dalam proses jual beli beras, membuat harga hasil pertanian yang dijual ke pembeli dapat menjadi lebih murah.</p>
           </div>
 
           <div class="icon-box" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon"><i class="bx bx-gift"></i></div>
-            <h4 class="title"><a href="">Mendapatkan Beras Berkualitas </a></h4>
-            <p class="description">Karena beras yang dijual langsung didapatkan dari Petani, sehingga menghindari kecurangan beras dicampur denga beras dengan kualitas buruk atau beras bansos.</p>
+            <h4 class="title"><a href="">Mendapatkan hasil Pertanian Berkualitas </a></h4>
+            <p class="description">Karena hasil pertanian yang dijual langsung didapatkan dari Petani, sehingga menghindari hasil pertanian yang berkualitas buruk.</p>
           </div>
 
           <div class="icon-box" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon"><i class="bx bx-atom"></i></div>
             <h4 class="title"><a href="">Dapat Dipesan Dari Mana Saja</a></h4>
-            <p class="description">Karena Taniku merupakan aplikasi berbasis website, sehingga pemesanan beras dapat dipesan dimanapun tanpa perlu kepasar maupun swalayan.</p>
+            <p class="description">Karena Taniku merupakan aplikasi berbasis website, sehingga pemesanan hasil pertanian dapat dipesan dimanapun tanpa perlu kepasar maupun swalayan.</p>
           </div>
 
         </div>
