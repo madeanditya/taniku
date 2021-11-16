@@ -27,7 +27,8 @@ class WishlistController extends Controller
         return view('wishlist/show', [
             'suppliers' => Wishlist::getSuppliersByUsername(auth()->user()->username),
             'products' => Wishlist::getProductsByUsername(auth()->user()->username),
-            'user' => User::getUserByUsername(auth()->user()->username)
+            'user' => User::getUserByUsername(auth()->user()->username),
+            'title' => 'Wishlist | Show'
         ]);
     }
 

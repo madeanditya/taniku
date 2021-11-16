@@ -1,5 +1,3 @@
-
-
 @auth
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container">
