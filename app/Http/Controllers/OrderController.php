@@ -13,7 +13,8 @@ class OrderController extends Controller
     public function create_one(int $id) {
         return view('order/create', [
             'user' => User::getUserByUsername(auth()->user()->username),
-            'product' => Product::getProductById($id)
+            'product' => Product::getProductById($id),
+            'title' => 'Order | Create'
         ]);
     }
 
@@ -21,7 +22,8 @@ class OrderController extends Controller
         return view('order/create', [
             'user' => User::getUserByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
-            // 'shippers' => Shipper::()
+            // 'shippers' => Shipper::(),
+            'title' => 'Order | Create'
         ]);
     }
 

@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 @php
     var_dump($title)
 @endphp
 
+=======
+>>>>>>> 2b717d47cf8721ff925689182a7d38ae509c005c
 @auth
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <div class="container">

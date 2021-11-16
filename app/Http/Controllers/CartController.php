@@ -26,7 +26,8 @@ class CartController extends Controller
         return view('cart/show', [
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
-            'user' => User::getUserByUsername(auth()->user()->username)
+            'user' => User::getUserByUsername(auth()->user()->username),
+            'title' => 'Cart | Show'
         ]);
     }
 

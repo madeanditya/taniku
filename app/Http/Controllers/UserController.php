@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function register() {
-        return view('user/register');
+        return view('user/register', [
+            'title' => 'User | Register'
+        ]);
     }
 
     public function store(Request $request) {
@@ -39,7 +41,9 @@ class UserController extends Controller
     }
 
     public function login() {
-        return view('user/login');
+        return view('user/login', [
+            'title' => 'Product | Edit'
+        ]);
     }
 
     public function authenticate(Request $request) {

@@ -13,7 +13,8 @@ class CatalogController extends Controller
 
         return view('catalog/main', [
             'products' => Product::getProductsBySupplier($username),
-            'user' => User::getUserByUsername($username)
+            'user' => User::getUserByUsername($username),
+            'title' => 'Catalog | Main'
         ]);
     }
 }
