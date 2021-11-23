@@ -55,7 +55,7 @@
 
                     <!-- Already Registered -->
                     <div class="text-center w-100">
-                        <p class="text-muted font-weight-bold ">Belum Memiliki Akun? <a href="/user/registrasi" class="text-primary ml-2">register</a></p>
+                        <p class="text-muted font-weight-bold ">Belum Memiliki Akun? <a href="/user/register" class="text-primary ml-2">register</a></p>
                     </div>
                 </div>
             </form>
