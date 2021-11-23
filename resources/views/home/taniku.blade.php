@@ -85,6 +85,5 @@
 
 {{-- footer --}}
 @section('footer')
-<h3>Footer</h3>
 @include('partitions/footer')
 @endsection
