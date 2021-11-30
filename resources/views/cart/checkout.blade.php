@@ -9,27 +9,17 @@
 @section('content')
     <div class="reciever">
         <h3>Alamat Penerima</h3>
-        <div>Nama: {{ $user->fullname }}</div>
-        <div>Email: {{ $user->email }}</div>
-        <div>Nomor: {{ $user->phone_number }}</div>
-        <div>Alamat: {{ $user->subdistrict . ', ' . $user->city . ', ' . $user->province }}</div>
-        <div>Kode Pos: {{ $user->postal_code }}</div>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_address_modal">
-            Ubah alamat
-        </button>
-        {{--
-            dest_province
-            dest_city
-            dest_subdistrict
-            dest_address
-            dest_postal_code
-            dest_fullname
-            dest_phone_number
-            status
-            tax
-            username
-            shipper_id
-        --}}
+        @foreach ($addresses as $address)
+            @if ($address->default == 1)
+                <div>Nama: {{ $address->fullname }}</div>
+                <div>Nomor: {{ $address->phone_number }}</div>
+                <div>Alamat: {{ $address->address . ", " . $address->subdistrict . ", " . $address->city . ", " . $address->province }}</div>
+                <div>Kode Pos: {{ $address->postal_code }}</div>
+                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#edit_address_modal">
+                    Ubah alamat
+                </button>
+            @endif
+        @endforeach
     </div>
     <hr>
 
@@ -65,6 +55,7 @@
 {{-- footer --}}
 @section('footer')
     <h3>Footer</h3>
+    @include('partitions/footer')
 @endsection
   
 <!-- Modal -->

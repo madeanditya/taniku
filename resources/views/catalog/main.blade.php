@@ -13,9 +13,8 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
-        <hr>
     </div>
+    <hr>
     <div class="products">
         <h3>Products</h3>
         @foreach ($products as $product)
@@ -25,9 +24,11 @@
             <hr>
         @endforeach
     </div>
+    <hr>
 @endsection
 
 {{-- footer --}}
 @section('footer')
     <h3>Footer</h3>
+    @include('partitions/footer')
 @endsection

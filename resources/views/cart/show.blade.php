@@ -1,3 +1,7 @@
+@php
+    var_dump($defaultAddress);
+@endphp
+
 @extends('layouts/main')
 
 {{-- header --}}
@@ -13,12 +17,11 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
     </div>
     <hr>
     <div class="order">
         <h3>Cart</h3>
-        <a href="/cart/checkout">pesan sekarang</a>
+        <a href="/cart/checkout/">pesan sekarang</a>
     </div>
     <hr>
     <div class="products">
@@ -42,4 +45,5 @@
 {{-- footer --}}
 @section('footer')
     <h3>Footer</h3>
+    @include('partitions/footer')
 @endsection

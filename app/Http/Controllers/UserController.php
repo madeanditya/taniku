@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Addresses;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -22,21 +24,30 @@ class UserController extends Controller
             ]);
         }
 
-        $validatedData =  $request->validate([
+        $validatedUserData =  $request->validate([
             'email' => 'required|email:rfc,dns',
             'password' => 'required|min:5|max:255',
             'username' => 'required|min:3|max:255',
+            'fullname' => 'required|min:3|max:255',
+            'phone_number' => 'required|size:12',
+        ]);
+        $validatedUserData['password'] = Hash::make($validatedUserData['password']);
+
+        $validatedAddressData = $request->validate([
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
             'province' => 'required|min:3|max:255',
             'city' => 'required|min:3|max:255',
             'subdistrict' => 'required|min:3|max:255',
             'address' => 'required|min:3|max:255',
-            'postal_code' => 'required|min:3|max:255'
+            'postal_code' => 'required|min:3|max:255',
+            'username' => 'required|min:3|max:255'
         ]);
+        $validatedAddressData['default'] = 1;
 
-        $validatedData['password'] = Hash::make($validatedData['password']);
-        User::create($validatedData);
+        User::create($validatedUserData);
+        DB::table('addresses')->insert($validatedAddressData);
+
         return redirect('/user/login');
     }
 

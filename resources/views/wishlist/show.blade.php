@@ -13,7 +13,6 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
     </div>
     <hr>
 
@@ -40,4 +39,5 @@
 {{-- footer --}}
 @section('footer')
     <h3>Footer</h3>
+    @include('partitions/footer')
 @endsection
