@@ -10,7 +10,9 @@ use PhpParser\Node\Expr\Cast\String_;
 class ProductController extends Controller
 {
     public function create() {
-        return view('product/create');
+        return view('product/create', [
+            'title' => 'Product | Create'
+        ]);
     }
 
     public function store(Request $request) {
@@ -18,6 +20,9 @@ class ProductController extends Controller
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:255',
             'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'category' => 'required|min:3|max:255',
+            'weight' => 'required|numeric',
             'supplier' => 'required'
         ]);
 
@@ -27,13 +32,15 @@ class ProductController extends Controller
 
     public function show() {
         return view('product/show', [
-            'products' => Product::getProductsBySupplier(auth()->user()->username)
+            'products' => Product::getProductsBySupplier(auth()->user()->username),
+            'title' => 'Product | Show'
         ]);
     }
 
     public function edit(int $id) {
         return view('product/edit', [
-            'product' => Product::getProductById($id)
+            'product' => Product::getProductById($id),
+            'title' => 'Product | Edit'
         ]);
     }
 
@@ -42,6 +49,9 @@ class ProductController extends Controller
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:255',
             'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'category' => 'required|min:3|max:255',
+            'weight' => 'required|numeric',
             'supplier' => 'required'
         ]);
 

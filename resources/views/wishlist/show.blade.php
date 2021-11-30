@@ -1,7 +1,3 @@
-@php
-    var_dump($suppliers);
-@endphp
-
 @extends('layouts/main')
 
 {{-- header --}}
@@ -17,22 +13,28 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        <div>{{ $user->kecamatan . ', ' .  $user->kabupaten . ', ' . $user->provinsi . ', ' . $user->postal_code}}</div>
-        <hr>
+        <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
     </div>
+    <hr>
+
     <div class="products">
-        <h3>Wishlist</h3>
-        @foreach ($products as $product)
-            <div>{{ $product->name }}</div>
-            <div>{{ $product->price }}</div>
-            <div>{{ $product->description }}</div>
-            <div>{{ $product->supplier }}</div>
-            <div><a href="/">Pesan Sekarang</a></div>
-            <div><a href="/cart/store/{{ $product->id }}">Tambah ke Keranjang Belanja</a></div>
-            <div><a href="/wishlist/destroy/{{ $product->wishlist_id }}">delete</a></div>
-            <hr>
+        @foreach ($suppliers as $supplier)
+            <h4>Supplier: {{ $supplier->username }}</h4>
+            @foreach ($products as $product)
+                @if ($product->supplier == $supplier->username)
+                    <div>{{ $product->name }}</div>
+                    <div>{{ $product->price }}</div>
+                    <div>{{ $product->description }}</div>
+                    <div>{{ $product->supplier }}</div>
+                    <div><a href="/">Pesan Sekarang</a></div>
+                    <div><a href="/cart/store/{{ $product->id }}">Tambah ke Keranjang Belanja</a></div>
+                    <div><a href="/wishlist/destroy/{{ $product->wishlist_id }}">delete</a></div>
+                    <br>
+                @endif
+            @endforeach
         @endforeach
     </div>
+    <hr>
 @endsection
 
 {{-- footer --}}

@@ -2,7 +2,7 @@
 
 {{-- header --}}
 @section('header')
-@include('partitions/navbar')
+    @include('partitions/navbar')
 @endsection
 
 {{-- content --}}
@@ -23,4 +23,5 @@
 {{-- footer --}}
 @section('footer')
     <h3>Footer</h3>
+    @include('partitions/footer')
 @endsection

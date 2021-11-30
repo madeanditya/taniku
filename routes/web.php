@@ -8,6 +8,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,24 +26,29 @@ use App\Http\Controllers\OrderController;
 // });
 
 Route::get('/', [HomeController::class, 'main']);
+Route::get('/taniku', [HomeController::class, 'taniku']);
 
 Route::get('/catalog/{username}', [CatalogController::class, 'main']);
 
-Route::get('/order/create/{id}', [OrderController::class, 'create_one']);
-Route::get('/order/create', [OrderController::class, 'create']);
-Route::post('/order/store', [OrderController::class, 'store']);
+Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
+Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
+Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->middleware('auth');
+Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
+Route::get('/order/store', [OrderController::class, 'store']);
 
-Route::get('/cart/show', [CartController::class, 'show']);
-Route::get('/cart/store/{id}', [CartController::class, 'store']);
-Route::get('/cart/destroy/{id}', [CartController::class, 'destroy']);
+Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');
+Route::get('/cart/checkout', [CartController::class, 'checkout'])->middleware('auth');
+Route::get('/cart/checkout/{id}', [CartController::class, 'checkoutOne'])->middleware('auth');
+Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
+Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth');
 
-Route::get('/wishlist/show', [WishlistController::class, 'show']);
-Route::get('/wishlist/store/{id}', [WishlistController::class, 'store']);
-Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy']);
+Route::get('/wishlist/show', [WishlistController::class, 'show'])->middleware('auth');
+Route::get('/wishlist/store/{id}', [WishlistController::class, 'store'])->middleware('auth');
+Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'])->middleware('auth');
 
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store']);
-Route::get('/user/login ', [UserController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/user/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/user/login', [UserController::class, 'authenticate']);
 Route::post('/user/logout', [UserController::class, 'logout']);
 
@@ -52,3 +58,8 @@ Route::get('/product/show' , [ProductController::class, 'show'])->middleware('au
 Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth');
 Route::post('/product/update/{id}', [ProductController::class, 'update']);
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy']);
+
+Route::get('/profile', [ProfileController::class, 'main']);
+
+
+

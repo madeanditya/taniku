@@ -27,9 +27,37 @@
                     @enderror
                 </tr>
                 <tr>
-                    <td>Harga</td>
+                    <td><label for="price">Harga</label></td>
                     <td><input type="text" name="price" id="price" required></td>
                     @error('price')
+                    <td class="error-message">{{ $message }}</td>
+                    @enderror
+                </tr>
+                <tr>
+                    <td><label for="stock">Stok</label></td>
+                    <td><input type="text" name="stock" id="stock" required></td>
+                    @error('stock')
+                    <td class="error-message">{{ $message }}</td>
+                    @enderror
+                </tr>
+                <tr>
+                    <td><label for="category">Kategori</label></td>
+                    <td>
+                        <input list="categories" name="category" id="category" required>
+                        <datalist id="categories">
+                            <option value="daging">
+                            <option value="buah-buahan">
+                            <option value="sayur-sayuran">
+                            <option value="biji-bijian">
+                            <option value="umbi-umbian">
+                            <option value="rempah-rempah">
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td><input type="text" name="weight" id="weight" required></td>
+                    @error('weight')
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>

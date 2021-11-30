@@ -33,6 +33,33 @@
                     <td class="error-message">{{ $message }}</td>
                     @enderror
                 </tr>
+                <tr>
+                    <td><label for="stock">Stok</label></td>
+                    <td><input type="text" name="stock" id="stock" value="{{ $product->stock }}" required></td>
+                    @error('stock')
+                    <td class="error-message">{{ $message }}</td>
+                    @enderror
+                </tr>
+                <tr>
+                    <td><label for="category">Kategori</label></td>
+                    <td>
+                        <input list="categories" name="category" id="category" value="{{ $product->category }}">
+                        <datalist id="categories">
+                            <option value="buah-buahan">
+                            <option value="sayur-sayuran">
+                            <option value="biji-bijian">
+                            <option value="umbi-umbian">
+                            <option value="rempah-rempah">
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td><input type="text" name="weight" id="weight" value="{{ $product->weight }}" required></td>
+                    @error('weight')
+                    <td class="error-message">{{ $message }}</td>
+                    @enderror
+                </tr>
                 <input type="hidden" name="supplier" value="{{ auth()->user()->username }}">
             </table>
             <button type="submit" class="submit-btn">Submit</button>

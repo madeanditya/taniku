@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,27 @@ class CartController extends Controller
         return view('cart/show', [
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
-            'user' => User::getUserByUsername(auth()->user()->username)
+            'user' => User::getUserByUsername(auth()->user()->username),
+            'title' => 'Cart | Show'
+        ]);
+    }
+
+    public function checkoutOne(int $id) {
+        return view('cart/checkout', [
+            'product' => Product::getProductById($id),
+            'user' => User::getUserByUsername(auth()->user()->username),
+            // 'shippers' => Shipper::(), list shupper masukan kedalam database
+            'title' => 'Cart | Checkout'
+        ]);
+    }
+    
+    public function checkout() {
+        return view('cart/checkout', [
+            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
+            'products' => Cart::getProductsByUsername(auth()->user()->username),
+            'user' => User::getUserByUsername(auth()->user()->username),
+            // 'shippers' => Shipper::(), list shupper masukan kedalam database
+            'title' => 'Cart | Checkout'
         ]);
     }
 

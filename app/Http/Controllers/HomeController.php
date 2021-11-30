@@ -10,7 +10,14 @@ class HomeController extends Controller
 {
     public function main() {
         return view('home/main', [
-            'products' => Product::getProducts()
+            'products' => Product::getProducts(),
+            'title' => 'Home | Main'
+        ]);
+    }
+
+    public function taniku() {
+        return view('home/taniku', [
+            'title' => 'Home | Taniku'
         ]);
     }
 }
