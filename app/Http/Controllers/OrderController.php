@@ -7,27 +7,39 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function create_one(int $id) {
-        return view('order/create', [
-            'user' => User::getUserByUsername(auth()->user()->username),
-            'product' => Product::getProductById($id),
-            'title' => 'Order | Create'
+    public function show() {
+        return view('order/show', [
+            'showing' => 'all',
+            'title' => 'Order | Show'
+        ]);
+    }
+    
+    public function showInProgress() {
+        return view('order/show', [
+            'showing' => 'in progress',
+            'title' => 'Order | Show'
         ]);
     }
 
-    public function create() {
-        return view('order/create', [
-            'user' => User::getUserByUsername(auth()->user()->username),
-            'products' => Cart::getProductsByUsername(auth()->user()->username),
-            // 'shippers' => Shipper::(),
-            'title' => 'Order | Create'
+    public function showSucceed() {
+        return view('order/show', [
+            'showing' => 'succeed',
+            'title' => 'Order | Show'
+        ]);
+    }
+
+    public function showFailed() {
+        return view('order/show', [
+            'showing' => 'failed',
+            'title' => 'Order | Show'
         ]);
     }
 
     public function store(Request $request) {
-
+        
     }
 }

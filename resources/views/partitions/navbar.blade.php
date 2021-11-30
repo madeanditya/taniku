@@ -11,6 +11,9 @@
                     <a class="nav-link {{ ($title == "Home | Main") ? 'active' : '' }}"  href="/">Home</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ ($title == "Profile | Main") ? 'active' : '' }}"  href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ ($title == "Product | Show") ? 'active' : '' }}" href="/product/show">Product</a>
                 </li>
                 <li class="nav-item">
@@ -21,6 +24,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($title == "Wishlist | Show") ? 'active' : '' }}" href="/wishlist/show" >Wishlist</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ ($title == "Order | Show") ? 'active' : '' }}" href="/order/show" >Order</a>
                 </li>
             </ul>
         </div>

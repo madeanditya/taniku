@@ -14,13 +14,12 @@
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
         <div>{{ $user->subdistrict . ', ' .  $user->city . ', ' . $user->province . ', ' . $user->postal_code}}</div>
-        <hr>
     </div>
+    <hr>
+
     <div class="products">
-        <h3>Wishlist</h3>
-        <hr>
         @foreach ($suppliers as $supplier)
-            <h4>{{ $supplier->username }}</h4>
+            <h4>Supplier: {{ $supplier->username }}</h4>
             @foreach ($products as $product)
                 @if ($product->supplier == $supplier->username)
                     <div>{{ $product->name }}</div>
@@ -30,11 +29,12 @@
                     <div><a href="/">Pesan Sekarang</a></div>
                     <div><a href="/cart/store/{{ $product->id }}">Tambah ke Keranjang Belanja</a></div>
                     <div><a href="/wishlist/destroy/{{ $product->wishlist_id }}">delete</a></div>
-                    <hr>
+                    <br>
                 @endif
             @endforeach
         @endforeach
     </div>
+    <hr>
 @endsection
 
 {{-- footer --}}

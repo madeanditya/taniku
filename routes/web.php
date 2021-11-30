@@ -8,6 +8,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,15 @@ Route::get('/taniku', [HomeController::class, 'taniku']);
 
 Route::get('/catalog/{username}', [CatalogController::class, 'main']);
 
-Route::get('/order/create/{id}', [OrderController::class, 'create_one'])->middleware('auth');
-Route::get('/order/create', [OrderController::class, 'create'])->middleware('auth');
-Route::post('/order/store', [OrderController::class, 'store']);
+Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
+Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
+Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->middleware('auth');
+Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
+Route::get('/order/store', [OrderController::class, 'store']);
 
 Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');
+Route::get('/cart/checkout', [CartController::class, 'checkout'])->middleware('auth');
+Route::get('/cart/checkout/{id}', [CartController::class, 'checkoutOne'])->middleware('auth');
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
 Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth');
 
@@ -53,3 +58,8 @@ Route::get('/product/show' , [ProductController::class, 'show'])->middleware('au
 Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth');
 Route::post('/product/update/{id}', [ProductController::class, 'update']);
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy']);
+
+Route::get('/profile', [ProfileController::class, 'main']);
+
+
+
