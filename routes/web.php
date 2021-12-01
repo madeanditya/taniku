@@ -37,8 +37,8 @@ Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middle
 Route::get('/order/store', [OrderController::class, 'store']);
 
 Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');
-Route::get('/cart/checkout', [CartController::class, 'checkout'])->middleware('auth');
-Route::get('/cart/checkout/{id}', [CartController::class, 'checkoutOne'])->middleware('auth');
+Route::get('/cart/checkout/{addressId}', [CartController::class, 'checkout'])->middleware('auth');
+Route::get('/cart/checkout/{id}/{addressId}', [CartController::class, 'checkoutOne'])->middleware('auth');
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
 Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth');
 
@@ -60,6 +60,6 @@ Route::post('/product/update/{id}', [ProductController::class, 'update']);
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy']);
 
 Route::get('/profile', [ProfileController::class, 'main']);
-
-
-
+Route::get('/profile/address', [ProfileController::class, 'address']);
+Route::get('/profile/address/create', [ProfileController::class, 'addressCreate']);
+Route::post('/profile/address/create', [ProfileController::class, 'addressStore']);

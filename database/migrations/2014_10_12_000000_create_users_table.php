@@ -21,11 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('user');
             $table->string('fullname');
             $table->string('phone_number');
-            $table->string('province');
-            $table->string('city');
-            $table->string('subdistrict');
-            $table->string('address');
-            $table->string('postal_code');
             $table->string('profile_picture')->nullable();
             $table->string('home_picture')->nullable();
             $table->timestamp('email_verified_at')->nullable();

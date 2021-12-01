@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Addresses;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
@@ -28,25 +29,26 @@ class CartController extends Controller
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
             'user' => User::getUserByUsername(auth()->user()->username),
+            'defaultAddress' => Addresses::getDefaultAddress(auth()->user()->username),
             'title' => 'Cart | Show'
         ]);
     }
 
-    public function checkoutOne(int $id) {
+    public function checkoutOne(int $id, int $addressId) {
         return view('cart/checkout', [
             'product' => Product::getProductById($id),
             'user' => User::getUserByUsername(auth()->user()->username),
-            // 'shippers' => Shipper::(), list shupper masukan kedalam database
             'title' => 'Cart | Checkout'
         ]);
     }
     
-    public function checkout() {
+    public function checkout(int $addressId) {
         return view('cart/checkout', [
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
+            'addresses' => Addresses::getAddressesByUsername(auth()->user()->username),
+            'activeAddress' => Addresses::getAddressById($addressId),
             'user' => User::getUserByUsername(auth()->user()->username),
-            // 'shippers' => Shipper::(), list shupper masukan kedalam database
             'title' => 'Cart | Checkout'
         ]);
     }
