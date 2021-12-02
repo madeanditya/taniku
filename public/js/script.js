@@ -1,23 +1,19 @@
 const swiper = new Swiper('.swiper', {
-    // Optional parameters
+
     direction: 'horizontal',
     loop: true,
     slidesPerView: 5,
     spaceBetween: 20,
 
-
-    // If we need pagination
     pagination: {
         el: '.swiper-pagination',
     },
 
-    // Navigation arrows
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
 
-    // And if we need scrollbar
     scrollbar: {
         el: '.swiper-scrollbar',
     },
@@ -34,5 +30,17 @@ $(document).ready(function () {
         $('.swiper-button-next').removeClass("show-swiper-arrow")
     })
 
+    // $(window).scroll(function () {
+    //     var top_of_element = $(".test").offset().top;
+    //     var bottom_of_element = $('.products').height();
+    //     var bottom_of_screen = $(window).scrollTop() + $(window).innerHeight();
+    //     var top_of_screen = $(window).scrollTop();
+
+    //     if ((bottom_of_screen > top_of_element) && (top_of_screen < bottom_of_element)) {
+    //         $('.order').css({ 'position': 'absolute', 'inset': $('.products').height() + 'px auto auto 15px' })
+    //     } else {
+    //         $('.order').css({ 'position': 'fixed', 'top': '100px', 'right': 'auto', 'bottom': 'auto', 'left': '15px' })
+    //     }
+    // });
 
 })
