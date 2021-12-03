@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    public function store(Request $request) {
+        
+    }
+
     public function show() {
         return view('order/show', [
             'showing' => 'all',
@@ -37,9 +41,5 @@ class OrderController extends Controller
             'showing' => 'failed',
             'title' => 'Order | Show'
         ]);
-    }
-
-    public function store(Request $request) {
-        
     }
 }

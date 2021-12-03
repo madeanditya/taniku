@@ -34,27 +34,29 @@ class CartController extends Controller
         ]);
     }
 
+    public function destroy(int $id) {
+        DB::table('carts')->where('id', $id)->delete();
+        return back();
+    }
+
     public function checkoutOne(int $id, int $addressId) {
         return view('cart/checkout', [
-            'product' => Product::getProductById($id),
             'user' => User::getUserByUsername(auth()->user()->username),
+            'product' => Product::getProductById($id),
+            'addresses' => Addresses::getAddressesByUsername(auth()->user()->username),
+            'activeAddress' => Addresses::getAddressById($addressId),
             'title' => 'Cart | Checkout'
         ]);
     }
     
     public function checkout(int $addressId) {
         return view('cart/checkout', [
-            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
+            'user' => User::getUserByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
             'addresses' => Addresses::getAddressesByUsername(auth()->user()->username),
             'activeAddress' => Addresses::getAddressById($addressId),
-            'user' => User::getUserByUsername(auth()->user()->username),
+            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'title' => 'Cart | Checkout'
         ]);
-    }
-
-    public function destroy(int $id) {
-        DB::table('carts')->where('id', $id)->delete();
-        return back();
     }
 }

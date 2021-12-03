@@ -79,4 +79,11 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/user/login');
     }
+
+    public function settings() {
+        return view('user/settings', [
+            'user' => User::getUserByUsername(auth()->user()->username),
+            'title' => 'User | Settings'
+        ]);
+    }
 }

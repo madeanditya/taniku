@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Dotenv\Util\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class Addresses extends Model
+class Address extends Model
 {
     use HasFactory;
 

@@ -11,13 +11,13 @@
                     <a class="nav-link {{ ($title == "Home | Main") ? 'active' : '' }}"  href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title == "Profile | Main") ? 'active' : '' }}"  href="/profile">Profile</a>
+                    <a class="nav-link {{ ($title == "User | Settings") ? 'active' : '' }}"  href="/user/settings">Settings</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($title == "Product | Show") ? 'active' : '' }}" href="/product/show">Product</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title == "Catalog | Main") ? 'active' : '' }}" href="/catalog/{{ auth()->user()->username }}">Catalog</a>
+                    <a class="nav-link {{ ($title == "Home | " . auth()->user()->username) ? 'active' : '' }}" href="/{{ auth()->user()->username }}">My Store</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($title == "Cart | Show") ? 'active' : '' }}" href="/cart/show" >Shopping Cart</a>

@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Shipper;
+use App\Models\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ShipperFactory extends Factory
+class AddressFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Shipper::class;
+    protected $model = Address::class;
 
     /**
      * Define the model's default state.
