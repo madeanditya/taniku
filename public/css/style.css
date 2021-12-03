@@ -181,7 +181,7 @@ h6 {
 
 #hero:before {
     content: "";
-    background: rgba(36, 177, 90, 0.91);
+    background: #28a745;
     position: absolute;
     bottom: 0;
     top: 0;
@@ -861,6 +861,10 @@ section {
     align-items: center;
 }
 
+.card-body span img {
+    width: 15%;
+}
+
 .fa-star {
     color: #ffc400;
 }
@@ -910,6 +914,7 @@ section {
     display: flex;
     gap: 20px;
     margin-bottom: 3rem;
+    flex-wrap: wrap;
 }
 
 .line-splitter {
@@ -975,6 +980,10 @@ section {
     font-size: 1.5rem;
 }
 
+.cart-supplier__header img {
+    width: 5%;
+}
+
 .supplier-splitter {
     height: 0;
     border: none;
@@ -1018,4 +1027,12 @@ section {
 
 .empty-cart img {
     width: 40%;
+}
+
+/* wishlist */
+
+.wishlist-card-wrapper {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
