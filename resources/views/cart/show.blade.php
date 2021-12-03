@@ -38,7 +38,10 @@ if (count($products) != 0) {
                 </div>
             @endif
             @foreach ($suppliers as $supplier)
-                <span class="cart-supplier__header"><i class="fas fa-dolly"></i>{{ $supplier->username }}</span>
+                <h3 class="mb-5 fw-bold">Cart</h3>
+                <span class="cart-supplier__header"><img
+                        src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg"
+                        alt="{{ $supplier->username }}">{{ $supplier->username }}</span>
                 @foreach ($products as $product)
                     @if ($product->supplier == $supplier->username)
                         <div class="row mt-4 cart-item-card">

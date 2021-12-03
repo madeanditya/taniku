@@ -48,7 +48,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">Rp {{ $product->price }}</p>
-                                    <span><i class="fas fa-dolly"></i>{{ $product->supplier }}</span>
+                                    <span><img src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
+                                            alt="{{ $product->supplier }}">{{ $product->supplier }}</span>
                                     <span><i class="fas fa-star"></i>{{ rand(30, 50) / 10 }} | Terjual
                                         {{ rand(10, 100) }}</span>
                                 </div>
@@ -86,7 +87,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">Rp {{ $product->price }}</p>
-                                    <span><i class="fas fa-dolly"></i>{{ $product->supplier }}</span>
+                                    <span><img src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
+                                            alt="{{ $product->supplier }}">{{ $product->supplier }}</span>
                                     <span><i class="fas fa-star"></i>{{ rand(30, 49) / 10 }} | Terjual
                                         {{ rand(10, 100) }}</span>
                                 </div>
@@ -123,7 +125,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">Rp {{ $product->price }}</p>
-                        <span><i class="fas fa-dolly"></i>{{ $product->supplier }}</span>
+                        <span><img src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
+                                alt="{{ $product->supplier }}">{{ $product->supplier }}</span>
                         <span><i class="fas fa-star"></i>{{ rand(30, 49) / 10 }} | Terjual
                             {{ rand(10, 100) }}</span>
                     </div>

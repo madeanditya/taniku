@@ -23,7 +23,7 @@
 
 <body>
 
-    <div class="container">
+    <div class="container-fluid m-0 p-0">
         @yield('header')
     </div>
 
@@ -31,7 +31,11 @@
         @yield('content')
     </div>
 
-    <div class="container">
+    <div class="container-fluid m-0 p-0">
+        @yield('taniku')
+    </div>
+
+    <div class="container-fluid m-0 p-0">
         @yield('footer')
     </div>
 
