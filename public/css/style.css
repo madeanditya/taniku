@@ -1036,3 +1036,129 @@ section {
     gap: 1rem;
     flex-wrap: wrap;
 }
+
+
+/* profile */
+
+.profile-wrapper {
+    margin-block: 3rem;
+    border: 1px solid #c1c0c5;
+    border-radius: 10px;
+}
+
+.biodata-wrapper {
+    display: flex;
+    gap: 2.3rem;
+    margin-block: 2rem;
+    padding: 1rem;
+}
+
+.biodata-wrapper p {
+    margin: 0;
+    padding: 0;
+}
+
+.biodata-img {
+    width: 30%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 3px 8px;
+    border-radius: 10px;
+}
+
+.biodata-detail__content {
+    display: flex;
+    gap: 2rem;
+}
+
+.biodata-detail__content___value {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.biodata-detail__content___value p {
+    color: #8f9294;
+}
+
+.biodata-detail h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #777276;
+}
+
+.profile-nav_notActive,
+.profile-nav_notActive:hover {
+    color: #8f9294;
+    font-weight: 600;
+}
+
+.profile-nav_active {
+    color: #fff !important;
+    font-weight: 600;
+    background: #28a745 !important;
+}
+
+.nav-tabs {
+    border-bottom: 5px solid #28a745 !important;
+}
+
+.nav-tabs .nav-link {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.nav-link.active {
+    border-color: #28a745 #28a745 #fff !important;
+}
+
+/* address */
+
+.address-card__wrapper {
+    padding: 1rem 2rem;
+}
+
+.address-header {
+    padding: 2rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.address-header button {
+    border-radius: 10px;
+    font-weight: 700;
+    padding-inline: 1.3em;
+}
+
+.address-card {
+    border: 2px solid #28a745;
+    margin-bottom: 2rem;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 3px 8px;
+    padding: 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.address-card p {
+    padding: 0;
+    margin: 0;
+}
+
+.address-card__main {
+    background: #dbf8e1;
+}
+
+.address-card span {
+    background: #F6F7FB;
+    padding: .5rem;
+    font-size: .7rem;
+    font-weight: 700;
+    border-radius: 10px;
+    color: #28a745;
+    width: fit-content;
+}
+
+.add-address__modal___content {
+    padding: 1rem;
+}

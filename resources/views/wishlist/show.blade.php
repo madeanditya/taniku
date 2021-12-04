@@ -7,18 +7,30 @@
 
 {{-- content --}}
 @section('content')
-    <div class="profile">
+    {{-- <div class="profile">
         <h3>Profile</h3>
         <div>{{ $user->username }}</div>
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
     </div>
-    <hr>
+    <hr> --}}
 
-    <div class="products">
+    <div class="products my-5">
+        @if (count($products) == 0)
+            <div class="empty-cart">
+                <img src="{{ asset('img/taniku.png') }}" alt="taniku">
+                <h3>Wishlistmu kosong</h3>
+                <span>Tengkulak no Taniku yes!</span>
+                <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
+            </div>
+
+        @else
+            <h3 class="fw-bold mb-5">Wishlist</h3>
+        @endif
+
         @foreach ($suppliers as $supplier)
-            <span class="cart-supplier__header"><img
+            <span class="cart-supplier__header mt-4"><img
                     src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg"
                     alt="{{ $supplier->username }}">{{ $supplier->username }}</span>
             <div class="wishlist-card-wrapper mt-4">
@@ -56,7 +68,6 @@
             </div>
         @endforeach
     </div>
-    <hr>
 @endsection
 
 {{-- footer --}}
