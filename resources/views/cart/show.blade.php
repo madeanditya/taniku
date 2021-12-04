@@ -36,8 +36,9 @@ if (count($products) != 0) {
                     <span>Tengkulak no Taniku yes!</span>
                     <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
                 </div>
+            @else
+                <h3 class="mb-5 fw-bold">Cart</h3>
             @endif
-            <h3 class="mb-5 fw-bold">Cart</h3>
             @foreach ($suppliers as $supplier)
                 <span class="cart-supplier__header"><img
                         src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg"
