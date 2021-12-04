@@ -37,8 +37,8 @@ if (count($products) != 0) {
                     <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
                 </div>
             @endif
+            <h3 class="mb-5 fw-bold">Cart</h3>
             @foreach ($suppliers as $supplier)
-                <h3 class="mb-5 fw-bold">Cart</h3>
                 <span class="cart-supplier__header"><img
                         src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg"
                         alt="{{ $supplier->username }}">{{ $supplier->username }}</span>
