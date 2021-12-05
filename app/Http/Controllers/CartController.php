@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Addresses;
+use App\Models\Address;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\User;
@@ -26,35 +26,38 @@ class CartController extends Controller
 
     public function show() {
         return view('cart/show', [
+            'user' => User::getUserByUsername(auth()->user()->username),
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
-            'user' => User::getUserByUsername(auth()->user()->username),
-            'defaultAddress' => Addresses::getDefaultAddress(auth()->user()->username),
             'title' => 'Cart | Show'
         ]);
     }
 
     public function destroy(int $id) {
+        $cart = Cart::getCartById($id);
+
+        if ($cart->username != auth()->user()->username) {
+            abort(403, 'Unauthorized action.');
+        }
+
         DB::table('carts')->where('id', $id)->delete();
         return back();
     }
 
-    public function checkoutOne(int $id, int $addressId) {
+    public function checkoutOne(int $id) {
         return view('cart/checkout', [
             'user' => User::getUserByUsername(auth()->user()->username),
             'product' => Product::getProductById($id),
-            'addresses' => Addresses::getAddressesByUsername(auth()->user()->username),
-            'activeAddress' => Addresses::getAddressById($addressId),
+            'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'title' => 'Cart | Checkout'
         ]);
     }
     
-    public function checkout(int $addressId) {
+    public function checkout() {
         return view('cart/checkout', [
             'user' => User::getUserByUsername(auth()->user()->username),
             'products' => Cart::getProductsByUsername(auth()->user()->username),
-            'addresses' => Addresses::getAddressesByUsername(auth()->user()->username),
-            'activeAddress' => Addresses::getAddressById($addressId),
+            'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'title' => 'Cart | Checkout'
         ]);

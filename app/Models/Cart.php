@@ -19,6 +19,11 @@ class Cart extends Model
         return $flag;
     }
 
+    public static function getCartById(int $id) {
+        $cart = DB::table('carts')->where('id', $id)->first();
+        return $cart;
+    }
+
     public static function getProductsByUsername($username) {
         $products = DB::table('carts as c')
             ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'c.id as cart_id')

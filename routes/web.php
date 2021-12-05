@@ -37,16 +37,20 @@ Route::post('/user/login', [UserController::class, 'authenticate'])->middleware(
 Route::post('/user/logout', [UserController::class, 'logout'])->middleware('auth');
 Route::get('/user/settings', [UserController::class, 'settings'])->middleware('auth');
 
-Route::get('/address/show', [AddressController::class, 'show'])->middleware('auth');
 Route::get('/address/create', [AddressController::class, 'create'])->middleware('auth');
 Route::post('/address/store', [AddressController::class, 'store'])->middleware('auth');
+Route::get('/address/show', [AddressController::class, 'show'])->middleware('auth');
+Route::get('/address/edit/{id}', [AddressController::class, 'edit'])->middleware('auth'); // cek session
+Route::post('/address/update/{id}', [AddressController::class, 'update'])->middleware('auth');
+Route::get('/address/destroy/{id}', [AddressController::class, 'destroy'])->middleware('auth'); // cek session
+Route::get('/address/default/{id}', [AddressController::class, 'default'])->middleware('auth'); // cek session
 
 Route::get('/product/create'  , [ProductController::class, 'create'])->middleware('auth');
 Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth');
 Route::get('/product/show' , [ProductController::class, 'show'])->middleware('auth');
-Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth');
+Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth'); // cek session
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth');
-Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->middleware('auth');
+Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->middleware('auth'); // cek session
 
 Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
 Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
@@ -54,12 +58,12 @@ Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->midd
 Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
 Route::get('/order/store', [OrderController::class, 'store'])->middleware('auth');
 
-Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
-Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth');
-Route::get('/cart/checkout/{addressId}', [CartController::class, 'checkout'])->middleware('auth');
-Route::get('/cart/checkout/{id}/{addressId}', [CartController::class, 'checkoutOne'])->middleware('auth');
+Route::get('/cart/show/', [CartController::class, 'show'])->middleware('auth');
+Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth'); // cek session
+Route::get('/cart/checkout/', [CartController::class, 'checkout'])->middleware('auth');
+Route::get('/cart/checkout/{id}/', [CartController::class, 'checkoutOne'])->middleware('auth');
 
-Route::get('/wishlist/show', [WishlistController::class, 'show'])->middleware('auth');
 Route::get('/wishlist/store/{id}', [WishlistController::class, 'store'])->middleware('auth');
-Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'])->middleware('auth');
+Route::get('/wishlist/show', [WishlistController::class, 'show'])->middleware('auth');
+Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'])->middleware('auth'); // cek session

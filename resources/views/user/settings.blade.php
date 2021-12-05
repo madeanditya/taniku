@@ -8,8 +8,8 @@
 {{-- content --}}
 @section('content')
     <div>
-        <div><a href="/profile">Biodata diri</a></div>
-        <div><a href="/profile/address">Alamat</a></div>
+        <div><a href="/user/settings">Settings</a></div>
+        <div><a href="/address/show">Alamat</a></div>
         <hr>
     </div>
     <div class="biodata">
@@ -18,13 +18,6 @@
         <div>{{ $user->fullname }}</div>
         <div>{{ $user->email }}</div>
         <div>{{ $user->phone_number }}</div>
-        {{--
-            nama
-            tanggal lahir
-            jenis kelamin
-            email
-            nomor hp
-        --}}
     </div>
     <hr>
 @endsection

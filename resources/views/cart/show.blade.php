@@ -7,7 +7,6 @@ if (count($products) != 0) {
         $totalPrice = $totalPrice + $product->price;
     }
 }
-
 @endphp
 
 @extends('layouts/main')

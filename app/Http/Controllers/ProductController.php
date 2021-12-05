@@ -38,8 +38,15 @@ class ProductController extends Controller
     }
 
     public function edit(int $id) {
+
+        $product = Product::getProductById($id);
+
+        if ($product->supplier != auth()->user()->username) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return view('product/edit', [
-            'product' => Product::getProductById($id),
+            'product' => $product,
             'title' => 'Product | Edit'
         ]);
     }
@@ -60,6 +67,12 @@ class ProductController extends Controller
     }
 
     public function destroy(int $id) {
+        $product = Product::getProductById($id);
+
+        if ($product->supplier != auth()->user()->username) {
+            abort(403, 'Unauthorized action.');
+        }
+
         DB::table('products')->where('id', $id)->delete();
         return redirect('/product/show');
     }

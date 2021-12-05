@@ -19,6 +19,11 @@ class Wishlist extends Model
         return $flag;
     }
 
+    public static function getWishlistById(int $id) {
+        $wishlist = DB::table('wishlists')->where('id', $id)->first();
+        return $wishlist;
+    }
+
     public static function getProductsByUsername($username) {
         $products = DB::table('wishlists as w')
             ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'w.id as wishlist_id')

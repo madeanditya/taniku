@@ -33,6 +33,12 @@ class WishlistController extends Controller
     }
 
     public function destroy(int $id) {
+        $wishlist = Wishlist::getWishlistById($id);
+
+        if ($wishlist->username != auth()->user()->username) {
+            abort(403, 'Unauthorized action.');
+        }
+
         DB::table('wishlists')->where('id', $id)->delete();
         return back();
     }

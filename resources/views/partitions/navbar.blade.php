@@ -20,7 +20,7 @@
                     <a class="nav-link {{ ($title == "Home | " . auth()->user()->username) ? 'active' : '' }}" href="/{{ auth()->user()->username }}">My Store</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ ($title == "Cart | Show") ? 'active' : '' }}" href="/cart/show" >Shopping Cart</a>
+                    <a class="nav-link {{ ($title == "Cart | Show") ? 'active' : '' }}" href="/cart/show/" >Shopping Cart</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($title == "Wishlist | Show") ? 'active' : '' }}" href="/wishlist/show" >Wishlist</a>
