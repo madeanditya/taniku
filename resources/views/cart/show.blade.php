@@ -79,7 +79,7 @@ if (count($products) != 0) {
                         <p>Total price</p>
                         <p>Rp {{ $totalPrice }}</p>
                     </div>
-                    <a class="btn btn-success" href="/cart/checkout/" role="button">Pesan sekarang</a>
+                    <a class="btn btn-success" href="/cart/checkout" role="button">Pesan sekarang</a>
                 </div>
             </div>
         @endif

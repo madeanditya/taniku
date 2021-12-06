@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function index() {
-        //
-    }
-
     public function create() {
         return view('address/create', [
             'title' => 'Address | Create'

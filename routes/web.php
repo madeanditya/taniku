@@ -62,7 +62,9 @@ Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('au
 Route::get('/cart/show/', [CartController::class, 'show'])->middleware('auth');
 Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth'); // cek session
 Route::get('/cart/checkout/', [CartController::class, 'checkout'])->middleware('auth');
-Route::get('/cart/checkout/{id}/', [CartController::class, 'checkoutOne'])->middleware('auth');
+Route::post('/cart/checkout/', [CartController::class, 'customCheckout'])->middleware('auth');
+Route::get('/cart/checkout/{product_id}/', [CartController::class, 'checkoutOne'])->middleware('auth');
+Route::post('/cart/checkout/{product_id}/', [CartController::class, 'customCheckoutOne'])->middleware('auth');
 
 Route::get('/wishlist/store/{id}', [WishlistController::class, 'store'])->middleware('auth');
 Route::get('/wishlist/show', [WishlistController::class, 'show'])->middleware('auth');
