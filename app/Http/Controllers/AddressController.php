@@ -8,17 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         //
     }
 
-    public function create() {
+    public function create()
+    {
         return view('address/create', [
             'title' => 'Address | Create'
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $address = $request->validate([
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
@@ -29,32 +32,37 @@ class AddressController extends Controller
             'postal_code' => 'required|min:3|max:255',
             'username' => 'required|min:3|max:255'
         ]);
-        
+
         DB::table('addresses')->insert($address);
-        return redirect('/address/show');
+        return Address::getAddressesByUsername(auth()->user()->username);
+        // return redirect('/address/show');
     }
 
-    public function show() {
+    public function show()
+    {
         return view('address/show', [
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'title' => 'Address | Show'
         ]);
     }
 
-    public function edit(int $id) {
+    public function edit(int $id)
+    {
         $address = Address::getAddressById($id);
 
         if ($address->username != auth()->user()->username) {
             abort(403, 'Unauthorized action.');
         }
 
-        return view('address/edit', [
-            'address' => $address,
-            'title' => 'Address | Edit'
-        ]);
+        return $address;
+        // return view('address/edit', [
+        //     'address' => $address,
+        //     'title' => 'Address | Edit'
+        // ]);
     }
 
-    public function update(Request $request, int $id) {
+    public function update(Request $request, int $id)
+    {
         $address = $request->validate([
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
@@ -67,10 +75,12 @@ class AddressController extends Controller
         ]);
 
         DB::table('addresses')->where('id', $id)->update($address);
-        return redirect('/address/show');
+        return Address::getAddressesByUsername(auth()->user()->username);
+        // return redirect('/address/show');
     }
 
-    public function destroy(int $id) {
+    public function destroy(int $id)
+    {
         $address = Address::getAddressById($id);
 
         if ($address->username != auth()->user()->username) {
@@ -82,10 +92,12 @@ class AddressController extends Controller
         }
 
         DB::table('addresses')->where('id', $id)->delete();
-        return redirect('/address/show');
+        return Address::getAddressesByUsername(auth()->user()->username);
+        // return redirect('/address/show');
     }
 
-    public function default(int $id) {
+    public function default(int $id)
+    {
         $address = Address::getAddressById($id);
 
         if ($address->username != auth()->user()->username) {
@@ -94,6 +106,7 @@ class AddressController extends Controller
 
         DB::table('addresses')->where('username', auth()->user()->username)->where('default', 1)->update(['default' => 0]);
         DB::table('addresses')->where('id', $id)->update(['default' => 1]);
-        return redirect('/address/show');
+        return Address::getAddressesByUsername(auth()->user()->username);
+        // return redirect('/address/show');
     }
 }

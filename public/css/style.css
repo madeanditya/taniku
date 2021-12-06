@@ -1162,3 +1162,22 @@ section {
 .add-address__modal___content {
     padding: 1rem;
 }
+
+.address-card__footer {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.address-card__footer a,
+.address-card__footer a:hover,
+.address-card__footer p {
+    color: #28a745;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.address-card__footer i {
+    transform: rotate(90deg);
+    color: #8f9294;
+}
