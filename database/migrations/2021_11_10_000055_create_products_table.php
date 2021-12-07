@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->integer('stock');
             $table->string('category');
             $table->integer('weight');
-            $table->string('supplier');
+            $table->char('supplier');
             $table->timestamps();
         });
     }

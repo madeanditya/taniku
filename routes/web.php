@@ -56,7 +56,7 @@ Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
 Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
 Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->middleware('auth');
 Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
-Route::get('/order/store', [OrderController::class, 'store'])->middleware('auth');
+Route::post('/order/store', [OrderController::class, 'store'])->middleware('auth');
 
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
 Route::get('/cart/show/', [CartController::class, 'show'])->middleware('auth');

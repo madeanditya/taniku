@@ -26,9 +26,7 @@
 
     <div class="products">
 
-        <h3>Detail Barang</h3>
-
-        @if (isset($product))
+        {{-- <div>
             <h4>Supplier: {{ $product->supplier }}</h4>
             <label for="shipper">Pengiriman: </label>
             <select name="shipper" id="shipper">
@@ -42,38 +40,39 @@
                 <div>{{ $product->supplier }}</div>
                 <div>{{ $product->price }}</div>
             </div>
+        </div> --}}
 
-        @else
-            <div class="products">
-                @foreach ($suppliers as $supplier)
-                    <h4>Supplier: {{ $supplier->username }}</h4>
-                    <label for="shipper-{{ $supplier->username }}">Pengiriman: </label>
-                    <select name="shipper-{{ $supplier->username }}" id="shipper-{{ $supplier->username }}">
-                        <option value="instan">Instan: 3-6 jam</option>
-                        <option value="same day">Same Day: 6-8 jam</option>
-                        <option value="reguler">Reguler: 3-5 Hari</option>
-                        <option value="kargo">Kargo: > 1 Minggu</option>
-                    </select>
-                    @foreach ($products as $product)
-                        @if ($product->supplier == $supplier->username)
-                            <div>{{ $product->name }}</div>
-                            <input type="hidden" name="name-{{ $supplier->username }}" value="{{ $product->name }}">
-                            <div>{{ $product->supplier }}</div>
-                            <input type="hidden" name="supplier-{{ $supplier->username }}" value="{{ $product->name }}">
-                            <div>{{ $product->price }}</div>
-                            <input type="hidden" name="name-{{ $supplier->username }}" value="{{ $product->name }}">
-                            <br>
-                        @endif
-                    @endforeach
-                @endforeach
-            </div>
-        @endif
+        <form action="/order/store" method="post">
+            @csrf
+            <h3>Detail Barang</h3>
+            @for ($i = 0; $i < count($suppliers); $i++)
+                <h4>Supplier: {{ $suppliers[$i]->username }}</h4>
+                <input type="hidden" name="orders[{{ $i }}][username]" value="{{ auth()->user()->username }}">
+                <input type="hidden" name="orders[{{ $i }}][supplier]" value="{{ $suppliers[$i]->username }}">
+                <label for="shipper-{{ $i }}">Pengiriman: </label>
+                <select name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
+                    <option value="instan">Instan: 3-6 jam</option>
+                    <option value="same day">Same Day: 6-8 jam</option>
+                    <option value="reguler">Reguler: 3-5 Hari</option>
+                    <option value="kargo">Kargo: > 1 Minggu</option>
+                </select>
+                @for ($y = 0; $y < count($products); $y++)
+                    @if ($products[$y]->supplier == $suppliers[$i]->username)
+                        <div>{{ $products[$y]->name }}</div>
+                        <div>{{ $products[$y]->supplier }}</div>
+                        <div>{{ $products[$y]->price }}</div>
+                        <input type="hidden" name="orders[{{ $i }}][order_details][{{ $y }}]" value="{{ $products[$y]->id }}">
+                        <br>
+                    @endif
+                @endfor
+            @endfor
+            <hr>
+
+            <h3>Ringkasan Belanja</h3>
+            <button type="submit" class="btn btn-link" name="submit">Beli</button>
+            <hr>
+        </form>        
     </div>
-    <hr>
-    
-    <h3>Ringkasan Belanja</h3>
-    <div><a href="/order/store">Beli</a></div>
-    <hr>
 @endsection
 
 {{-- footer --}}
