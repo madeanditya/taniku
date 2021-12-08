@@ -54,7 +54,7 @@
                                         {{ rand(10, 100) }}</span>
                                 </div>
                                 <div class="button-group">
-                                    <a class="btn btn-success" href="/cart/store/{{ $product->id }}" role="button">
+                                    <a class="btn btn-success" href="/cart/store/{{ $product->id }}" role="button">+
                                         Keranjang</a>
                                     <a class="btn btn-outline-success" href="/cart/checkout/{{ $product->id }}"
                                         role="button">Beli</a>
@@ -133,7 +133,8 @@
                     <div class="button-group">
                         <a class="btn btn-success" href="/cart/store/{{ $product->id }}" role="button">+
                             Keranjang</a>
-                        <a class="btn btn-outline-success" href="/cart/checkout/{{ $product->id }}/0" role="button">Beli</a>
+                        <a class="btn btn-outline-success" href="/cart/checkout/{{ $product->id }}/0"
+                            role="button">Beli</a>
                         <a href="/wishlist/store/{{ $product->id }}" class="wishlist-btn"><i
                                 class="fas fa-heart"></i>Wishlist</a>
                     </div>

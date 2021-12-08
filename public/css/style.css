@@ -1181,3 +1181,46 @@ section {
     transform: rotate(90deg);
     color: #8f9294;
 }
+
+/* my store */
+
+.user-product__header {
+    display: flex;
+    height: 10rem;
+    width: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.user-product__header_img {
+    height: 100%;
+    width: 15%;
+}
+
+.user-product__header_img img {
+    width: 100%;
+    height: 100%;
+}
+
+.user-product__header_content p {
+    margin: 0;
+    padding: 0;
+}
+
+.user-product__header_content h3 {
+    font-weight: bold;
+}
+
+.user-product__header_content___detail {
+    display: flex;
+    gap: .5rem;
+    color: #8f9294;
+}
+
+.user-product__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
