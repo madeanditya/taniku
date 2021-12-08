@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 
@@ -52,11 +53,14 @@ Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middlewar
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth');
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->middleware('auth'); // cek session
 
+Route::get('/customer_order/show', [CustomerOrderController::class, 'show'])->middleware('auth');
+
 Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
 Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
 Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->middleware('auth');
 Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
 Route::post('/order/store', [OrderController::class, 'store'])->middleware('auth');
+Route::post('/order/store_one', [OrderController::class, 'storeOne'])->middleware('auth');
 
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
 Route::get('/cart/show/', [CartController::class, 'show'])->middleware('auth');

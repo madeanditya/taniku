@@ -10,24 +10,32 @@ class OrderController extends Controller
 {
     public function store(Request $request) {
         $orders = $request->all()["orders"];
-        var_dump($orders);
 
         foreach ($orders as $order) {
-
-            $order_details = array_pop($order);
+            $product_ids = array_pop($order);
             $order_id = DB::table('orders')->insertGetId($order);
 
-            foreach ($order_details as $product_id) {
+            foreach ($product_ids as $product_id) {
                 $order_detail = [
                     'order_id' => $order_id,
                     'product_id' => $product_id
                 ];
                 DB::table('order_details')->insert($order_detail);
-            }
-            
-            // removing record inside cart
+            }   
+            DB::table('carts')->where('username', auth()->user()->username)->delete();
         }
+        return back();
+    }
 
+    public function storeOne(Request $request) {
+        $order = $request->except('_token', 'submit');
+        $product_id = array_pop($order);
+        $order_id = DB::table('orders')->insertGetId($order);
+        $order_detail = [
+            'order_id' => $order_id,
+            'product_id' => $product_id
+        ];
+        DB::table('order_details')->insert($order_detail);
         return back();
     }
 

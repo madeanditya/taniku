@@ -80,12 +80,12 @@ class CartController extends Controller
     }
 
     public function checkoutOne(int $product_id) {
-        return view('cart/checkout', [
+        return view('cart/checkoutOne', [
             'user' => User::getUserByUsername(auth()->user()->username),
             'product' => Product::getProductById($product_id),
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
-            'title' => 'Cart | Checkout'
+            'title' => 'Cart | Checkout One'
         ]);
     }
 
@@ -103,7 +103,7 @@ class CartController extends Controller
             DB::table('addresses')->where('id', $data['active_address'])->update(['default' => 1]);
         }
 
-        return view('cart/checkout', [
+        return view('cart/checkoutOne', [
             'user' => User::getUserByUsername(auth()->user()->username),
             'product' => Product::getProductById($product_id),
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),

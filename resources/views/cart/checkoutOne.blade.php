@@ -7,7 +7,6 @@
 
 {{-- content --}}
 @section('content')
-    {{-- address --}}
     <div class="address">
         <h3>Alamat Penerima</h3>
         @foreach ($addresses as $address)
@@ -25,32 +24,26 @@
     </div>
     <hr>
 
-    {{-- products --}}
-    <div class="products">
-        <form action="/order/store" method="post">
+    {{-- product --}}
+    <div class="product">
+        <form action="/order/store_one" method="post">
             @csrf
-            <h3>Detail Barang</h3>
-            @for ($i = 0; $i < count($suppliers); $i++)
-                <h4>Supplier: {{ $suppliers[$i]->username }}</h4>
-                <input type="hidden" name="orders[{{ $i }}][username]" value="{{ auth()->user()->username }}">
-                <input type="hidden" name="orders[{{ $i }}][supplier]" value="{{ $suppliers[$i]->username }}">
-                <label for="shipper-{{ $i }}">Pengiriman: </label>
-                <select name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
-                    <option value="instan">Instan: 3-6 jam</option>
-                    <option value="same day">Same Day: 6-8 jam</option>
-                    <option value="reguler">Reguler: 3-5 Hari</option>
-                    <option value="kargo">Kargo: > 1 Minggu</option>
-                </select>
-                @for ($y = 0; $y < count($products); $y++)
-                    @if ($products[$y]->supplier == $suppliers[$i]->username)
-                        <div>{{ $products[$y]->name }}</div>
-                        <div>{{ $products[$y]->supplier }}</div>
-                        <div>{{ $products[$y]->price }}</div>
-                        <input type="hidden" name="orders[{{ $i }}][product_ids][{{ $y }}]" value="{{ $products[$y]->id }}">
-                        <br>
-                    @endif
-                @endfor
-            @endfor
+            <h4>Supplier: {{ $product->supplier }}</h4>
+            <input type="hidden" name="username" value="{{ auth()->user()->username }}">
+            <input type="hidden" name="supplier" value="{{ $product->supplier }}">
+            <label for="shipper">Pengiriman: </label>
+            <select name="shipper" id="shipper">
+                <option value="instan">Instan: 3-6 jam</option>
+                <option value="same day">Same Day: 6-8 jam</option>
+                <option value="reguler">Reguler: 3-5 Hari</option>
+                <option value="kargo">Kargo: > 1 Minggu</option>
+            </select>
+            <div class="product">
+                <div>{{ $product->name }}</div>
+                <div>{{ $product->supplier }}</div>
+                <div>{{ $product->price }}</div>
+                <input type="hidden" name="product_id" value="{{ $product->id }}">
+            </div>
             <hr>
 
             <h3>Ringkasan Belanja</h3>

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'andimahesastra@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'anditya',
+            'role' => 'supplier',
             'fullname' => 'I Made Anditya Mahesastra',
             'phone_number'=> '081222333444'
         ]);
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'putricahayad@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'cahaya',
+            'role' => 'supplier',
             'fullname' => 'Putri Cahaya Dewi',
             'phone_number'=> '081222333444'
         ]);
@@ -62,6 +64,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'pulaudewata17@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'ayutriana',
+            'role' => 'supplier',
             'fullname' => 'Ni Putu Ayu Triana',
             'phone_number'=> '081222333444'
         ]);
@@ -82,6 +85,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'dwayuputri35@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'dewayu',
+            'role' => 'supplier',
             'fullname' => 'Dewa Ayu Putri Diah Pramesti',
             'phone_number'=> '081222333444'
         ]);
@@ -102,6 +106,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'yande554@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'yande',
+            'role' => 'supplier',
             'fullname' => 'I Wayan Pande Putra Yudha',
             'phone_number'=> '081222333444'
         ]);
@@ -122,6 +127,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'nyomanhendradinata20@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'hendra',
+            'role' => 'supplier',
             'fullname' => 'Nyoman Hendradinata Dharma',
             'phone_number'=> '081222333444'
         ]);
@@ -142,6 +148,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'agusarinegara@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'gusari',
+            'role' => 'supplier',
             'fullname' => 'I Komang Ari Negara',
             'phone_number'=> '081222333444'
         ]);
@@ -162,6 +169,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'indrapputra13@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'indra',
+            'role' => 'supplier',
             'fullname' => 'Indra Permana Putra',
             'phone_number'=> '081222333444'
         ]);
@@ -189,7 +197,27 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'name' => 'Bayam',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'sayur-sayuran',
+            'weight' => rand(1, 100),
+            'supplier' => 'anditya'
+        ]);
+
+        Product::create([
             'name' => 'Sapi',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'daging',
+            'weight' => rand(1, 100),
+            'supplier' => 'cahaya'
+        ]);
+
+        Product::create([
+            'name' => 'Domba',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
@@ -209,11 +237,31 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'name' => 'Kangkung',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'sayur-sayuran',
+            'weight' => rand(1, 100),
+            'supplier' => 'ayutriana'
+        ]);
+
+        Product::create([
             'name' => 'Cabai',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
+            'weight' => rand(1, 100),
+            'supplier' => 'dewayu'
+        ]);
+
+        Product::create([
+            'name' => 'Ubi Ungu',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'umbi-umbian',
             'weight' => rand(1, 100),
             'supplier' => 'dewayu'
         ]);
@@ -229,11 +277,31 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
+            'name' => 'Lada',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'rempah-rempah',
+            'weight' => rand(1, 100),
+            'supplier' => 'yande'
+        ]);
+
+        Product::create([
             'name' => 'Beras',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'biji-bijian',
+            'weight' => rand(1, 100),
+            'supplier' => 'hendra'
+        ]);
+
+        Product::create([
+            'name' => 'Apel',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'buah-buahan',
             'weight' => rand(1, 100),
             'supplier' => 'hendra'
         ]);
@@ -249,76 +317,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Product::create([
-            'name' => 'Kentang',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'umbi-umbian',
-            'weight' => rand(1, 100),
-            'supplier' => 'indra'
-        ]);
-
-        Product::create([
-            'name' => 'Bayam',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'sayur-sayuran',
-            'weight' => rand(1, 100),
-            'supplier' => 'anditya'
-        ]);
-
-        Product::create([
-            'name' => 'Domba',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'daging',
-            'weight' => rand(1, 100),
-            'supplier' => 'cahaya'
-        ]);
-
-        Product::create([
-            'name' => 'Kangkung',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'sayur-sayuran',
-            'weight' => rand(1, 100),
-            'supplier' => 'ayutriana'
-        ]);
-
-        Product::create([
-            'name' => 'Ubi Ungu',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'umbi-umbian',
-            'weight' => rand(1, 100),
-            'supplier' => 'dewayu'
-        ]);
-
-        Product::create([
-            'name' => 'Lada',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'rempah-rempah',
-            'weight' => rand(1, 100),
-            'supplier' => 'yande'
-        ]);
-
-        Product::create([
-            'name' => 'Apel',
-            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
-            'price' => rand(1, 100)*1000,
-            'stock' => rand(0, 100),
-            'category' => 'buah-buahan',
-            'weight' => rand(1, 100),
-            'supplier' => 'hendra'
-        ]);
-
-        Product::create([
             'name' => 'Jeruk',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
             'price' => rand(1, 100)*1000,
@@ -326,6 +324,16 @@ class DatabaseSeeder extends Seeder
             'category' => 'buah-buahan',
             'weight' => rand(1, 100),
             'supplier' => 'gusari'
+        ]);
+
+        Product::create([
+            'name' => 'Kentang',
+            'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam similique repudiandae, totam, reprehenderit soluta quidem quam, praesentium velit dolore id ipsam veritatis. Sapiente, repellendus fugiat? Delectus minima dolorem tempore voluptatem.',
+            'price' => rand(1, 100)*1000,
+            'stock' => rand(0, 100),
+            'category' => 'umbi-umbian',
+            'weight' => rand(1, 100),
+            'supplier' => 'indra'
         ]);
 
         Product::create([
