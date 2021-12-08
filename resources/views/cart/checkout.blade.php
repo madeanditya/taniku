@@ -34,6 +34,7 @@
                 <h4>Supplier: {{ $suppliers[$i]->username }}</h4>
                 <input type="hidden" name="orders[{{ $i }}][username]" value="{{ auth()->user()->username }}">
                 <input type="hidden" name="orders[{{ $i }}][supplier]" value="{{ $suppliers[$i]->username }}">
+                <input type="hidden" name="orders[{{ $i }}][address_id]" value="{{ $active_address }}">
                 <label for="shipper-{{ $i }}">Pengiriman: </label>
                 <select name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
                     <option value="instan">Instan: 3-6 jam</option>
@@ -41,13 +42,16 @@
                     <option value="reguler">Reguler: 3-5 Hari</option>
                     <option value="kargo">Kargo: > 1 Minggu</option>
                 </select>
+                <br><br>
                 @for ($y = 0; $y < count($products); $y++)
                     @if ($products[$y]->supplier == $suppliers[$i]->username)
                         <div>{{ $products[$y]->name }}</div>
                         <div>{{ $products[$y]->supplier }}</div>
                         <div>{{ $products[$y]->price }}</div>
                         <input type="hidden" name="orders[{{ $i }}][product_ids][{{ $y }}]" value="{{ $products[$y]->id }}">
-                        <br>
+                        <label for="note-{{ $i }}">Catatan</label>
+                        <input type="text" id="note-{{ $i }}" name="orders[{{ $i }}][note]">
+                        <br><br>
                     @endif
                 @endfor
             @endfor

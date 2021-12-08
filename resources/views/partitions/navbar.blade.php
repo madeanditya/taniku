@@ -19,7 +19,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/{{ auth()->user()->username }}">Stall</a></li>
                         <li><a class="dropdown-item" href="/product/show">Product Management</a></li>
-                        <li><a class="dropdown-item" href="/customer_order/show">Customer Orders</a></li>
+                        <li><a class="dropdown-item" href="/customer_order/show/pending">Customer Orders</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

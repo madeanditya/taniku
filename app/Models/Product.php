@@ -15,17 +15,25 @@ class Product extends Model
     ];
 
     public static function getProducts() {
-        $products = DB::table('products')->get();
+        $products = DB::table('products')
+            ->get();
+
         return $products;
     }
 
     public static function getProductsBySupplier(String $supplier) {
-        $products = DB::table('products')->where('supplier', $supplier)->get();
+        $products = DB::table('products')
+            ->where('supplier', $supplier)
+            ->get();
+
         return $products;
     }
 
     public static function getProductById(int $id) {
-        $product = DB::table('products')->where('id', $id)->first();
+        $product = DB::table('products')
+            ->where('id', $id)
+            ->first();
+            
         return $product;
     }
 }

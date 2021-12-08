@@ -31,6 +31,7 @@
             <h4>Supplier: {{ $product->supplier }}</h4>
             <input type="hidden" name="username" value="{{ auth()->user()->username }}">
             <input type="hidden" name="supplier" value="{{ $product->supplier }}">
+            <input type="hidden" name="address_id" value="{{ $active_address }}">
             <label for="shipper">Pengiriman: </label>
             <select name="shipper" id="shipper">
                 <option value="instan">Instan: 3-6 jam</option>

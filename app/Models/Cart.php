@@ -20,7 +20,10 @@ class Cart extends Model
     }
 
     public static function getCartById(int $id) {
-        $cart = DB::table('carts')->where('id', $id)->first();
+        $cart = DB::table('carts')
+            ->where('id', $id)
+            ->first();
+            
         return $cart;
     }
 
