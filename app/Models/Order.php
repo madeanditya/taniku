@@ -14,7 +14,7 @@ class Order extends Model
 
     public static function getPendingOrdersBySupplier(String $supplier) {
         $orders = DB::table('orders as o')
-            ->join('addresses as a', 'o.address_id', '=', 'a.id')
+            ->join('addresses as a', 'o.address_id', 'a.id')
             ->where('supplier', $supplier)
             ->where('status', 'pending')
             ->get();
@@ -24,7 +24,7 @@ class Order extends Model
 
     public static function getInProgressOrdersBySupplier(String $supplier) {
         $orders = DB::table('orders as o')
-            ->join('addresses as a', 'o.address_id', '=', 'a.id')
+            ->join('addresses as a', 'o.address_id', 'a.id')
             ->where('supplier', $supplier)
             ->where('status', 'in progress')
             ->get();
@@ -34,7 +34,7 @@ class Order extends Model
 
     public static function getSucceedOrdersBySupplier(String $supplier) {
         $orders = DB::table('orders as o')
-            ->join('addresses as a', 'o.address_id', '=', 'a.id')
+            ->join('addresses as a', 'o.address_id', 'a.id')
             ->where('supplier', $supplier)
             ->where('status', 'succeed')
             ->get();
@@ -44,7 +44,7 @@ class Order extends Model
 
     public static function getFailedOrdersBySupplier(String $supplier) {
         $orders = DB::table('orders as o')
-            ->join('addresses as a', 'o.address_id', '=', 'a.id')
+            ->join('addresses as a', 'o.address_id', 'a.id')
             ->where('supplier', $supplier)
             ->where('status', 'failed')
             ->get();

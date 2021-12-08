@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 
 class CustomerOrderController extends Controller
 {
     public function showPending() {
         return view('customerOrder/show', [
-            'showing' => 'Butuh tindakan',
+            'showing' => 'need action',
+            'order_details' => OrderDetail::getPendingOrdersBySupplier(auth()->user()->username),
             'orders' => Order::getPendingOrdersBySupplier(auth()->user()->username),
             'title' => 'Cutomer Order | Show'
         ]);
@@ -17,7 +19,8 @@ class CustomerOrderController extends Controller
     
     public function showInProgress() {
         return view('customerOrder/show', [
-            'showing' => 'Berlangsung',
+            'showing' => 'in progress',
+            'order_details' => OrderDetail::getInProgressOrdersBySupplier(auth()->user()->username),
             'orders' => Order::getInProgressOrdersBySupplier(auth()->user()->username),
             'title' => 'Order | Show'
         ]);
@@ -25,7 +28,8 @@ class CustomerOrderController extends Controller
 
     public function showSucceed() {
         return view('customerOrder/show', [
-            'showing' => 'Berhasil',
+            'showing' => 'succeed',
+            'order_details' => OrderDetail::getSucceedOrdersBySupplier(auth()->user()->username),
             'orders' => Order::getSucceedOrdersBySupplier(auth()->user()->username),
             'title' => 'Order | Show'
         ]);
@@ -33,7 +37,8 @@ class CustomerOrderController extends Controller
 
     public function showFailed() {
         return view('customerOrder/show', [
-            'showing' => 'Tidak Berhasil',
+            'showing' => 'failed',
+            'order_details' => OrderDetail::getFailedOrdersBySupplier(auth()->user()->username),
             'orders' => Order::getFailedOrdersBySupplier(auth()->user()->username),
             'title' => 'Order | Show'
         ]);

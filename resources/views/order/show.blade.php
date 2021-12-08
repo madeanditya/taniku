@@ -18,6 +18,18 @@
     
     <div class="orders">
         <h3>Orders: {{ $showing }}</h3>
+        @foreach ($orders as $order)
+            <div>From: {{ $order->username }}</div>
+            <div>Shipper: {{ $order->shipper }}</div>
+            <div>Address: </div>
+            <div>{{ $order->fullname }}</div>
+            <div>{{ $order->phone_number }}</div>
+            <div>{{ $order->address . ", " . $order->subdistrict . ", " . $order->city . ", " . $order->province }}</div>
+            <div>{{ $order->postal_code }}</div>
+            <div>Status: {{ $order->status }}</div>
+            <div><a href="/order/reject/{{ $order->id }}">Batalkan Pemesanan</a></div>
+            <br>
+        @endforeach
     </div>
     <hr>
 @endsection
