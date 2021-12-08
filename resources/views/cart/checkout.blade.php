@@ -48,9 +48,9 @@
                         <div>{{ $products[$y]->name }}</div>
                         <div>{{ $products[$y]->supplier }}</div>
                         <div>{{ $products[$y]->price }}</div>
-                        <input type="hidden" name="orders[{{ $i }}][product_ids][{{ $y }}]" value="{{ $products[$y]->id }}">
+                        <input type="hidden" name="orders[{{ $i }}][order_details][{{ $y }}][product_id]" value="{{ $products[$y]->id }}">
                         <label for="note-{{ $i }}">Catatan</label>
-                        <input type="text" id="note-{{ $i }}" name="orders[{{ $i }}][note]">
+                        <input type="text" id="note-{{ $i }}" name="orders[{{ $i }}][order_details][{{ $y }}][note]">
                         <br><br>
                     @endif
                 @endfor
