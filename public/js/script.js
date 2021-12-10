@@ -1,30 +1,3 @@
-// Counting Total Price and Total Item inside /cart/show page
-const cartCheckout = document.querySelector('.cart-checkout')
-const quantities = cartCheckout.querySelectorAll('.product-quantity')
-const prices = cartCheckout.querySelectorAll('.product-price')
-const totalPriceElement = cartCheckout.querySelector('.total-price')
-const totalItemElement = cartCheckout.querySelector('.total-item')
-
-function countTotal() {
-    let totalPrice = 0
-    let totalItem = 0
-    for (let i = 0; i < quantities.length; i++) {
-        let quantity = quantities[i]
-        let price = prices[i]
-        totalItem += parseInt(quantity.value)
-        totalPrice += parseInt(quantity.value)*parseInt(price.innerHTML)
-    }
-    // console.log('total item:', totalItem)
-    // console.log('total price:', totalPrice)
-    totalItemElement.innerHTML = totalItem
-    totalPriceElement.innerHTML = 'Rp ' + totalPrice
-}
-quantities.forEach(element => {
-    element.addEventListener('change', function() {
-        countTotal()
-    })
-})
-
 const swiper = new Swiper('.swiper', {
 
     direction: 'horizontal',
@@ -196,3 +169,30 @@ $(document).ready(function () {
     // end tombol tambah alamat clicked
 
 })
+
+// Counting Total Price and Total Item inside /cart/show page
+const cartCheckout = document.querySelector('.cart-checkout')
+const quantities = cartCheckout.querySelectorAll('.product-quantity')
+const prices = cartCheckout.querySelectorAll('.product-price')
+const totalPriceElement = cartCheckout.querySelector('.total-price')
+const totalItemElement = cartCheckout.querySelector('.total-item')
+
+function countTotal() {
+    let totalPrice = 0
+    let totalItem = 0
+    for (let i = 0; i < quantities.length; i++) {
+        let quantity = quantities[i]
+        let price = prices[i]
+        totalItem += parseInt(quantity.value)
+        totalPrice += parseInt(quantity.value) * parseInt(price.innerHTML)
+    }
+    // console.log('total item:', totalItem)
+    // console.log('total price:', totalPrice)
+    totalItemElement.innerHTML = totalItem
+    totalPriceElement.innerHTML = 'Rp ' + totalPrice
+};
+quantities.forEach(element => {
+    element.addEventListener('change', function () {
+        countTotal()
+    })
+});
