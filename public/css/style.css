@@ -943,6 +943,7 @@ section {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-left: 1rem;
 }
 
 .order-scroll {
@@ -957,7 +958,8 @@ section {
     width: 100%;
 }
 
-.order a {
+.order a,
+.order button {
     border-radius: 10px;
     font-weight: bold;
     width: 100%;
@@ -994,6 +996,7 @@ section {
     transition: all .3s;
     border-radius: 10px;
     padding: 1rem .7rem;
+    border: 2px solid #E1E1E1;
 }
 
 .cart-item-card:hover {
@@ -1223,4 +1226,31 @@ section {
     display: flex;
     flex-wrap: wrap;
     gap: .5rem;
+}
+
+.stall-empty {
+    width: 70%;
+    margin: 0 auto;
+}
+
+/* checkout */
+
+#editAddressModal input[type="radio"]:checked+label {
+    background: #dbf8e1;
+    border: 2px solid #28a745;
+}
+
+.address-card__footer button {
+    border-radius: 10px;
+}
+
+.address-card__checkout {
+    border: 2px solid #E1E1E1;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.checkout-item__header select {
+    width: 25%;
+    border-radius: 10px;
 }

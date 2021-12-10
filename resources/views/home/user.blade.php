@@ -21,8 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="user-product__wrapper mt-4">
-            @if (count($products) != 0)
+        @if (count($products) != 0)
+            <div class="user-product__wrapper mt-4">
                 @foreach ($products as $product)
                     <div class="card">
                         <div class="card-img-wrapper">
@@ -50,11 +50,18 @@
             <div>{{ $product->description }}</div>
             <hr> --}}
                 @endforeach
-            @else
-                <p>No item</p>
-            @endif
 
-        </div>
+            </div>
+        @else
+            <div class="stall-empty">
+                <div class="empty-cart">
+                    <img src="{{ asset('img/taniku.png') }}" alt="taniku">
+                    <h3>Tokomu belum memiliki produk</h3>
+                    <span>Ayo lawan tengkulak dengan isi tokomu dengan produk terbaik!</span>
+                    <a class="btn btn-success" href="/product/show" role="button">Tambah produk</a>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection
 

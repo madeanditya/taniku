@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
-    public function create() {
+    public function create()
+    {
         return view('address/create', [
             'title' => 'Address | Create'
         ]);
@@ -28,8 +29,11 @@ class AddressController extends Controller
         ]);
 
         DB::table('addresses')->insert($address);
-        return Address::getAddressesByUsername(auth()->user()->username);
-        // return redirect('/address/show');
+        if (array_key_exists('type', $request->all())) {
+            return redirect('/cart/checkout');
+        } else {
+            return Address::getAddressesByUsername(auth()->user()->username);
+        }
     }
 
     public function show()

@@ -1,7 +1,6 @@
+{{-- harga total satuan produk --}}
 @php
-// var_dump($products);
 $totalPrice = 0;
-
 if (count($products) != 0) {
     foreach ($products as $product) {
         $totalPrice = $totalPrice + $product->price;
@@ -18,77 +17,90 @@ if (count($products) != 0) {
 
 {{-- content --}}
 @section('content')
-    {{-- <div class="profile">
-        <h3>Profile</h3>
-        <div>{{ $user->username }}</div>
-        <div>{{ $user->fullname }}</div>
-        <div>{{ $user->email }}</div>
-        <div>{{ $user->phone_number }}</div>
-    </div>
-    <hr> --}}
     <div class="row justify-content-center mt-5">
-        <div class="products col-9">
-            @if (count($products) == 0)
-                <div class="empty-cart">
-                    <img src="{{ asset('img/taniku.png') }}" alt="taniku">
-                    <h3>Keranjangmu kosong</h3>
-                    <span>Tengkulak no Taniku yes!</span>
-                    <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
-                </div>
-            @else
-                <h3 class="mb-5 fw-bold">Cart</h3>
-            @endif
 
-            {{-- suppliers --}}
-            @foreach ($suppliers as $supplier)
-                <span class="cart-supplier__header">
-                    <img src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg" alt="{{ $supplier->username }}">
-                    {{ $supplier->username }}
-                </span>
-                {{-- products --}}
-                @for ($i = 0; $i < count($products); $i++)
-                    @if ($products[$i]->supplier == $supplier->username)
-                        <div class="row mt-4 cart-item-card">
-                            <div class="col-3 cart-img-wrapper">
-                                <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $products[$i]->name }}">
-                            </div>
-                            <div class="col-8">
-                                <div class="row">
-                                    <div class="col cart-item-content">
-                                        <p>{{ $products[$i]->name }}</p>
-                                        <p>Rp. {{ $products[$i]->price }}</p>
-                                        <label>Quantity: </label>
-                                        <input type="number" name="supplier[{{ $supplier->username }}][{{ $products[$i]->id }}][quantity]" class="quantity-{{ $ }}" value="1" min="1" max="5">
+        <form action="/cart/checkout" method="post">
+            @csrf
+            <div class="products col-9">
+
+                {{-- intro --}}
+                @if (count($products) == 0)
+                    <div class="empty-cart">
+                        <img src="{{ asset('img/taniku.png') }}" alt="taniku">
+                        <h3>Keranjangmu kosong</h3>
+                        <span>Tengkulak no Taniku yes!</span>
+                        <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
+                    </div>
+                @else
+                    <h3 class="mb-5 fw-bold">Cart</h3>
+                @endif
+    
+                {{-- suppliers --}}
+                @for ($i = 0; $i < count($suppliers); $i++)
+                    @php $supplier = $suppliers[$i] @endphp
+                    <span class="cart-supplier__header">
+                        <img src="https://avatars.dicebear.com/api/gridy/{{ $supplier->username }}.svg" alt="{{ $supplier->username }}">
+                        {{ $supplier->username }}
+                    </span>
+                    <input type="hidden" name="suppliers[{{ $i }}][id]" value="{{ $supplier->id }}">
+                    <input type="hidden" name="suppliers[{{ $i }}][username]" value="{{ $supplier->username }}">
+                    <input type="hidden" name="suppliers[{{ $i }}][fullname]" value="{{ $supplier->fullname }}">
+                    <input type="hidden" name="suppliers[{{ $i }}][profile_picture]" value="{{ $supplier->profile_picture }}">
+
+                    {{-- supplier's products --}}
+                    @for ($j = 0; $j < count($products); $j++)
+                        @php $product = $products[$j] @endphp
+                        @if ($product->supplier == $supplier->username)
+                            <div class="row mt-4 cart-item-card">
+                                <div class="col-3 cart-img-wrapper">
+                                    <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product->name }}">
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col cart-item-content">
+                                            <p>{{ $product->name }}</p>
+                                            <p>Rp. {{ $product->price }}</p>
+                                            <label for="quantity-{{ $i }}-{{ $j }}">Quantity: </label>
+                                            <input type="number" name="suppliers[{{ $i }}][products][{{ $j }}][quantity]" id="quantity-{{ $i }}-{{ $j }}" value="1" min="1" max="5">
+                                            <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][id]" value="">
+                                            <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][name]" value="">
+                                            <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][price]" value="">
+                                            <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][stock]" value="">
+                                            <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][weight]" value="">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-1 d-flex justify-content-center align-items-center">
+                                    <a href="/cart/destroy/{{ $product->cart_id }}" class="delete-cart-item__btn">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="col-1 d-flex justify-content-center align-items-center">
-                                <a href="/cart/destroy/{{ $products[$i]->cart_id }}" class="delete-cart-item__btn">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </div>
-                        </div>
-                    @endif
+                        @endif
+                    @endfor
+                    <hr class="supplier-splitter">
                 @endfor
-                <hr class="supplier-splitter">
-            @endforeach
-        </div>
-        @if (count($products) != 0)
-            <div class="col-3">
-                <div class="order">
-                    <h5 class="mb-4">Total belanja</h5>
-                    <div class="cart-label__wrapper">
-                        <p>Total item</p>
-                        <p>{{ count($products) }}</p>
-                    </div>
-                    <div class="cart-label__wrapper">
-                        <p>Total price</p>
-                        <p>Rp {{ $totalPrice }}</p>
-                    </div>
-                    <a class="btn btn-success" href="/cart/checkout" role="button">Pesan sekarang</a>
-                </div>
             </div>
-        @endif
+
+            {{-- total price --}}
+            @if (count($products) != 0)
+                <div class="col-3">
+                    <div class="order">
+                        <h5 class="mb-4">Total belanja</h5>
+                        <div class="cart-label__wrapper">
+                            <p>Total item</p>
+                            <p class="total-item">{{ count($products) }}</p>
+                        </div>
+                        <div class="cart-label__wrapper">
+                            <p>Total price</p>
+                            <p class="total-price">Rp {{ $totalPrice }}</p>
+                        </div>
+                        <a class="btn btn-success" href="/cart/checkout" role="button">Pesan sekarang</a>
+                    </div>
+                </div>
+            @endif
+
+        </form>
     </div>
 
 @endsection
