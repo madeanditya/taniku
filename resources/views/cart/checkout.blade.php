@@ -49,6 +49,8 @@
                         <div>{{ $products[$y]->supplier }}</div>
                         <div>{{ $products[$y]->price }}</div>
                         <input type="hidden" name="orders[{{ $i }}][order_details][{{ $y }}][product_id]" value="{{ $products[$y]->id }}">
+                        <label for="quantity-{{ $i }}">Kuantitas</label>
+                        <input type="number" min="1" max="{{  }}" name="orders[{{ $i }}][order_details][{{ $y }}][quantity]" value="1">
                         <label for="note-{{ $i }}">Catatan</label>
                         <input type="text" id="note-{{ $i }}" name="orders[{{ $i }}][order_details][{{ $y }}][note]">
                         <br><br>
