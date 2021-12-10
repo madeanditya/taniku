@@ -27,8 +27,8 @@ class CartController extends Controller
     public function show() {
         return view('cart/show', [
             'user' => User::getUserByUsername(auth()->user()->username),
-            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
-            'products' => Cart::getProductsByUsername(auth()->user()->username),
+            'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
+            'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
             'title' => 'Cart | Show'
         ]);
     }
@@ -47,10 +47,10 @@ class CartController extends Controller
     public function checkout() {
         return view('cart/checkout', [
             'user' => User::getUserByUsername(auth()->user()->username),
-            'products' => Cart::getProductsByUsername(auth()->user()->username),
+            'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
+            'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
-            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'title' => 'Cart | Checkout'
         ]);
     }
@@ -71,10 +71,10 @@ class CartController extends Controller
 
         return view('cart/checkout', [
             'user' => User::getUserByUsername(auth()->user()->username),
-            'products' => Cart::getProductsByUsername(auth()->user()->username),
+            'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
+            'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'active_address' => $data['active_address'],
-            'suppliers' => Cart::getSuppliersByUsername(auth()->user()->username),
             'title' => 'Cart | Checkout'
         ]);
     }

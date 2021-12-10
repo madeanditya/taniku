@@ -27,20 +27,23 @@ class Cart extends Model
         return $cart;
     }
 
-    public static function getProductsByUsername($username) {
+    public static function getProductsOnCartByUsername($username) {
         $products = DB::table('carts as c')
             ->join('products as p', 'c.product_id', '=', 'p.id')
-            ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.supplier', 'c.id as cart_id')
+            // ->select('p.id', 'p.name', 'p.description', 'p.price', 'p.stock', 'p.category', 'p.weight', 'p.supplier', 'c.id as cart_id')
+            ->select('p.*', 'c.id as cart_id')
             ->where('c.username', '=', $username)
             ->get();
 
         return $products;
     }
 
-    public static function getSuppliersByUsername($username) {
+    public static function getSuppliersOnCartByUsername($username) {
         $suppliers = DB::table('carts as c')
             ->join('products as p', 'c.product_id', '=', 'p.id')
-            ->select('p.supplier as username')
+            ->join('users as s', 'p.supplier', '=', 's.username')
+            // ->select('s.id', 's.email', 's.username', 's.role', 's.fullname', 's.phone_number', 's.profile_picture')
+            ->select('s.*')
             ->where('c.username', '=', $username)
             ->distinct()
             ->get();

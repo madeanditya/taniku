@@ -19,7 +19,7 @@ if (count($products) != 0) {
 @section('content')
     <div class="row justify-content-center mt-5">
 
-        <form action="/cart/checkout" method="post">
+        <form action="/cart/checkout" method="post" class="cart-checkout">
             @csrf
             <div class="products col-9">
 
@@ -59,9 +59,9 @@ if (count($products) != 0) {
                                     <div class="row">
                                         <div class="col cart-item-content">
                                             <p>{{ $product->name }}</p>
-                                            <p>Rp. {{ $product->price }}</p>
+                                            <p>Rp. <span class="product-price">{{ $product->price }}</span></p>
                                             <label for="quantity-{{ $i }}-{{ $j }}">Quantity: </label>
-                                            <input type="number" name="suppliers[{{ $i }}][products][{{ $j }}][quantity]" id="quantity-{{ $i }}-{{ $j }}" value="1" min="1" max="5">
+                                            <input type="number" name="suppliers[{{ $i }}][products][{{ $j }}][quantity]" id="quantity-{{ $i }}-{{ $j }}" class="product-quantity" value="1" min="1" max="5">
                                             <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][id]" value="">
                                             <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][name]" value="">
                                             <input type="hidden" name="suppliers[{{ $i }}][products][{{ $j }}][price]" value="">
