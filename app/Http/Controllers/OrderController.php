@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     public function store(Request $request) {
-
-        $note = $request->validate([
+        $request->validate([
             'orders.*.order_details.*.note' => 'max:255'
         ]);
-
+        
         $orders = $request->all()["orders"];
-
         foreach ($orders as $order) {
             $order_details = array_pop($order);
             $order_id = DB::table('orders')->insertGetId($order);

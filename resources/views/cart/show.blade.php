@@ -1,9 +1,11 @@
-{{-- harga total satuan produk --}}
+{{-- harga total dan berat total satuan produk --}}
 @php
+$totalWeight = 0;
 $totalPrice = 0;
 if (count($products) != 0) {
     foreach ($products as $product) {
-        $totalPrice = $totalPrice + $product->price;
+        $totalPrice += $product->price;
+        $totalWeight += $product->weight;
     }
 }
 @endphp
@@ -18,7 +20,7 @@ if (count($products) != 0) {
 {{-- content --}}
 @section('content')
 
-    <form action="/cart/checkout" method="post" class="cart-checkout row justify-content-center  mt-5">
+    <form action="/cart/checkout" method="post" class="cart-show row justify-content-center  mt-5">
         @csrf
         <div class="products col-9">
 
@@ -45,8 +47,7 @@ if (count($products) != 0) {
                 <input type="hidden" name="suppliers[{{ $i }}][id]" value="{{ $supplier->id }}">
                 <input type="hidden" name="suppliers[{{ $i }}][username]" value="{{ $supplier->username }}">
                 <input type="hidden" name="suppliers[{{ $i }}][fullname]" value="{{ $supplier->fullname }}">
-                <input type="hidden" name="suppliers[{{ $i }}][profile_picture]"
-                    value="{{ $supplier->profile_picture }}">
+                <input type="hidden" name="suppliers[{{ $i }}][profile_picture]" value="{{ $supplier->profile_picture }}">
 
                 {{-- supplier's products --}}
                 @for ($j = 0; $j < count($products); $j++)
@@ -61,27 +62,33 @@ if (count($products) != 0) {
                                     <div class="col cart-item-content">
                                         <p>{{ $product->name }}</p>
                                         <p>Rp. <span class="product-price">{{ $product->price }}</span></p>
-                                        <label for="quantity-{{ $i }}-{{ $j }}">Quantity:
-                                        </label>
+                                        <p><span class="product-weight">{{ $product->weight }}</span> gram</p>
+                                        <p>Remaining {{ $product->stock }}</p>
+                                        <label for="quantity-{{ $i }}-{{ $j }}">Quantity:</label>
                                         <input type="number"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][quantity]"
                                             id="quantity-{{ $i }}-{{ $j }}" class="product-quantity"
-                                            value="1" min="1" max="5">
+                                            value="1" min="1" max="{{ $product->stock }}">
+                                            <br>
+                                        <label for="note-{{ $i }}-{{ $j }}">Note: </label>
+                                        <input type="text" id="note-{{ $i }}-{{ $j }}"
+                                            name="suppliers[{{ $i }}][products][{{ $j }}][note]"
+                                            placeholder="leave a note">
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][id]"
-                                            value="">
+                                            value="{{ $product->id }}">
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][name]"
-                                            value="">
+                                            value="{{ $product->name }}">
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][price]"
-                                            value="">
+                                            value="{{ $product->price }}">
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][stock]"
-                                            value="">
+                                            value="{{ $product->stock }}">
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][weight]"
-                                            value="">
+                                            value="{{ $product->weight }}">
                                     </div>
                                 </div>
                             </div>
@@ -107,10 +114,14 @@ if (count($products) != 0) {
                         <p class="total-item">{{ count($products) }}</p>
                     </div>
                     <div class="cart-label__wrapper">
+                        <p>Total weight</p>
+                        <p class="total-weight">{{ $totalWeight }} gram</p>
+                    </div>
+                    <div class="cart-label__wrapper">
                         <p>Total price</p>
                         <p class="total-price">Rp {{ $totalPrice }}</p>
                     </div>
-                    <a class="btn btn-success" href="/cart/checkout" role="button">Pesan sekarang</a>
+                    <button type="submit" class="btn btn-success" role="button">Pesan sekarang</button>
                 </div>
             </div>
         @endif

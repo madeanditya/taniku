@@ -33,6 +33,7 @@
             @elseif ($order->status == '')
                 <div></div>
             @endif
+            {{-- kasiin drop down disini yan --}}
             <div>Order Details: </div>
             @foreach ($order_details as $order_detail)
                 @if ($order_detail->order_id == $order->id)
@@ -45,8 +46,6 @@
                 @endif
             @endforeach
             <br>
-        @endforeach
-        @foreach ($order_details as $order_detail)
         @endforeach
     </div>
     <hr>

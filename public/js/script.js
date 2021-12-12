@@ -170,29 +170,120 @@ $(document).ready(function () {
 
 })
 
-// Counting Total Price and Total Item inside /cart/show page
-const cartCheckout = document.querySelector('.cart-checkout')
-const quantities = cartCheckout.querySelectorAll('.product-quantity')
-const prices = cartCheckout.querySelectorAll('.product-price')
-const totalPriceElement = cartCheckout.querySelector('.total-price')
-const totalItemElement = cartCheckout.querySelector('.total-item')
 
-function countTotal() {
-    let totalPrice = 0
-    let totalItem = 0
-    for (let i = 0; i < quantities.length; i++) {
-        let quantity = quantities[i]
-        let price = prices[i]
-        totalItem += parseInt(quantity.value)
-        totalPrice += parseInt(quantity.value) * parseInt(price.innerHTML)
+// Counting Total price, Total item, and Total weight inside /cart/show page
+$(document).ready(function()
+{
+    let cartShow = document.querySelector('.cart-show')
+    if (cartShow) {
+        let quantities = cartShow.querySelectorAll('.product-quantity')
+        let weights = cartShow.querySelectorAll('.product-weight')
+        let prices = cartShow.querySelectorAll('.product-price')
+        let totalPriceElement = cartShow.querySelector('.total-price')
+        let totalWeightElement = cartShow.querySelector('.total-weight')
+        let totalItemElement = cartShow.querySelector('.total-item')
+    
+        function cartShowCountTotal() {
+            let totalPrice = 0
+            let totalWeight = 0
+            let totalItem = 0
+            for (let i = 0; i < quantities.length; i++) {
+                let quantity = quantities[i]
+                let weight = weights[i]
+                let price = prices[i]
+                totalItem += parseInt(quantity.value)
+                totalWeight += parseInt(quantity.value) * parseInt(weight.innerHTML)
+                totalPrice += parseInt(quantity.value) * parseInt(price.innerHTML)
+            }
+            totalItemElement.innerHTML = totalItem
+            totalWeightElement.innerHTML = totalWeight + ' gram'
+            totalPriceElement.innerHTML = 'Rp ' + totalPrice
+        };
+        
+        quantities.forEach(element => {
+            element.addEventListener('change', function () {
+                cartShowCountTotal()
+            })
+        })   
     }
-    // console.log('total item:', totalItem)
-    // console.log('total price:', totalPrice)
-    totalItemElement.innerHTML = totalItem
-    totalPriceElement.innerHTML = 'Rp ' + totalPrice
-};
-quantities.forEach(element => {
-    element.addEventListener('change', function () {
-        countTotal()
-    })
-});
+})
+
+// Counting Total price, Total item, and Total weight inside /cart/checkout page
+$(document).ready(function() {
+    let cartCheckout = document.querySelector('.cart-checkout')
+    if (cartCheckout) {
+        let shippers = cartCheckout.querySelectorAll('.shipper')
+        let summaries = cartCheckout.querySelectorAll('.summary')
+
+        let subtotalPrices = cartCheckout.querySelectorAll('.subtotal-price')
+        let subtotalWeights = cartCheckout.querySelectorAll('.subtotal-weight')
+
+        let estimations = cartCheckout.querySelectorAll('.estimation')
+        let shippingCosts = cartCheckout.querySelectorAll('.shipping-cost')
+        let subtotalBills = cartCheckout.querySelectorAll('.subtotal-bill')
+
+        let totalShippingCostContainer = cartCheckout.querySelector('.total-shipping-cost-container')
+        let totalBillContainer = cartCheckout.querySelector('.total-bill-container')
+
+        let totalShippingCost = cartCheckout.querySelector('.total-shipping-cost')
+        let totalBill = cartCheckout.querySelector('.total-bill')
+
+        for (let i = 0; i < shippers.length; i++) {
+            let shipper = shippers[i]
+            let summary = summaries[i]
+            
+            let subtotalPrice = parseInt(subtotalPrices[i].innerHTML)
+            let subtotalWeight = parseInt(subtotalWeights[i].innerHTML)
+
+            let estimation = estimations[i]
+            let shippingCost = shippingCosts[i]
+            let subtotalBill = subtotalBills[i]
+
+            shipper.addEventListener('change', function() {
+                if (shipper.value == 'pengiriman') {
+                    summary.style.display = 'none'
+                    totalShippingCostContainer.style.display = 'none'
+                    totalBillContainer.style.display = 'none'
+                }
+                else {
+                    summary.style.display = 'block'
+                    if (shipper.value == 'instan') {
+                        estimation.innerHTML = 'arrive in 3 to 6 hours'
+                        shippingCost.innerHTML = 10000 + 50 * subtotalWeight
+                        subtotalBill.innerHTML = subtotalPrice + (10000 + 50 * subtotalWeight)
+                    }
+                    else if (shipper.value == 'same day') {
+                        estimation.innerHTML = 'arrive in 6 to 8 hours'
+                        shippingCost.innerHTML = 10000 + 40 * subtotalWeight
+                        subtotalBill.innerHTML = subtotalPrice + (10000 + 40 * subtotalWeight)
+                    }
+                    else if (shipper.value == 'reguler') {
+                        estimation.innerHTML = 'arrive in 1 to 3 days'
+                        shippingCost.innerHTML = 10000 + 20 * subtotalWeight
+                        subtotalBill.innerHTML = subtotalPrice + (10000 + 20 * subtotalWeight)
+                    }
+                    else if (shipper.value == 'kargo') {
+                        estimation.innerHTML = 'arrive in 3 to 7 days'
+                        shippingCost.innerHTML = 10000 + 5 * subtotalWeight
+                        subtotalBill.innerHTML = subtotalPrice + (10000 + 5 * subtotalWeight)
+                    }
+                    let totalShippingCostvalue = 0
+                    let totalBillvalue = 0
+                    for (let j = 0; j < shippers.length; j++) {
+                        totalShippingCostvalue += parseInt(shippingCosts[j].innerHTML)
+                        totalBillvalue += parseInt(subtotalBills[j].innerHTML)
+                        if (shippers[j].value == 'pengiriman') {
+                            break
+                        }
+                        else if (j == shippers.length - 1) {
+                            totalShippingCostContainer.style.display = 'block'
+                            totalBillContainer.style.display = 'block'
+                            totalShippingCost.innerHTML = totalShippingCostvalue
+                            totalBill.innerHTML = totalBillvalue
+                        }
+                    }
+                }
+            })
+        }
+    }
+})

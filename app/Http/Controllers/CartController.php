@@ -16,11 +16,9 @@ class CartController extends Controller
             'username' => auth()->user()->username,
             'product_id' => $id
         ];
-
         if (!Cart::exist(auth()->user()->username, $id)) {
             DB::table('carts')->insert($cart);
         }
-        
         return back();
     }
 
@@ -35,7 +33,6 @@ class CartController extends Controller
 
     public function destroy(int $id) {
         $cart = Cart::getCartById($id);
-
         if ($cart->username != auth()->user()->username) {
             abort(403, 'Unauthorized action.');
         }
@@ -44,23 +41,32 @@ class CartController extends Controller
         return back();
     }
 
-    public function checkout() {
-        return view('cart/checkout', [
-            'user' => User::getUserByUsername(auth()->user()->username),
-            'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
-            'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
+    public function checkout(Request $request) {
+        $suppliers = $request->input('suppliers');
+        return view('cart/checkout_rev', [
+            'suppliers' => $suppliers,
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
             'title' => 'Cart | Checkout'
         ]);
     }
 
+    // public function checkout() {
+    //     return view('cart/checkout', [
+    //         'user' => User::getUserByUsername(auth()->user()->username),
+    //         'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
+    //         'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
+    //         'addresses' => Address::getAddressesByUsername(auth()->user()->username),
+    //         'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
+    //         'title' => 'Cart | Checkout'
+    //     ]);
+    // }
+
     public function customCheckout(Request $request) {
         $data = $request->all();
 
         if ($data['submit'] == 'select and update') {
             $address = Address::getAddressById($data['active_address']);
-
             if ($address->username != auth()->user()->username) {
                 abort(403, 'Unauthorized action.');
             }
@@ -94,7 +100,6 @@ class CartController extends Controller
 
         if ($data['submit'] == 'select and update') {
             $address = Address::getAddressById($data['active_address']);
-
             if ($address->username != auth()->user()->username) {
                 abort(403, 'Unauthorized action.');
             }

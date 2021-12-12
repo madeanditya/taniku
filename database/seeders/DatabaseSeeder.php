@@ -192,7 +192,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'daging',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'anditya'
         ]);
 
@@ -202,7 +202,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'sayur-sayuran',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'anditya'
         ]);
 
@@ -212,7 +212,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'daging',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'cahaya'
         ]);
 
@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'daging',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'cahaya'
         ]);
         
@@ -232,7 +232,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'sayur-sayuran',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'ayutriana'
         ]);
 
@@ -242,7 +242,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'sayur-sayuran',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'ayutriana'
         ]);
 
@@ -252,7 +252,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'dewayu'
         ]);
 
@@ -262,7 +262,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'umbi-umbian',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'dewayu'
         ]);
 
@@ -272,7 +272,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'yande'
         ]);
 
@@ -282,7 +282,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'rempah-rempah',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'yande'
         ]);
 
@@ -292,7 +292,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'biji-bijian',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'hendra'
         ]);
 
@@ -302,7 +302,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'hendra'
         ]);
 
@@ -312,7 +312,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'rempah-rempah',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'gusari'
         ]);
 
@@ -322,7 +322,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'gusari'
         ]);
 
@@ -332,7 +332,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'umbi-umbian',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'indra'
         ]);
 
@@ -342,7 +342,7 @@ class DatabaseSeeder extends Seeder
             'price' => rand(1, 100)*1000,
             'stock' => rand(0, 100),
             'category' => 'biji-bijian',
-            'weight' => rand(1, 100),
+            'weight' => rand(1, 1000),
             'supplier' => 'indra'
         ]);
     }
