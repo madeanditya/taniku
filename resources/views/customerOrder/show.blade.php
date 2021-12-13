@@ -7,6 +7,8 @@
 
 {{-- content --}}
 @section('content')
+
+    {{-- menu bar --}}
     <div class="status">
         <h3>Status</h3>
         <div><a href="/customer_order/show/pending">Butuh Tindakan</a></div>
@@ -15,7 +17,8 @@
         <div><a href="/customer_order/show/failed">Tidak Berhasil</a></div>
     </div>
     <hr>
-    
+
+    {{-- orders --}}
     <div class="orders">
         <h3>Orders: {{ $showing }}</h3>
         @foreach ($orders as $order)
@@ -27,13 +30,16 @@
             <div>{{ $order->address . ", " . $order->subdistrict . ", " . $order->city . ", " . $order->province }}</div>
             <div>{{ $order->postal_code }}</div>
             <div>Status: {{ $order->status }}</div>
+
+            {{-- action --}}
             @if ($order->status == 'pending')
                 <div><a href="/order/accept/{{ $order->id }}">Terima Pesanan</a></div>
                 <div><a href="/order/reject/{{ $order->id }}">Tolak Pesanan</a></div>
             @elseif ($order->status == '')
                 <div></div>
             @endif
-            {{-- kasiin drop down disini yan --}}
+
+            {{-- order details --}}
             <div>Order Details: </div>
             @foreach ($order_details as $order_detail)
                 @if ($order_detail->order_id == $order->id)
@@ -41,7 +47,7 @@
                     <div>{{ $order_detail->price }}</div>
                     <div>{{ $order_detail->weight }}</div>
                     <div>{{ $order_detail->supplier }}</div>
-                    {{-- <div>{{ $order_detail->quantity }}</div> --}}
+                    <div>{{ $order_detail->quantity }}</div>
                     <div>{{ $order_detail->note }}</div>
                 @endif
             @endforeach

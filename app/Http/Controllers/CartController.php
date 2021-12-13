@@ -43,24 +43,13 @@ class CartController extends Controller
 
     public function checkout(Request $request) {
         $suppliers = $request->input('suppliers');
-        return view('cart/checkout_rev', [
+        return view('cart/checkout', [
             'suppliers' => $suppliers,
             'addresses' => Address::getAddressesByUsername(auth()->user()->username),
             'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
             'title' => 'Cart | Checkout'
         ]);
     }
-
-    // public function checkout() {
-    //     return view('cart/checkout', [
-    //         'user' => User::getUserByUsername(auth()->user()->username),
-    //         'suppliers' => Cart::getSuppliersOnCartByUsername(auth()->user()->username),
-    //         'products' => Cart::getProductsOnCartByUsername(auth()->user()->username),
-    //         'addresses' => Address::getAddressesByUsername(auth()->user()->username),
-    //         'active_address' => Address::getDefaultAddress(auth()->user()->username)->id,
-    //         'title' => 'Cart | Checkout'
-    //     ]);
-    // }
 
     public function customCheckout(Request $request) {
         $data = $request->all();

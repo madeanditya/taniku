@@ -25,7 +25,7 @@ class OrderController extends Controller
             }
             DB::table('carts')->where('username', auth()->user()->username)->delete();
         }
-        return back();
+        return redirect('/order/show');
     }
 
     public function storeOne(Request $request) {
@@ -40,34 +40,23 @@ class OrderController extends Controller
         return back();
     }
 
-    public function show() {
-        return view('order/show', [
-            'showing' => 'all',
-            'orders' => OrderDetail::getOrdersByUsername(auth()->user()->username),
-            'title' => 'Order | Show'
-        ]);
-    }
-    
-    public function showInProgress() {
-        return view('order/show', [
-            'showing' => 'in progress',
-            'orders' => OrderDetail::getInProgressOrdersByUsername(auth()->user()->username),
-            'title' => 'Order | Show'
-        ]);
-    }
+    public function show(String $status) {
 
-    public function showSucceed() {
-        return view('order/show', [
-            'showing' => 'succeed',
-            'orders' => OrderDetail::getSucceedOrdersByUsername(auth()->user()->username),
-            'title' => 'Order | Show'
-        ]);
-    }
+        // mengambil data sesuai status yang diminta
+        if ($status == 'all') {
+            $orders = Order::getOrdersByUsername(auth()->user()->username);
+            $orderDetails = OrderDetail::getOrderDetailsByUsername(auth()->user()->username);
+        }
+        else {
+            $orders = Order::getOrdersByUsernameAndStatus(auth()->user()->username, $status);
+            $orderDetails = OrderDetail::getOrderDetailsByUsernameAndStatus(auth()->user()->username, $status);
+        }
 
-    public function showFailed() {
+        // mengembalikan view
         return view('order/show', [
-            'showing' => 'failed',
-            'orders' => OrderDetail::getFailedOrdersByUsername(auth()->user()->username),
+            'showing' => $status,
+            'orders' => $orders,
+            'order_details' => $orderDetails,
             'title' => 'Order | Show'
         ]);
     }

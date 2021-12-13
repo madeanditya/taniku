@@ -12,41 +12,43 @@ class Order extends Model
 {
     use HasFactory;
 
-    public static function getPendingOrdersBySupplier(String $supplier) {
+    public static function getOrdersBySupplier(String $supplier) {
         $orders = DB::table('orders as o')
             ->join('addresses as a', 'o.address_id', 'a.id')
-            ->where('supplier', $supplier)
-            ->where('status', 'pending')
+            ->select('o.id', 'o.username', 'o.supplier', 'o.shipper', 'o.status', 'o.address_id', 'a.fullname', 'a.phone_number', 'a.address', 'a.subdistrict', 'a.city', 'a.province', 'a.postal_code')
+            ->where('o.supplier', $supplier)
             ->get();
 
         return $orders;
     }
 
-    public static function getInProgressOrdersBySupplier(String $supplier) {
+    public static function getOrdersBySupplierAndStatus(String $supplier, String $status) {
         $orders = DB::table('orders as o')
             ->join('addresses as a', 'o.address_id', 'a.id')
-            ->where('supplier', $supplier)
-            ->where('status', 'in progress')
+            ->select('o.id', 'o.username', 'o.supplier', 'o.shipper', 'o.status', 'o.address_id', 'a.fullname', 'a.phone_number', 'a.address', 'a.subdistrict', 'a.city', 'a.province', 'a.postal_code')
+            ->where('o.supplier', $supplier)
+            ->where('o.status', $status)
             ->get();
 
         return $orders;
     }
 
-    public static function getSucceedOrdersBySupplier(String $supplier) {
+    public static function getOrdersByUsername(String $username) {
         $orders = DB::table('orders as o')
             ->join('addresses as a', 'o.address_id', 'a.id')
-            ->where('supplier', $supplier)
-            ->where('status', 'succeed')
+            ->select('o.id', 'o.username', 'o.supplier', 'o.shipper', 'o.status', 'o.address_id', 'a.fullname', 'a.phone_number', 'a.address', 'a.subdistrict', 'a.city', 'a.province', 'a.postal_code')
+            ->where('o.username', $username)
             ->get();
 
         return $orders;
     }
 
-    public static function getFailedOrdersBySupplier(String $supplier) {
+    public static function getOrdersByUsernameAndStatus(String $username, String $status) {
         $orders = DB::table('orders as o')
             ->join('addresses as a', 'o.address_id', 'a.id')
-            ->where('supplier', $supplier)
-            ->where('status', 'failed')
+            ->select('o.id', 'o.username', 'o.supplier', 'o.shipper', 'o.status', 'o.address_id', 'a.fullname', 'a.phone_number', 'a.address', 'a.subdistrict', 'a.city', 'a.province', 'a.postal_code')
+            ->where('o.username', $username)
+            ->where('o.status', $status)
             ->get();
 
         return $orders;

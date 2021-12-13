@@ -8,39 +8,24 @@ use Illuminate\Http\Request;
 
 class CustomerOrderController extends Controller
 {
-    public function showPending() {
-        return view('customerOrder/show', [
-            'showing' => 'need action',
-            'order_details' => OrderDetail::getPendingOrdersBySupplier(auth()->user()->username),
-            'orders' => Order::getPendingOrdersBySupplier(auth()->user()->username),
-            'title' => 'Cutomer Order | Show'
-        ]);
-    }
+    public function show(String $status) {
+
+        // mengambil data sesuai status yang diminta
+        if ($status == 'all') {
+            $orders = Order::getOrdersBySupplier(auth()->user()->username);
+            $orderDetails = OrderDetail::getOrderDetailsBySupplier(auth()->user()->username);
+        }
+        else {
+            $orders = Order::getOrdersBySupplierAndStatus(auth()->user()->username, $status);
+            $orderDetails = OrderDetail::getOrderDetailsBySupplierAndStatus(auth()->user()->username, $status);
+        }
     
-    public function showInProgress() {
+        // mengembalikan view
         return view('customerOrder/show', [
-            'showing' => 'in progress',
-            'order_details' => OrderDetail::getInProgressOrdersBySupplier(auth()->user()->username),
-            'orders' => Order::getInProgressOrdersBySupplier(auth()->user()->username),
-            'title' => 'Order | Show'
-        ]);
-    }
-
-    public function showSucceed() {
-        return view('customerOrder/show', [
-            'showing' => 'succeed',
-            'order_details' => OrderDetail::getSucceedOrdersBySupplier(auth()->user()->username),
-            'orders' => Order::getSucceedOrdersBySupplier(auth()->user()->username),
-            'title' => 'Order | Show'
-        ]);
-    }
-
-    public function showFailed() {
-        return view('customerOrder/show', [
-            'showing' => 'failed',
-            'order_details' => OrderDetail::getFailedOrdersBySupplier(auth()->user()->username),
-            'orders' => Order::getFailedOrdersBySupplier(auth()->user()->username),
-            'title' => 'Order | Show'
+            'showing' => $status,
+            'orders' => $orders,
+            'order_details' => $orderDetails,
+            'title' => 'Cutomer Order | Show'
         ]);
     }
 }

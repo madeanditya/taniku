@@ -1,8 +1,33 @@
-@extends('layouts/main')
+{{--
+yang dikirim lewat post request
+orders
+- username
+- supplier
+- shipper
+- address_id
+- order_details
+  - quantity
+  - note
+  - order_id
+  - product_id
+--}}
 
+{{-- harga total dan berat total seluruh produk --}}
 @php
+$totalItem = 0;
+$totalWeight = 0;
 $totalPrice = 0;
+if (count($suppliers) != 0) {
+    foreach ($suppliers as $supplier) {
+        foreach ($supplier['products'] as $product) {
+            $totalItem += $product['quantity'];
+            $totalWeight += $product['weight'] * $product['quantity'];
+        }
+    }
+}
 @endphp
+
+@extends('layouts/main')
 
 {{-- header --}}
 @section('header')
@@ -11,7 +36,8 @@ $totalPrice = 0;
 
 {{-- content --}}
 @section('content')
-    <form class="row justify-content-center my-5" action="/order/store" method="post">
+    <form class="cart-checkout row justify-content-center my-5" action="/order/store" method="post">
+
         {{-- address --}}
         <div class="col-9">
             <div class="address">
@@ -36,61 +62,95 @@ $totalPrice = 0;
             </div>
             <hr>
 
-            {{-- products --}}
+            {{-- Cart --}}
             <div class="products">
                 @csrf
                 @if (count($suppliers) != 0)
                     <h3 class="fw-bold">Detail Barang</h3>
-                    @for ($i = 0; $i < count($suppliers); $i++)
+                    @php $i = 0 @endphp
+
+                    {{-- suppliers --}}
+                    @foreach ($suppliers as $supplier)
                         <div class="checkout-item__header mt-5">
-                            <span class="cart-supplier__header"><img
-                                    src="https://avatars.dicebear.com/api/gridy/{{ $suppliers[$i]->username }}.svg"
-                                    alt="{{ $suppliers[$i]->username }}">{{ $suppliers[$i]->username }}</span>
+                            <span class="cart-supplier__header">
+                                <img
+                                src="https://avatars.dicebear.com/api/gridy/{{ $supplier['username'] }}.svg"
+                                alt="{{ $supplier['username'] }}">{{ $supplier['username'] }}
+                            </span>
                             <input type="hidden" name="orders[{{ $i }}][username]"
                                 value="{{ auth()->user()->username }}">
                             <input type="hidden" name="orders[{{ $i }}][supplier]"
-                                value="{{ $suppliers[$i]->username }}">
+                                value="{{ $supplier['username'] }}">
                             <input type="hidden" name="orders[{{ $i }}][address_id]"
                                 value="{{ $active_address }}">
-                            <select class="form-select mt-3" aria-label="Pengiriman"
+                            <select class="shipper form-select mt-3" aria-label="Pengiriman"
                                 name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
-                                <option value="instan">Instan: 3-6 jam</option>
-                                <option value="same day">Same Day: 6-8 jam</option>
-                                <option value="reguler">Reguler: 3-5 Hari</option>
-                                <option value="kargo">Kargo: > 1 Minggu</option>
+                                <option value="pengiriman">Pengiriman</option>
+                                <option value="instan">Instan</option>
+                                <option value="same day">Same Day</option>
+                                <option value="reguler">Reguler</option>
+                                <option value="kargo">Kargo</option>
                             </select>
                         </div>
-                        @for ($y = 0; $y < count($products); $y++)
-                            @if ($products[$y]->supplier == $suppliers[$i]->username)
-                                @php
-                                    $totalPrice = $totalPrice + $products[$y]->price;
-                                @endphp
-                                <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
-                                    <div class="col-2 cart-img-wrapper">
-                                        <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $products[$y]->name }}">
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="row">
-                                            <div class="col cart-item-content">
-                                                <p>{{ $products[$y]->name }}</p>
-                                                <span>Rp. {{ $products[$y]->price }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <input type="hidden"
-                                            name="orders[{{ $i }}][order_details][{{ $y }}][product_id]"
-                                            value="{{ $products[$y]->id }}">
-                                        <div class="">
-                                            <label for="note-{{ $i }}">Catatan</label>
-                                            <textarea class="form-control" id="note-{{ $i }}" rows="3"
-                                                name="orders[{{ $i }}][order_details][{{ $y }}][note]"></textarea>
+                        @php
+                            $j = 0;
+                            $subtotalWeight = 0;
+                            $subtotalPrice = 0;
+                        @endphp
+
+                        {{-- products --}}
+                        @foreach ($supplier['products'] as $product)
+                            <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
+                                <div class="col-2 cart-img-wrapper">
+                                    <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product['name'] }}">
+                                </div>
+                                <div class="col-6">
+                                    <div class="row">
+                                        <div class="col cart-item-content">
+                                            <p>{{ $product['name'] }}</p>
+                                            <p><span>Rp. {{ $product['price'] }}</span></p>
+                                            <p>{{ $product['weight'] }} gram</p>
+                                            <p>Quantity: {{ $product['quantity'] }}</p>
                                         </div>
                                     </div>
                                 </div>
-                            @endif
-                        @endfor
-                    @endfor
+                                <div class="col-4">
+                                    <input type="hidden"
+                                        name="orders[{{ $i }}][order_details][{{ $j }}][product_id]"
+                                        value="{{ $product['id'] }}">
+                                    @if (isset($product['note']))
+                                        <label for="note-{{ $i }}-{{ $j }}">Note: </label>
+                                        <input type="text" id="note-{{ $i }}-{{ $j }}"
+                                            name="orders[{{ $i }}][order_details][{{ $j }}][note]"
+                                            value="{{ $product['note'] }}"
+                                            readonly>
+                                    @else
+                                        <input type="hidden" id="note-{{ $i }}-{{ $j }}"
+                                            name="orders[{{ $i }}][order_details][{{ $j }}][note]">
+                                        @endif
+                                    <input type="hidden"
+                                        name="orders[{{ $i }}][order_details][{{ $j }}][quantity]"
+                                        value="{{ $product['quantity'] }}">
+                                </div>
+                            </div>
+                            @php
+                                $j = $j + 1;
+                                $subtotalWeight += (int)$product['weight'] * (int)$product['quantity'];
+                                $subtotalPrice += (int)$product['price'] * (int)$product['quantity'];
+                            @endphp
+                        @endforeach
+
+                        <div style="display: none" class="subtotal-weight">{{ $subtotalWeight }}</div>
+                        <div style="display: none" class="subtotal-price">{{ $subtotalPrice }}</div>
+                        @php $i = $i + 1 @endphp
+                        <div class="summary" style="display: none">
+                            <div>Estimation: <span class="estimation"> ... </span></div>
+                            <div>Shipping cost: Rp. <span class="shipping-cost"> ... </span></div>
+                            <div>Subtotal bill: Rp. <span class="subtotal-bill"> ... </span></div>
+                        </div>
+                    @endforeach
+
+                {{-- intro --}}
                 @else
                     <div class="empty-cart">
                         <img src="{{ asset('img/taniku.png') }}" alt="taniku">
@@ -101,16 +161,26 @@ $totalPrice = 0;
                 @endif
             </div>
         </div>
+
+        {{-- summary --}}
         <div class="col-3">
             <div class="order">
                 <h5 class="mb-4">Total belanja</h5>
                 <div class="cart-label__wrapper">
                     <p>Total item</p>
-                    <p>{{ count($products) }}</p>
+                    <p>{{ $totalItem }}</p>
                 </div>
                 <div class="cart-label__wrapper">
-                    <p>Total price</p>
-                    <p>Rp {{ $totalPrice }}</p>
+                    <p>Total weight</p>
+                    <p><span class="total-weight">{{ $totalWeight }}</span> gram</p>
+                </div>
+                <div class="cart-label__wrapper total-shipping-cost-container" style="display: none">
+                    <p>Total shipping cost</p>
+                    <p>Rp <span class="total-shipping-cost"> ... </span></p>
+                </div>
+                <div class="cart-label__wrapper total-bill-container" style="display: none">
+                    <p>Total bill</p>
+                    <p>Rp <span class="total-bill"> ... </span></p>
                 </div>
                 <button class="btn btn-success" type="submit" name="submit"
                     {{ count($suppliers) == 0 ? 'disabled' : '' }}>Beli sekarang</button>
@@ -146,8 +216,7 @@ $totalPrice = 0;
                                 <span>Utama</span>
                                 <p class="fw-bold">{{ $address->fullname }}</p>
                                 <p>{{ $address->phone_number }}</p>
-                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
-                                </p>
+                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
                                 <p>{{ $address->postal_code }}</p>
                             </div>
                         @break
@@ -163,8 +232,7 @@ $totalPrice = 0;
                                 <label for="address-{{ $address->id }}" class="address-card address-card__checkout">
                                     <p class="fw-bold">{{ $address->fullname }}</p>
                                     <p>{{ $address->phone_number }}</p>
-                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
-                                    </p>
+                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
                                     <p>{{ $address->postal_code }}</p>
                                 </label>
                             </div>
@@ -223,7 +291,7 @@ $totalPrice = 0;
                         <label for="postal_code" class="form-label fw-bold">Postal Code</label>
                         <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="">
                     </div>
-                    <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
+                    <input type="hidden" id="username" name="username" value="{{ auth()->user()['username'] }}">
                     <input type="hidden" name="type" value="1">
                 </div>
                 <div class="modal-footer border-0 justify-content-center">

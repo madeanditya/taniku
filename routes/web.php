@@ -53,17 +53,11 @@ Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middlewar
 Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth');
 Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->middleware('auth'); // cek session
 
-Route::get('/customer_order/show/pending', [CustomerOrderController::class, 'showPending'])->middleware('auth');
-Route::get('/customer_order/show/in_progress', [CustomerOrderController::class, 'showInProgress'])->middleware('auth');
-Route::get('/customer_order/show/succeed', [CustomerOrderController::class, 'showSucceed'])->middleware('auth');
-Route::get('/customer_order/show/failed', [CustomerOrderController::class, 'showFailed'])->middleware('auth');
+Route::get('/customer_order/show/{status}', [CustomerOrderController::class, 'show'])->middleware('auth');
 
-Route::get('/order/show', [OrderController::class, 'show'])->middleware('auth');
-Route::get('/order/show/in_progress', [OrderController::class, 'showInProgress'])->middleware('auth');
-Route::get('/order/show/succeed', [OrderController::class, 'showSucceed'])->middleware('auth');
-Route::get('/order/show/failed', [OrderController::class, 'showFailed'])->middleware('auth');
 Route::post('/order/store', [OrderController::class, 'store'])->middleware('auth');
 Route::post('/order/store_one', [OrderController::class, 'storeOne'])->middleware('auth');
+Route::get('/order/show/{status}', [OrderController::class, 'show'])->middleware('auth');
 
 Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
 Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');

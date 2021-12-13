@@ -10,88 +10,47 @@ class OrderDetail extends Model
 {
     use HasFactory;
 
-    public static function getPendingOrdersBySupplier(String $supplier) {
+    public static function getOrderDetailsBySupplier(String $supplier) {
         $order_details = DB::table('order_details as od')
             ->join('products as p', 'od.product_id', '=', 'p.id')
             ->join('orders as o', 'od.order_id', '=', 'o.id')
+            ->select('od.id', 'od.quantity', 'od.note', 'od.order_id', 'od.product_id', 'p.name', 'p.price', 'p.weight', 'p.supplier', 'o.supplier', 'o.status')
             ->where('o.supplier', $supplier)
-            ->where('o.status', 'pending')
             ->get();
 
         return $order_details;
     }
 
-    public static function getInProgressOrdersBySupplier(String $supplier) {
+    public static function getOrderDetailsBySupplierAndStatus(String $supplier, String $status) {
         $order_details = DB::table('order_details as od')
             ->join('products as p', 'od.product_id', '=', 'p.id')
             ->join('orders as o', 'od.order_id', '=', 'o.id')
+            ->select('od.id', 'od.quantity', 'od.note', 'od.order_id', 'od.product_id', 'p.name', 'p.price', 'p.weight', 'p.supplier', 'o.supplier', 'o.status')
             ->where('o.supplier', $supplier)
-            ->where('o.status', 'in progress')
+            ->where('o.status', $status)
             ->get();
 
         return $order_details;
     }
 
-    public static function getSucceedOrdersBySupplier(String $supplier) {
+    public static function getOrderDetailsByUsername(String $username) {
         $order_details = DB::table('order_details as od')
             ->join('products as p', 'od.product_id', '=', 'p.id')
             ->join('orders as o', 'od.order_id', '=', 'o.id')
-            ->where('o.supplier', $supplier)
-            ->where('o.status', 'succeed')
-            ->get();
-
-        return $order_details;
-    }
-
-    public static function getFailedOrdersBySupplier(String $supplier) {
-        $order_details = DB::table('order_details as od')
-            ->join('products as p', 'od.product_id', '=', 'p.id')
-            ->join('orders as o', 'od.order_id', '=', 'o.id')
-            ->where('o.supplier', $supplier)
-            ->where('o.status', 'failed')
-            ->get();
-
-        return $order_details;
-    }
-
-    public static function getOrdersByUsername(String $username) {
-        $order_details = DB::table('order_details as od')
-            ->join('products as p', 'od.product_id', '=', 'p.id')
-            ->join('orders as o', 'od.order_id', '=', 'o.id')
+            ->select('od.id', 'od.quantity', 'od.note', 'od.order_id', 'od.product_id', 'p.name', 'p.price', 'p.weight', 'p.supplier', 'o.supplier', 'o.status')
             ->where('o.username', $username)
             ->get();
 
         return $order_details;
     }
 
-    public static function getInProgressOrdersByUsername(String $username) {
+    public static function getOrderDetailsByUsernameAndStatus(String $username, String $status) {
         $order_details = DB::table('order_details as od')
             ->join('products as p', 'od.product_id', '=', 'p.id')
             ->join('orders as o', 'od.order_id', '=', 'o.id')
+            ->select('od.id', 'od.quantity', 'od.note', 'od.order_id', 'od.product_id', 'p.name', 'p.price', 'p.weight', 'p.supplier', 'o.supplier', 'o.status')
             ->where('o.username', $username)
-            ->where('o.status', 'in progress')
-            ->get();
-
-        return $order_details;
-    }
-
-    public static function getSucceedOrdersByUsername(String $username) {
-        $order_details = DB::table('order_details as od')
-            ->join('products as p', 'od.product_id', '=', 'p.id')
-            ->join('orders as o', 'od.order_id', '=', 'o.id')
-            ->where('o.username', $username)
-            ->where('o.status', 'succeed')
-            ->get();
-
-        return $order_details;
-    }
-
-    public static function getFailedOrdersByUsername(String $username) {
-        $order_details = DB::table('order_details as od')
-            ->join('products as p', 'od.product_id', '=', 'p.id')
-            ->join('orders as o', 'od.order_id', '=', 'o.id')
-            ->where('o.username', $username)
-            ->where('o.status', 'failed')
+            ->where('o.status', $status)
             ->get();
 
         return $order_details;
