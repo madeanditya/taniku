@@ -966,6 +966,22 @@ section {
     margin-top: 1rem;
 }
 
+.cart-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.cart-item-content p {
+    margin: 0;
+    padding: 0;
+}
+
+.remaining-stock {
+    font-size: .8rem;
+    color: #28a745;
+}
+
 .cart-item-content span {
     font-weight: bold;
 }
@@ -973,6 +989,24 @@ section {
 .delete-cart-item__btn {
     color: #9199ad;
     text-decoration: none;
+}
+
+.quantity-wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.product-note {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.product-note label {
+    color: #28a745;
+    cursor: pointer;
+    width: fit-content;
 }
 
 .cart-supplier__header {

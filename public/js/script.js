@@ -261,6 +261,13 @@ $(document).ready(function () {
     })
     // end ubah alamat checkout page
 
+    // toggle add note textarea
+    $('.product-note label').on('click', function () {
+        const id = $(this).attr('for')
+        $('#' + id).toggleClass('d-none')
+    })
+    // end toggle add note textarea
+
 })
 
 // Counting change action inside /cart/show page
