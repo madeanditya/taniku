@@ -1,17 +1,3 @@
-{{--
-yang dikirim lewat post request
-orders
-- username
-- supplier
-- shipper
-- address_id
-- order_details
-  - quantity
-  - note
-  - order_id
-  - product_id
---}}
-
 {{-- harga total dan berat total seluruh produk --}}
 @php
 $totalItem = 0;
@@ -139,7 +125,6 @@ if (count($suppliers) != 0) {
                                 $subtotalPrice += (int)$product['price'] * (int)$product['quantity'];
                             @endphp
                         @endforeach
-
                         <div style="display: none" class="subtotal-weight">{{ $subtotalWeight }}</div>
                         <div style="display: none" class="subtotal-price">{{ $subtotalPrice }}</div>
                         @php $i = $i + 1 @endphp

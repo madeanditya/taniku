@@ -16,6 +16,8 @@ class ProductController extends Controller
     }
 
     public function store(Request $request) {
+
+        // validating input
         $product = $request->validate([
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:255',
@@ -26,6 +28,7 @@ class ProductController extends Controller
             'supplier' => 'required'
         ]);
 
+        // insert product record
         DB::table('products')->insert($product);
         return redirect('/product/show');
     }
@@ -39,8 +42,8 @@ class ProductController extends Controller
 
     public function edit(int $id) {
 
+        // authorization
         $product = Product::getProductById($id);
-
         if ($product->supplier != auth()->user()->username) {
             abort(403, 'Unauthorized action.');
         }
@@ -52,6 +55,8 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, int $id) {
+
+        // validating input
         $product = $request->validate([
             'name' => 'required|min:3|max:255',
             'description' => 'required|min:3|max:255',
@@ -62,17 +67,20 @@ class ProductController extends Controller
             'supplier' => 'required'
         ]);
 
+        // updating product record
         DB::table('products')->where('id', $id)->update($product);
         return redirect('/product/show');
     }
 
     public function destroy(int $id) {
+        
+        // authorization
         $product = Product::getProductById($id);
-
         if ($product->supplier != auth()->user()->username) {
             abort(403, 'Unauthorized action.');
         }
 
+        // deleting product record
         DB::table('products')->where('id', $id)->delete();
         return redirect('/product/show');
     }

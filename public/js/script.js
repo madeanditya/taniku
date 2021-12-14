@@ -287,3 +287,72 @@ $(document).ready(function() {
         }
     }
 })
+
+// menghitung total cart/checkoutone
+// menghitung total item, total weight, total shipping cost, total bill
+// berdasarkan quantity dan pengiriman
+$(document).ready(function()
+{
+    let cartCheckoutOne = document.querySelector('.cart-checkout-one')
+    if (cartCheckoutOne) {
+        let supplierShipper = cartCheckoutOne.querySelector('.supplier-shipper')
+
+        let productQuantity = cartCheckoutOne.querySelector('.product-quantity')
+        let productWeight = parseInt(cartCheckoutOne.querySelector('.product-weight').innerHTML)
+        let productPrice = parseInt(cartCheckoutOne.querySelector('.product-price').innerHTML)
+
+        let subsummary = cartCheckoutOne.querySelector('.subsummary')
+        let subsummaryEstimation = cartCheckoutOne.querySelector('.subsummary-estimation')
+
+        let summaryItemContainer = cartCheckoutOne.querySelector('.summary-item-container')
+        let summaryWeightContainer = cartCheckoutOne.querySelector('.summary-weight-container')
+        let summaryShippingCostContainer = cartCheckoutOne.querySelector('.summary-shipping-cost-container')
+        let summaryBillContainer = cartCheckoutOne.querySelector('.summary-bill-container')
+
+        let summaryItem = cartCheckoutOne.querySelector('.summary-item')
+        let summaryWeight = cartCheckoutOne.querySelector('.summary-weight')
+        let summaryShippingCost = cartCheckoutOne.querySelector('.summary-shipping-cost')
+        let summaryBill = cartCheckoutOne.querySelector('.summary-bill')
+
+        function count() {
+            if (supplierShipper.value == 'pengiriman') {
+                subsummary.style.display = 'none'
+                summaryShippingCostContainer.style.display = 'none'
+                summaryBillContainer.style.display = 'none'
+            }
+            else {
+                subsummary.style.display = 'block'
+                summaryShippingCostContainer.style.display = 'inline'
+                summaryBillContainer.style.display = 'inline'
+                if (supplierShipper.value == 'instan') {
+                    subsummaryEstimation.innerHTML = 'arrive in 3 to 6 hours'
+                    summaryShippingCost.innerHTML = 10000 + (50 * productWeight * parseInt(productQuantity.value))
+                    summaryBill.innerHTML = productPrice + (10000 + 50 * productWeight * parseInt(productQuantity.value))
+                }
+                else if (supplierShipper.value == 'same day') {
+                    subsummaryEstimation.innerHTML = 'arrive in 6 to 8 hours'
+                    summaryShippingCost.innerHTML = 10000 + 40 * productWeight * parseInt(productQuantity.value)
+                    summaryBill.innerHTML = productPrice + (10000 + 40 * productWeight * parseInt(productQuantity.value))
+                }
+                else if (supplierShipper.value == 'reguler') {
+                    subsummaryEstimation.innerHTML = 'arrive in 1 to 3 days'
+                    summaryShippingCost.innerHTML = 10000 + 20 * productWeight * parseInt(productQuantity.value)
+                    summaryBill.innerHTML = productPrice + (10000 + 20 * productWeight * parseInt(productQuantity.value))
+                }
+                else if (supplierShipper.value == 'kargo') {
+                    subsummaryEstimation.innerHTML = 'arrive in 3 to 7 days'
+                    summaryShippingCost.innerHTML = 10000 + 5 * productWeight * parseInt(productQuantity.value)
+                    summaryBill.innerHTML = productPrice + (10000 + 5 * productWeight * parseInt(productQuantity.value))
+                }
+            }
+        }
+
+        supplierShipper.addEventListener('change', function() {
+            count()
+        })
+
+        productQuantity.addEventListener('change', function() {
+            count()
+        })
+    }
+})

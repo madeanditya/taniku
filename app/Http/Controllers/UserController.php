@@ -17,12 +17,15 @@ class UserController extends Controller
     }
 
     public function store(Request $request) {
+
+        // password confirmation
         if ($request['password'] != $request['confirm']) {
             return back()->withErrors([
                 'confirm' => ['The provided confirmation does not match the provided password']
             ]);
         }
 
+        // validating user data input
         $validatedUserData =  $request->validate([
             'email' => 'required|email:rfc,dns',
             'password' => 'required|min:5|max:255',
@@ -30,8 +33,11 @@ class UserController extends Controller
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
         ]);
+
+        // hashsing password
         $validatedUserData['password'] = Hash::make($validatedUserData['password']);
 
+        // validating address data input
         $validatedAddressData = $request->validate([
             'fullname' => 'required|min:3|max:255',
             'phone_number' => 'required|size:12',
@@ -42,8 +48,11 @@ class UserController extends Controller
             'postal_code' => 'required|min:3|max:255',
             'username' => 'required|min:3|max:255'
         ]);
+
+        // set address to default address
         $validatedAddressData['default'] = 1;
 
+        // insert record data
         User::create($validatedUserData);
         DB::table('addresses')->insert($validatedAddressData);
 
@@ -57,16 +66,20 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request) {
+
+        // validating input
         $validatedData = $request->validate([
             'username' => 'required|min:3|max:255',
             'password' => 'required|min:5|max:255',
         ]);
 
+        // trying to logging in
         if (Auth::attempt($validatedData)) {
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
 
+        // if not succeed
         return back()->withErrors([
             'username' => ['Login failed']
         ]);

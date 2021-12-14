@@ -2,163 +2,240 @@
 
 {{-- header --}}
 @section('header')
-@include('partitions/navbar')
+    @include('partitions/navbar')
 @endsection
 
 {{-- content --}}
 @section('content')
-    <div class="address">
-        <h3>Alamat Penerima</h3>
-        @foreach ($addresses as $address)
-            @if ($address->id == $active_address)
-                <div>Nama: {{ $address->fullname }}</div>
-                <div>Nomor: {{ $address->phone_number }}</div>
-                <div>Alamat: {{ $address->address . ", " . $address->subdistrict . ", " . $address->city . ", " . $address->province }}</div>
-                <div>Kode Pos: {{ $address->postal_code }}</div>
-                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editAddressModal">
-                    Ubah alamat
-                </button>
-                @break
-            @endif
-        @endforeach
-    </div>
-    <hr>
+    <form class="cart-checkout-one row justify-content-center my-5" action="/order/store" method="post">
+        <div class="col-9">
 
-    {{-- product --}}
-    <div class="product">
-        <form action="/order/store_one" method="post">
-            @csrf
-            <h4>Supplier: {{ $product->supplier }}</h4>
-            <input type="hidden" name="username" value="{{ auth()->user()->username }}">
-            <input type="hidden" name="supplier" value="{{ $product->supplier }}">
-            <input type="hidden" name="address_id" value="{{ $active_address }}">
-            <label for="shipper">Pengiriman: </label>
-            <select name="shipper" id="shipper">
-                <option value="instan">Instan: 3-6 jam</option>
-                <option value="same day">Same Day: 6-8 jam</option>
-                <option value="reguler">Reguler: 3-5 Hari</option>
-                <option value="kargo">Kargo: > 1 Minggu</option>
-            </select>
-            <div class="product">
-                <div>{{ $product->name }}</div>
-                <div>{{ $product->supplier }}</div>
-                <div>{{ $product->price }}</div>
-                <input type="hidden" name="product_id" value="{{ $product->id }}">
+            {{-- address --}}
+            <div class="address">
+                <h3 class="fw-bold mb-3">Alamat Penerima</h3>
+                @foreach ($addresses as $address)
+                    @if ($address->id == $active_address)
+                        <div class="address-card">
+                            <p class="fw-bold">{{ $address->fullname }}</p>
+                            <p>{{ $address->phone_number }}</p>
+                            <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
+                            </p>
+                            <p>{{ $address->postal_code }}</p>
+                            <div class="address-card__footer">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#editAddressModal">
+                                    Ubah alamat</button>
+                            </div>
+                        </div>
+                    @break
+                @endif
+                @endforeach
             </div>
             <hr>
 
-            <h3>Ringkasan Belanja</h3>
-            <button type="submit" class="btn btn-link" name="submit">Beli</button>
-            <hr>
-        </form>        
-    </div>
+            {{-- product --}}
+            <div class="products">
+                @csrf
+                <h3 class="fw-bold">Detail Barang</h3>
+
+                {{-- suppliers --}}
+                <div class="checkout-item__header mt-5">
+                    <span class="cart-supplier__header">
+                        <img
+                        src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
+                        alt="{{ $product->supplier }}">{{ $product->supplier }}
+                    </span>
+                    <input type="hidden" name="orders[0][username]"
+                        value="{{ auth()->user()->username }}">
+                    <input type="hidden" name="orders[0][supplier]"
+                        value="{{ $product->supplier }}">
+                    <input type="hidden" name="orders[0][address_id]"
+                        value="{{ $active_address }}">
+                    <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman"
+                        name="orders[0][shipper]" id="shipper-0">
+                        <option value="pengiriman">Pengiriman</option>
+                        <option value="instan">Instan</option>
+                        <option value="same day">Same Day</option>
+                        <option value="reguler">Reguler</option>
+                        <option value="kargo">Kargo</option>
+                    </select>
+                </div>
+
+                {{-- products --}}
+                <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
+                    <div class="col-2 cart-img-wrapper">
+                        <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product->name }}">
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col cart-item-content">
+                                <p>{{ $product->name }}</p>
+                                <p>Rp. <span class="product-price">{{ $product->price }}</span></p>
+                                <p><span class="product-weight">{{ $product->weight }}</span> gram</p>
+                                <p>Remaining {{ $product->stock }}</p>
+                                <label for="quantity-0-0">Quantity:</label>
+                                <input type="number"
+                                    name="orders[0][order_details][0][quantity]"
+                                    id="quantity-0-0" class="product-quantity"
+                                    value="1" min="1" max="{{ $product->stock }}">
+                                    <br>
+                                <label for="note-0-0">Note: </label>
+                                <input type="text" id="note-0-0"
+                                    name="orders[0][order_details][0][note]"
+                                    placeholder="leave a note">
+                                <input type="hidden"
+                                    name="orders[0][order_details][0][product_id]"
+                                    value="{{ $product->id }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- subsummary --}}
+                <div class="subsummary" style="display: none">
+                    <div>Estimation: <span class="subsummary-estimation"> ... </span></div>
+                </div>
+            </div>
+        </div>
+
+        {{-- summary --}}
+        <div class="col-3">
+            <div class="order">
+                <h5 class="mb-4">Total belanja</h5>
+                <div class="cart-label__wrapper">
+                    <p>Total item</p>
+                    <p class="summary-item">1</p>
+                </div>
+                <div class="cart-label__wrapper">
+                    <p>Total weight</p>
+                    <p><span class="summary-weight">{{ $product->weight }}</span> gram</p>
+                </div>
+                <div class="cart-label__wrapper summary-shipping-cost-container" style="display: none">
+                    <p>Total shipping cost</p>
+                    <p>Rp <span class="summary-shipping-cost"> ... </span></p>
+                </div>
+                <div class="cart-label__wrapper summary-bill-container" style="display: none">
+                    <p>Total bill</p>
+                    <p>Rp <span class="summary-bill"> ... </span></p>
+                </div>
+                <button class="btn btn-success" type="submit" name="submit">Beli sekarang</button>
+            </div>
+        </div>
+    </form>
 @endsection
 
 {{-- footer --}}
 @section('footer')
     @include('partitions/footer')
 @endsection
-  
+
 {{-- edit adderss modal --}}
-<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="" method="post">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editAddressModalLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg  modal-dialog-scrollable">
+        <form action="" method="post" class="modal-content">
+            @csrf
+            <div class="modal-header border-0">
+                <h5 class="modal-title fw-bold">Pilih alamat pengiriman</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button type="button" class="btn btn-success mb-3" style="border-radius: 10px" data-bs-toggle="modal"
+                    data-bs-target="#createAddressModal">
+                    Tambah alamat
+                </button>
+                <div>
+                    @foreach ($addresses as $address)
+                        @if ($address->default == 1)
+                            <div class="address-card ">
+                                <span>Utama</span>
+                                <p class="fw-bold">{{ $address->fullname }}</p>
+                                <p>{{ $address->phone_number }}</p>
+                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                <p>{{ $address->postal_code }}</p>
+                            </div>
+                        @break
+                    @endif
+                    @endforeach
+
+                    @foreach ($addresses as $address)
+                        @if ($address->default == 0)
+                            <div>
+                                <input type="radio" id="address-{{ $address->id }}" name="active_address"
+                                    value="{{ $address->id }}" hidden
+                                    {{ $active_address == $address->id ? 'checked' : '' }}>
+                                <label for="address-{{ $address->id }}" class="address-card address-card__checkout">
+                                    <p class="fw-bold">{{ $address->fullname }}</p>
+                                    <p>{{ $address->phone_number }}</p>
+                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                    <p>{{ $address->postal_code }}</p>
+                                </label>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-                <div class="modal-body">
-                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#createAddressModal">
-                        Tambah alamat
-                    </button>
-                    <div>
-                        @foreach ($addresses as $address)
-                            @if ($address->default == 1)
-                                <div style="{{ $active_address == $address->id ? 'background-color: green' : 'background-color: greenyellow' }}" >
-                                    <input type="radio" id="address-{{ $address->id }}" name="active_address" value="{{ $address->id }}" {{ $active_address == $address->id ? "checked" : "" }}>
-                                    <label for="address-{{ $address->id }}">
-                                        <div>{{ $address->fullname }}</div>
-                                        <div>{{ $address->phone_number }}</div>
-                                        <div>{{ $address->address . ", " . $address->subdistrict . ", " . $address->city . ", " . $address->province }}</div>
-                                        <div>{{ $address->postal_code }}</div>
-                                        <div>{{ $address->id }}</div>
-                                        <div><i>Ini adalah alamat default</i></div>
-                                    </label>
-                                </div>
-                                <br>
-                                @break
-                            @endif
-                        @endforeach
-            
-                        @foreach ($addresses as $address)
-                                @if ($address->default == 0)
-                                <div style="{{ $active_address == $address->id ? 'background-color: green' : 'background-color: greenyellow' }}" >
-                                    <input type="radio" id="address-{{ $address->id }}" name="active_address" value="{{ $address->id }}" {{ $active_address == $address->id ? "checked" : "" }}>
-                                    <label for="address-{{ $address->id }}">
-                                        <div>{{ $address->fullname }}</div>
-                                        <div>{{ $address->phone_number }}</div>
-                                        <div>{{ $address->address . ", " . $address->subdistrict . ", " . $address->city . ", " . $address->province }}</div>
-                                        <div>{{ $address->postal_code }}</div>
-                                        <div>{{ $address->id }}</div>
-                                    </label>
-                                </div>
-                                <br>
-                            @endif
-                        @endforeach
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" name="submit" value="select">Select address</button>
-                    <button type="submit" class="btn btn-primary" name="submit" value="select and update">Select and set to default address</button>
-                </div>
-            </form>
-        </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="text-decoration-none btn btn-outline-success" type="submit" name="submit"
+                    value="select and update">Pilih dan Jadikan Alamat
+                    Default</button>
+                <button class="text-decoration-none btn btn-success fw-bold" type="submit" name="submit"
+                    value="select">Pilih</button>
+            </div>
+        </form>
     </div>
 </div>
 
 {{-- create address modal --}}
-<div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="createAddressModal" tabindex="-1" aria-labelledby="createAddressModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
-            <form action="/address/store" method="post">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="createAddressModalLabel">Modal title</h5>
+            <form class="modal-content" action="/address/store" method="post" style="padding: 1rem">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Tambah alamat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <label for="fullname">Fullname: </label>
-                    <input type="text" id="fullname" name="fullname">
-                    <br>
-                    <label for="phone_number">Phone Number: </label>
-                    <input type="text" id="phone_number" name="phone_number">
-                    <br>
-                    <label for="province">Province: </label>
-                    <input type="text" id="province" name="province">
-                    <br>
-                    <label for="city">City: </label>
-                    <input type="text" id="city" name="city">
-                    <br>
-                    <label for="subdistrict">Subdistrict: </label>
-                    <input type="text" id="subdistrict" name="subdistrict">
-                    <br>
-                    <label for="address">Address: </label>
-                    <input type="text" id="address" name="address">
-                    <br>
-                    <label for="postal_code">Postal Code: </label>
-                    <input type="text" id="postal_code" name="postal_code">
-                    <br>
-                    <input type="hidden" id="username" name="username" value="{{ auth()->user()->username }}">
+                <div class="modal-body border-0">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label fw-bold">Fullname</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone_number" class="form-label fw-bold">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="province" class="form-label fw-bold">Province</label>
+                        <input type="text" class="form-control" id="province" name="province" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label fw-bold">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="subdistrict" class="form-label fw-bold">Subdistrict</label>
+                        <input type="text" class="form-control" id="subdistrict" name="subdistrict" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label fw-bold">Address</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="postal_code" class="form-label fw-bold">Postal Code</label>
+                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="">
+                    </div>
+                    <input type="hidden" id="username" name="username" value="{{ auth()->user()['username'] }}">
+                    <input type="hidden" name="type" value="1">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddressModal">
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                        data-bs-target="#editAddressModal" style="border-radius: 10px;">
                         Kembali
                     </button>
-                    <button type="submit" name="submit" class="btn btn-primary">submit</button>
+                    <button type="submit" name="submit" class="btn btn-success fw-bold"
+                        style="border-radius: 10px; width: 30%">Simpan</button>
                 </div>
             </form>
         </div>

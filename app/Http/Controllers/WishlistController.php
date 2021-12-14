@@ -11,11 +11,14 @@ use Illuminate\Support\Facades\DB;
 class WishlistController extends Controller
 {
     public function store(int $id) {
+
+        // wishlist record
         $wishlist = [
             'username' => auth()->user()->username,
             'product_id' => $id
         ];
 
+        // memeriksa ada atau tidaknya record serupa dengan record input pada tabel wishlist
         if (!Wishlist::exist(auth()->user()->username, $id)) {
             DB::table('wishlists')->insert($wishlist);
         }
@@ -33,12 +36,14 @@ class WishlistController extends Controller
     }
 
     public function destroy(int $id) {
-        $wishlist = Wishlist::getWishlistById($id);
 
+        // authorization
+        $wishlist = Wishlist::getWishlistById($id);
         if ($wishlist->username != auth()->user()->username) {
             abort(403, 'Unauthorized action.');
         }
 
+        // deleting wishlist record
         DB::table('wishlists')->where('id', $id)->delete();
         return back();
     }
