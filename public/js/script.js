@@ -170,37 +170,36 @@ $(document).ready(function () {
 
 })
 
-
-// Counting Total price, Total item, and Total weight inside /cart/show page
+// Counting change action inside /cart/show page
 $(document).ready(function()
 {
     let cartShow = document.querySelector('.cart-show')
     if (cartShow) {
-        let quantities = cartShow.querySelectorAll('.product-quantity')
-        let weights = cartShow.querySelectorAll('.product-weight')
-        let prices = cartShow.querySelectorAll('.product-price')
-        let totalPriceElement = cartShow.querySelector('.total-price')
-        let totalWeightElement = cartShow.querySelector('.total-weight')
-        let totalItemElement = cartShow.querySelector('.total-item')
+        let productQuantities = cartShow.querySelectorAll('.product-quantity')
+        let productWeights = cartShow.querySelectorAll('.product-weight')
+        let productPrices = cartShow.querySelectorAll('.product-price')
+        let summaryPrice = cartShow.querySelector('.summary-price')
+        let summaryWeight = cartShow.querySelector('.summary-weight')
+        let sumaaryItem = cartShow.querySelector('.summary-item')
     
         function cartShowCountTotal() {
             let totalPrice = 0
             let totalWeight = 0
             let totalItem = 0
-            for (let i = 0; i < quantities.length; i++) {
-                let quantity = quantities[i]
-                let weight = weights[i]
-                let price = prices[i]
+            for (let i = 0; i < productQuantities.length; i++) {
+                let quantity = productQuantities[i]
+                let weight = productWeights[i]
+                let price = productPrices[i]
                 totalItem += parseInt(quantity.value)
                 totalWeight += parseInt(quantity.value) * parseInt(weight.innerHTML)
                 totalPrice += parseInt(quantity.value) * parseInt(price.innerHTML)
             }
-            totalItemElement.innerHTML = totalItem
-            totalWeightElement.innerHTML = totalWeight + ' gram'
-            totalPriceElement.innerHTML = 'Rp ' + totalPrice
+            sumaaryItem.innerHTML = totalItem
+            summaryWeight.innerHTML = totalWeight + ' gram'
+            summaryPrice.innerHTML = 'Rp ' + totalPrice
         };
         
-        quantities.forEach(element => {
+        productQuantities.forEach(element => {
             element.addEventListener('change', function () {
                 cartShowCountTotal()
             })
@@ -208,7 +207,7 @@ $(document).ready(function()
     }
 })
 
-// Counting Total price, Total item, and Total weight inside /cart/checkout page
+// Counting change action inside /cart/checkout page
 $(document).ready(function() {
     let cartCheckout = document.querySelector('.cart-checkout')
     if (cartCheckout) {
@@ -300,9 +299,7 @@ $(document).ready(function() {
     }
 })
 
-// menghitung total cart/checkoutone
-// menghitung total item, total weight, total shipping cost, total bill
-// berdasarkan quantity dan pengiriman
+// Counting change action inside /cart/checkoutOne page
 $(document).ready(function()
 {
     let cartCheckoutOne = document.querySelector('.cart-checkout-one')

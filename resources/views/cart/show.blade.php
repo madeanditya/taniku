@@ -49,7 +49,7 @@ if (count($products) != 0) {
                 <input type="hidden" name="suppliers[{{ $i }}][fullname]" value="{{ $supplier->fullname }}">
                 <input type="hidden" name="suppliers[{{ $i }}][profile_picture]" value="{{ $supplier->profile_picture }}">
 
-                {{-- supplier's products --}}
+                {{-- products --}}
                 @for ($j = 0; $j < count($products); $j++)
                     @php $product = $products[$j] @endphp
                     @if ($product->supplier == $supplier->username)
@@ -104,22 +104,22 @@ if (count($products) != 0) {
             @endfor
         </div>
 
-        {{-- total price --}}
+        {{-- summary --}}
         @if (count($products) != 0)
             <div class="col-3">
                 <div class="order">
                     <h5 class="mb-4">Total belanja</h5>
                     <div class="cart-label__wrapper">
                         <p>Total item</p>
-                        <p class="total-item">{{ count($products) }}</p>
+                        <p class="summary-item">{{ count($products) }}</p>
                     </div>
                     <div class="cart-label__wrapper">
                         <p>Total weight</p>
-                        <p class="total-weight">{{ $totalWeight }} gram</p>
+                        <p class="summary-weight">{{ $totalWeight }} gram</p>
                     </div>
                     <div class="cart-label__wrapper">
                         <p>Total price</p>
-                        <p class="total-price">Rp {{ $totalPrice }}</p>
+                        <p class="summary-price">Rp {{ $totalPrice }}</p>
                     </div>
                     <button type="submit" class="btn btn-success" role="button">Pesan sekarang</button>
                 </div>
