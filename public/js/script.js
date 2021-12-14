@@ -212,74 +212,86 @@ $(document).ready(function()
 $(document).ready(function() {
     let cartCheckout = document.querySelector('.cart-checkout')
     if (cartCheckout) {
-        let shippers = cartCheckout.querySelectorAll('.shipper')
-        let summaries = cartCheckout.querySelectorAll('.summary')
 
-        let subtotalPrices = cartCheckout.querySelectorAll('.subtotal-price')
-        let subtotalWeights = cartCheckout.querySelectorAll('.subtotal-weight')
+        // suppliers
+        let supllierShippers = cartCheckout.querySelectorAll('.supplier-shipper')
+        
+        // products
+        let subtotalProductQuantities = cartCheckout.querySelectorAll('.subtotal-product-quantity')
+        let subtotalProductPrices = cartCheckout.querySelectorAll('.subtotal-product-price')
+        let subtotalProductWeights = cartCheckout.querySelectorAll('.subtotal-product-weight')
 
-        let estimations = cartCheckout.querySelectorAll('.estimation')
-        let shippingCosts = cartCheckout.querySelectorAll('.shipping-cost')
-        let subtotalBills = cartCheckout.querySelectorAll('.subtotal-bill')
+        // subsummaries
+        let subsummaries = cartCheckout.querySelectorAll('.subsummary')
+        let subsummaryEstimations = cartCheckout.querySelectorAll('.subsummary-estimation')
+        let subsummaryShippingCosts = cartCheckout.querySelectorAll('.subsummary-shipping-cost')
+        let subsummaryBills = cartCheckout.querySelectorAll('.subsummary-bill')
 
-        let totalShippingCostContainer = cartCheckout.querySelector('.total-shipping-cost-container')
-        let totalBillContainer = cartCheckout.querySelector('.total-bill-container')
+        // summary containers
+        let summaryShippingCostContainer = cartCheckout.querySelector('.summary-shipping-cost-container')
+        let summaryBillContainer = cartCheckout.querySelector('.summary-bill-container')
 
-        let totalShippingCost = cartCheckout.querySelector('.total-shipping-cost')
-        let totalBill = cartCheckout.querySelector('.total-bill')
+        // summaries
+        let summaryShippingCost = cartCheckout.querySelector('.summary-shipping-cost')
+        let summaryBill = cartCheckout.querySelector('.summary-bill')
 
-        for (let i = 0; i < shippers.length; i++) {
-            let shipper = shippers[i]
-            let summary = summaries[i]
+        for (let i = 0; i < supllierShippers.length; i++) {
+
+            // retrieving data
+            let supplierShipper = supllierShippers[i]
+
+            let subtotalProductPrice = parseInt(subtotalProductPrices[i].innerHTML)
+            let subtotalProductWeight = parseInt(subtotalProductWeights[i].innerHTML)
             
-            let subtotalPrice = parseInt(subtotalPrices[i].innerHTML)
-            let subtotalWeight = parseInt(subtotalWeights[i].innerHTML)
+            let subsummary = subsummaries[i]
+            let subsummaryEstimation = subsummaryEstimations[i]
+            let subsummaryShippingCost = subsummaryShippingCosts[i]
+            let subsummaryBill = subsummaryBills[i]
 
-            let estimation = estimations[i]
-            let shippingCost = shippingCosts[i]
-            let subtotalBill = subtotalBills[i]
-
-            shipper.addEventListener('change', function() {
-                if (shipper.value == 'pengiriman') {
-                    summary.style.display = 'none'
-                    totalShippingCostContainer.style.display = 'none'
-                    totalBillContainer.style.display = 'none'
+            // counting subsummary
+            supplierShipper.addEventListener('change', function() {
+                if (supplierShipper.value == 'pengiriman') {
+                    subsummary.style.display = 'none'
+                    summaryShippingCostContainer.style.display = 'none'
+                    summaryBillContainer.style.display = 'none'
                 }
                 else {
-                    summary.style.display = 'block'
-                    if (shipper.value == 'instan') {
-                        estimation.innerHTML = 'arrive in 3 to 6 hours'
-                        shippingCost.innerHTML = 10000 + 50 * subtotalWeight
-                        subtotalBill.innerHTML = subtotalPrice + (10000 + 50 * subtotalWeight)
+                    subsummary.style.display = 'block'
+                    if (supplierShipper.value == 'instan') {
+                        subsummaryEstimation.innerHTML = 'arrive in 3 to 6 hours'
+                        subsummaryShippingCost.innerHTML = 10000 + 50 * subtotalProductWeight
+                        subsummaryBill.innerHTML = subtotalProductPrice + (10000 + 50 * subtotalProductWeight)
                     }
-                    else if (shipper.value == 'same day') {
-                        estimation.innerHTML = 'arrive in 6 to 8 hours'
-                        shippingCost.innerHTML = 10000 + 40 * subtotalWeight
-                        subtotalBill.innerHTML = subtotalPrice + (10000 + 40 * subtotalWeight)
+                    else if (supplierShipper.value == 'same day') {
+                        subsummaryEstimation.innerHTML = 'arrive in 6 to 8 hours'
+                        subsummaryShippingCost.innerHTML = 10000 + 40 * subtotalProductWeight
+                        subsummaryBill.innerHTML = subtotalProductPrice + (10000 + 40 * subtotalProductWeight)
                     }
-                    else if (shipper.value == 'reguler') {
-                        estimation.innerHTML = 'arrive in 1 to 3 days'
-                        shippingCost.innerHTML = 10000 + 20 * subtotalWeight
-                        subtotalBill.innerHTML = subtotalPrice + (10000 + 20 * subtotalWeight)
+                    else if (supplierShipper.value == 'reguler') {
+                        subsummaryEstimation.innerHTML = 'arrive in 1 to 3 days'
+                        subsummaryShippingCost.innerHTML = 10000 + 20 * subtotalProductWeight
+                        subsummaryBill.innerHTML = subtotalProductPrice + (10000 + 20 * subtotalProductWeight)
                     }
-                    else if (shipper.value == 'kargo') {
-                        estimation.innerHTML = 'arrive in 3 to 7 days'
-                        shippingCost.innerHTML = 10000 + 5 * subtotalWeight
-                        subtotalBill.innerHTML = subtotalPrice + (10000 + 5 * subtotalWeight)
+                    else if (supplierShipper.value == 'kargo') {
+                        subsummaryEstimation.innerHTML = 'arrive in 3 to 7 days'
+                        subsummaryShippingCost.innerHTML = 10000 + 5 * subtotalProductWeight
+                        subsummaryBill.innerHTML = subtotalProductPrice + (10000 + 5 * subtotalProductWeight)
                     }
-                    let totalShippingCostvalue = 0
-                    let totalBillvalue = 0
-                    for (let j = 0; j < shippers.length; j++) {
-                        totalShippingCostvalue += parseInt(shippingCosts[j].innerHTML)
-                        totalBillvalue += parseInt(subtotalBills[j].innerHTML)
-                        if (shippers[j].value == 'pengiriman') {
+
+                    // counting summary
+                    let totalShippingCost = 0
+                    let totalBill = 0
+                    for (let j = 0; j < supllierShippers.length; j++) {
+                        totalShippingCost += parseInt(subsummaryShippingCosts[j].innerHTML)
+                        totalBill += parseInt(subsummaryBills[j].innerHTML)
+                        if (supllierShippers[j].value == 'pengiriman') {
                             break
                         }
-                        else if (j == shippers.length - 1) {
-                            totalShippingCostContainer.style.display = 'block'
-                            totalBillContainer.style.display = 'block'
-                            totalShippingCost.innerHTML = totalShippingCostvalue
-                            totalBill.innerHTML = totalBillvalue
+                        else if (j == supllierShippers.length - 1) {
+                            summaryShippingCostContainer.style.display = 'block'
+                            summaryBillContainer.style.display = 'block'
+                            summaryShippingCost.innerHTML = totalShippingCost
+                            summaryBill.innerHTML = totalBill
                         }
                     }
                 }
@@ -295,25 +307,32 @@ $(document).ready(function()
 {
     let cartCheckoutOne = document.querySelector('.cart-checkout-one')
     if (cartCheckoutOne) {
+
+        // supplier
         let supplierShipper = cartCheckoutOne.querySelector('.supplier-shipper')
 
+        // product
         let productQuantity = cartCheckoutOne.querySelector('.product-quantity')
         let productWeight = parseInt(cartCheckoutOne.querySelector('.product-weight').innerHTML)
         let productPrice = parseInt(cartCheckoutOne.querySelector('.product-price').innerHTML)
 
+        // subsummary
         let subsummary = cartCheckoutOne.querySelector('.subsummary')
         let subsummaryEstimation = cartCheckoutOne.querySelector('.subsummary-estimation')
 
+        // summary container
         let summaryItemContainer = cartCheckoutOne.querySelector('.summary-item-container')
         let summaryWeightContainer = cartCheckoutOne.querySelector('.summary-weight-container')
         let summaryShippingCostContainer = cartCheckoutOne.querySelector('.summary-shipping-cost-container')
         let summaryBillContainer = cartCheckoutOne.querySelector('.summary-bill-container')
 
+        // summary
         let summaryItem = cartCheckoutOne.querySelector('.summary-item')
         let summaryWeight = cartCheckoutOne.querySelector('.summary-weight')
         let summaryShippingCost = cartCheckoutOne.querySelector('.summary-shipping-cost')
         let summaryBill = cartCheckoutOne.querySelector('.summary-bill')
 
+        // counting summary and subsumary
         function count() {
             if (supplierShipper.value == 'pengiriman') {
                 subsummary.style.display = 'none'

@@ -51,11 +51,10 @@ if (count($suppliers) != 0) {
             {{-- Cart --}}
             <div class="products">
                 @csrf
-                @if (count($suppliers) != 0)
                     <h3 class="fw-bold">Detail Barang</h3>
-                    @php $i = 0 @endphp
-
+                
                     {{-- suppliers --}}
+                    @php $i = 0 @endphp
                     @foreach ($suppliers as $supplier)
                         <div class="checkout-item__header mt-5">
                             <span class="cart-supplier__header">
@@ -69,7 +68,7 @@ if (count($suppliers) != 0) {
                                 value="{{ $supplier['username'] }}">
                             <input type="hidden" name="orders[{{ $i }}][address_id]"
                                 value="{{ $active_address }}">
-                            <select class="shipper form-select mt-3" aria-label="Pengiriman"
+                            <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman"
                                 name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
                                 <option value="pengiriman">Pengiriman</option>
                                 <option value="instan">Instan</option>
@@ -78,13 +77,9 @@ if (count($suppliers) != 0) {
                                 <option value="kargo">Kargo</option>
                             </select>
                         </div>
-                        @php
-                            $j = 0;
-                            $subtotalWeight = 0;
-                            $subtotalPrice = 0;
-                        @endphp
-
+                        
                         {{-- products --}}
+                        @php $j = 0; $subtotalWeight = 0; $subtotalPrice = 0;  $subtotalQuantity = 0; @endphp
                         @foreach ($supplier['products'] as $product)
                             <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
                                 <div class="col-2 cart-img-wrapper">
@@ -119,31 +114,21 @@ if (count($suppliers) != 0) {
                                         value="{{ $product['quantity'] }}">
                                 </div>
                             </div>
-                            @php
-                                $j = $j + 1;
-                                $subtotalWeight += (int)$product['weight'] * (int)$product['quantity'];
-                                $subtotalPrice += (int)$product['price'] * (int)$product['quantity'];
-                            @endphp
+                            @php $j = $j + 1; $subtotalWeight += (int)$product['weight'] * (int)$product['quantity']; $subtotalPrice += (int)$product['price'] * (int)$product['quantity']; $subtotalQuantity += (int)$product['quantity'] @endphp
                         @endforeach
-                        <div style="display: none" class="subtotal-weight">{{ $subtotalWeight }}</div>
-                        <div style="display: none" class="subtotal-price">{{ $subtotalPrice }}</div>
-                        @php $i = $i + 1 @endphp
-                        <div class="summary" style="display: none">
-                            <div>Estimation: <span class="estimation"> ... </span></div>
-                            <div>Shipping cost: Rp. <span class="shipping-cost"> ... </span></div>
-                            <div>Subtotal bill: Rp. <span class="subtotal-bill"> ... </span></div>
+                    
+                        {{-- subsummary --}}
+                        <div class="subsummary" style="display: none">
+                            <div>Estimation: <span class="subsummary-estimation"> ... </span></div>
+                            <div>Shipping cost: Rp. <span class="subsummary-shipping-cost"> ... </span></div>
+                            <div>Subtotal bill: Rp. <span class="subsummary-bill"> ... </span></div>
                         </div>
-                    @endforeach
 
-                {{-- intro --}}
-                @else
-                    <div class="empty-cart">
-                        <img src="{{ asset('img/taniku.png') }}" alt="taniku">
-                        <h3>Keranjangmu kosong</h3>
-                        <span>Tengkulak no Taniku yes!</span>
-                        <a class="btn btn-success" href="/" role="button">Belanja sekarang</a>
-                    </div>
-                @endif
+                        <div style="display: none" class="subtotal-product-quantity">{{ $subtotalQuantity }}</div>
+                        <div style="display: none" class="subtotal-product-weight">{{ $subtotalWeight }}</div>
+                        <div style="display: none" class="subtotal-product-price">{{ $subtotalPrice }}</div>
+                        @php $i = $i + 1 @endphp
+                    @endforeach
             </div>
         </div>
 
@@ -153,19 +138,19 @@ if (count($suppliers) != 0) {
                 <h5 class="mb-4">Total belanja</h5>
                 <div class="cart-label__wrapper">
                     <p>Total item</p>
-                    <p>{{ $totalItem }}</p>
+                    <p class="summary-item">{{ $totalItem }}</p>
                 </div>
                 <div class="cart-label__wrapper">
                     <p>Total weight</p>
-                    <p><span class="total-weight">{{ $totalWeight }}</span> gram</p>
+                    <p><span class="summary-weight">{{ $totalWeight }}</span> gram</p>
                 </div>
-                <div class="cart-label__wrapper total-shipping-cost-container" style="display: none">
+                <div class="cart-label__wrapper summary-shipping-cost-container" style="display: none">
                     <p>Total shipping cost</p>
-                    <p>Rp <span class="total-shipping-cost"> ... </span></p>
+                    <p>Rp <span class="summary-shipping-cost"> ... </span></p>
                 </div>
-                <div class="cart-label__wrapper total-bill-container" style="display: none">
+                <div class="cart-label__wrapper summary-bill-container" style="display: none">
                     <p>Total bill</p>
-                    <p>Rp <span class="total-bill"> ... </span></p>
+                    <p>Rp <span class="summary-bill"> ... </span></p>
                 </div>
                 <button class="btn btn-success" type="submit" name="submit"
                     {{ count($suppliers) == 0 ? 'disabled' : '' }}>Beli sekarang</button>
