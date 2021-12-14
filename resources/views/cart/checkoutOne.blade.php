@@ -41,18 +41,14 @@
                 {{-- suppliers --}}
                 <div class="checkout-item__header mt-5">
                     <span class="cart-supplier__header">
-                        <img
-                        src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
-                        alt="{{ $product->supplier }}">{{ $product->supplier }}
+                        <img src="https://avatars.dicebear.com/api/gridy/{{ $product->supplier }}.svg"
+                            alt="{{ $product->supplier }}">{{ $product->supplier }}
                     </span>
-                    <input type="hidden" name="orders[0][username]"
-                        value="{{ auth()->user()->username }}">
-                    <input type="hidden" name="orders[0][supplier]"
-                        value="{{ $product->supplier }}">
-                    <input type="hidden" name="orders[0][address_id]"
-                        value="{{ $active_address }}">
-                    <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman"
-                        name="orders[0][shipper]" id="shipper-0">
+                    <input type="hidden" name="orders[0][username]" value="{{ auth()->user()->username }}">
+                    <input type="hidden" name="orders[0][supplier]" value="{{ $product->supplier }}">
+                    <input type="hidden" name="orders[0][address_id]" value="{{ $active_address }}">
+                    <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman" name="orders[0][shipper]"
+                        id="shipper-0">
                         <option value="pengiriman">Pengiriman</option>
                         <option value="instan">Instan</option>
                         <option value="same day">Same Day</option>
@@ -62,29 +58,31 @@
                 </div>
 
                 {{-- products --}}
-                <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
-                    <div class="col-2 cart-img-wrapper">
+                <div class="row mt-4 cart-item-card">
+                    <div class="col-3 cart-img-wrapper">
                         <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product->name }}">
                     </div>
-                    <div class="col-6">
+                    <div class="col-8">
                         <div class="row">
                             <div class="col cart-item-content">
-                                <p>{{ $product->name }}</p>
-                                <p>Rp. <span class="product-price">{{ $product->price }}</span></p>
-                                <p><span class="product-weight">{{ $product->weight }}</span> gram</p>
-                                <p>Remaining {{ $product->stock }}</p>
-                                <label for="quantity-0-0">Quantity:</label>
-                                <input type="number"
-                                    name="orders[0][order_details][0][quantity]"
-                                    id="quantity-0-0" class="product-quantity"
-                                    value="1" min="1" max="{{ $product->stock }}">
-                                    <br>
-                                <label for="note-0-0">Note: </label>
-                                <input type="text" id="note-0-0"
-                                    name="orders[0][order_details][0][note]"
-                                    placeholder="leave a note">
-                                <input type="hidden"
-                                    name="orders[0][order_details][0][product_id]"
+                                <p>{{ $product->name }} (<span class="product-weight">{{ $product->weight }}
+                                        gram</span>)</p>
+                                <p class="remaining-stock">Remaining {{ $product->stock }}</p>
+                                <p class="fw-bold">Rp. <span class="product-price">{{ $product->price }}</span>
+                                </p>
+                                <div class="quantity-wrapper">
+                                    <label for="quantity-0-0">Quantity:</label>
+                                    <input type="number" name="orders[0][order_details][0][quantity]" id="quantity-0-0"
+                                        class="product-quantity" value="1" min="1" max="{{ $product->stock }}">
+                                </div>
+                                <div class="product-note">
+                                    <label class="form-label" for="note-0-0">Add
+                                        Note</label>
+                                    <textarea class="form-control d-none" id="note-0-0"
+                                        name="orders[0][order_details][0][note]" placeholder="leave a note">
+                                                                            </textarea>
+                                </div>
+                                <input type="hidden" name="orders[0][order_details][0][product_id]"
                                     value="{{ $product->id }}">
                             </div>
                         </div>
@@ -133,7 +131,7 @@
 <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg  modal-dialog-scrollable">
-        <form action="" method="post" class="modal-content">
+        <form action="" method="post" class="modal-content change-address__modal">
             @csrf
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold">Pilih alamat pengiriman</h5>
@@ -144,14 +142,15 @@
                     data-bs-target="#createAddressModal">
                     Tambah alamat
                 </button>
-                <div>
+                <div class="pick-address__modal">
                     @foreach ($addresses as $address)
                         @if ($address->default == 1)
                             <div class="address-card ">
                                 <span>Utama</span>
                                 <p class="fw-bold">{{ $address->fullname }}</p>
                                 <p>{{ $address->phone_number }}</p>
-                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
+                                </p>
                                 <p>{{ $address->postal_code }}</p>
                             </div>
                         @break
@@ -167,7 +166,8 @@
                                 <label for="address-{{ $address->id }}" class="address-card address-card__checkout">
                                     <p class="fw-bold">{{ $address->fullname }}</p>
                                     <p>{{ $address->phone_number }}</p>
-                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
+                                    </p>
                                     <p>{{ $address->postal_code }}</p>
                                 </label>
                             </div>
@@ -191,7 +191,8 @@
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
-            <form class="modal-content" action="/address/store" method="post" style="padding: 1rem">
+            <form class="modal-content address-modal__checkout" action="/address/store" method="post"
+                style="padding: 1rem">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold">Tambah alamat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -227,10 +228,9 @@
                         <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="">
                     </div>
                     <input type="hidden" id="username" name="username" value="{{ auth()->user()['username'] }}">
-                    <input type="hidden" name="type" value="1">
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-secondary address-back__btn" data-bs-toggle="modal"
                         data-bs-target="#editAddressModal" style="border-radius: 10px;">
                         Kembali
                     </button>

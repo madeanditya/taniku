@@ -436,8 +436,8 @@ $(document).ready(function () {
             }
             else {
                 subsummary.style.display = 'block'
-                summaryShippingCostContainer.style.display = 'inline'
-                summaryBillContainer.style.display = 'inline'
+                summaryShippingCostContainer.style.display = 'flex'
+                summaryBillContainer.style.display = 'flex'
                 if (supplierShipper.value == 'instan') {
                     subsummaryEstimation.innerHTML = 'arrive in 3 to 6 hours'
                     summaryShippingCost.innerHTML = 10000 + (50 * productWeight * parseInt(productQuantity.value))
