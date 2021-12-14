@@ -176,7 +176,7 @@ if (count($suppliers) != 0) {
 <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg  modal-dialog-scrollable">
-        <form action="" method="post" class="modal-content">
+        <form action="" method="post" class="modal-content change-address__modal">
             @csrf
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold">Pilih alamat pengiriman</h5>

@@ -97,6 +97,29 @@ function loadAddressCheckout(result) {
     })
 }
 
+function loadDefaultAddress(result) {
+    $.each(result, function (i, data) {
+        if (data.default) {
+            $('.address').append(`
+            <h3 class="fw-bold mb-3">Alamat Penerima</h3>
+                <div class="address-card">
+                <p class="fw-bold">`+ data.fullname + `</p>
+                <p>`+ data.phone_number + `</p>
+                <p>`+ data.address + `, ` + data.subdistrict + `, ` + data.city + `, ` + data.province + `
+                </p>
+                <p>`+ data.postal_code + `</p>
+                    <div class="address-card__footer">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#editAddressModal">
+                            Ubah alamat</button>
+                    </div>
+                </div>
+            `);
+            return;
+        }
+    })
+}
+
 
 
 $(document).ready(function () {
@@ -210,7 +233,6 @@ $(document).ready(function () {
             url: $(this).attr('action'),
             data: $(this).serialize(),
             success: function (result) {
-                console.log(result)
                 $('.pick-address__modal').html('')
                 loadAddressCheckout(result)
                 $('.address-modal__checkout')[0].reset();
@@ -220,6 +242,24 @@ $(document).ready(function () {
 
     })
     // end tambah alamat checkout page (form submited)
+
+    // ubah alamat checkout page
+    $('.change-address__modal').on('submit', function (e) {
+        e.preventDefault();
+        const addressId = $('input[name="active_address"]:checked').val();
+        $.ajax({
+            type: 'get',
+            url: '/address/default/' + addressId,
+            success: function (result) {
+                $('.pick-address__modal').html('')
+                loadAddressCheckout(result)
+                $('.address').html('')
+                loadDefaultAddress(result)
+                $('#editAddressModal').modal('hide')
+            }
+        });
+    })
+    // end ubah alamat checkout page
 
 })
 
