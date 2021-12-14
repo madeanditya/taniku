@@ -29,4 +29,11 @@ class HomeController extends Controller
             'title' => 'Home | ' . auth()->user()->username
         ]);
     }
+
+    public function product(int $id) {
+        return view('home/product', [
+            'product' => Product::getProductById($id),
+            'title' => 'Home | Product'
+        ]);
+    }
 }

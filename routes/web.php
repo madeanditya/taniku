@@ -30,6 +30,7 @@ use App\Http\Controllers\ProfileController;
 Route::get('/', [HomeController::class, 'main']);
 Route::get('/taniku', [HomeController::class, 'taniku']);
 Route::get('/{username}', [HomeController::class, 'user']);
+Route::get('/home/product/{id}', [HomeController::class, 'product']);
 
 Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
 Route::post('/user/register', [UserController::class, 'store'])->middleware('guest');
