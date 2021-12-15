@@ -1350,3 +1350,14 @@ section {
     text-decoration: none;
     color: tomato;
 }
+
+/* customer order */
+.acc-pesanan__btn {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.acc-pesanan__btn a {
+    border-radius: 10px;
+}
