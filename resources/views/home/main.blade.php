@@ -42,9 +42,9 @@
                     @foreach ($products as $product)
                         <div class="swiper-slide">
                             <div class="card">
-                                <div class="card-img-wrapper">
+                                <a href='/home/product/{{ $product->id }}' class="card-img-wrapper">
                                     <img src="img/tumbnail.png" class="card-img-top" alt="...">
-                                </div>
+                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">Rp {{ $product->price }}</p>
@@ -81,9 +81,9 @@
                     @foreach ($products as $product)
                         <div class="swiper-slide">
                             <div class="card">
-                                <div class="card-img-wrapper">
+                                <a href='/home/product/{{ $product->id }}' class="card-img-wrapper">
                                     <img src="img/tumbnail.png" class="card-img-top" alt="...">
-                                </div>
+                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $product->name }}</h5>
                                     <p class="card-text">Rp {{ $product->price }}</p>
@@ -119,9 +119,9 @@
         <div class="home-items__wrapper">
             @foreach ($products as $product)
                 <div class="card">
-                    <div class="card-img-wrapper">
+                    <a href='/home/product/{{ $product->id }}' class="card-img-wrapper">
                         <img src="img/tumbnail.png" class="card-img-top" alt="...">
-                    </div>
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">Rp {{ $product->price }}</p>
