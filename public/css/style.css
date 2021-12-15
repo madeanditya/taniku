@@ -938,7 +938,7 @@ section {
     border-radius: 10px;
     padding: 1rem;
     position: fixed;
-    width: 15rem;
+    width: 17rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -966,6 +966,22 @@ section {
     margin-top: 1rem;
 }
 
+.cart-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.cart-item-content p {
+    margin: 0;
+    padding: 0;
+}
+
+.remaining-stock {
+    font-size: .8rem;
+    color: #28a745;
+}
+
 .cart-item-content span {
     font-weight: bold;
 }
@@ -973,6 +989,24 @@ section {
 .delete-cart-item__btn {
     color: #9199ad;
     text-decoration: none;
+}
+
+.quantity-wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.product-note {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}
+
+.product-note label {
+    color: #28a745;
+    cursor: pointer;
+    width: fit-content;
 }
 
 .cart-supplier__header {
@@ -1252,5 +1286,78 @@ section {
 
 .checkout-item__header select {
     width: 25%;
+    border-radius: 10px;
+}
+
+
+/* order */
+
+.order-container {
+    border: 1px solid #E1E1E1;
+    border-radius: 10px;
+    margin-block: 1rem;
+    padding: 1rem;
+}
+
+.btn-active {
+    background-color: #28a745 !important;
+    color: #fff !important;
+}
+
+.orders {
+    margin-top: 2rem;
+}
+
+.supplier-tag img {
+    width: 2%;
+}
+
+.info-pengiriman {
+    display: flex;
+    gap: .7rem;
+    color: #8f9294;
+}
+
+.info-pengiriman__label p {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.info-pengiriman__label span {
+    margin-left: 2rem;
+}
+
+.info-pengiriman__detail p:last-of-type {
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    width: 80%;
+}
+
+.info-pengiriman__detail p:last-of-type span {
+    font-weight: normal;
+}
+
+.detail-transaksi__btn {
+    font-size: .8rem !important;
+    border-radius: 10px !important;
+    padding: .7em !important;
+}
+
+.cancel-pesanan__btn,
+.cancel-pesanan__btn:hover {
+    text-decoration: none;
+    color: tomato;
+}
+
+/* customer order */
+.acc-pesanan__btn {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.acc-pesanan__btn a {
     border-radius: 10px;
 }

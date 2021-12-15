@@ -47,7 +47,8 @@ if (count($products) != 0) {
                 <input type="hidden" name="suppliers[{{ $i }}][id]" value="{{ $supplier->id }}">
                 <input type="hidden" name="suppliers[{{ $i }}][username]" value="{{ $supplier->username }}">
                 <input type="hidden" name="suppliers[{{ $i }}][fullname]" value="{{ $supplier->fullname }}">
-                <input type="hidden" name="suppliers[{{ $i }}][profile_picture]" value="{{ $supplier->profile_picture }}">
+                <input type="hidden" name="suppliers[{{ $i }}][profile_picture]"
+                    value="{{ $supplier->profile_picture }}">
 
                 {{-- products --}}
                 @for ($j = 0; $j < count($products); $j++)
@@ -60,20 +61,28 @@ if (count($products) != 0) {
                             <div class="col-8">
                                 <div class="row">
                                     <div class="col cart-item-content">
-                                        <p>{{ $product->name }}</p>
-                                        <p>Rp. <span class="product-price">{{ $product->price }}</span></p>
-                                        <p><span class="product-weight">{{ $product->weight }}</span> gram</p>
-                                        <p>Remaining {{ $product->stock }}</p>
-                                        <label for="quantity-{{ $i }}-{{ $j }}">Quantity:</label>
-                                        <input type="number"
-                                            name="suppliers[{{ $i }}][products][{{ $j }}][quantity]"
-                                            id="quantity-{{ $i }}-{{ $j }}" class="product-quantity"
-                                            value="1" min="1" max="{{ $product->stock }}">
-                                            <br>
-                                        <label for="note-{{ $i }}-{{ $j }}">Note: </label>
-                                        <input type="text" id="note-{{ $i }}-{{ $j }}"
-                                            name="suppliers[{{ $i }}][products][{{ $j }}][note]"
-                                            placeholder="leave a note">
+                                        <p>{{ $product->name }} (<span class="product-weight">{{ $product->weight }}
+                                                gram</span>)</p>
+                                        <p class="remaining-stock">Remaining {{ $product->stock }}</p>
+                                        <p class="fw-bold">Rp. <span
+                                                class="product-price">{{ $product->price }}</span></p>
+                                        <div class="quantity-wrapper">
+                                            <label
+                                                for="quantity-{{ $i }}-{{ $j }}">Quantity:</label>
+                                            <input type="number"
+                                                name="suppliers[{{ $i }}][products][{{ $j }}][quantity]"
+                                                id="quantity-{{ $i }}-{{ $j }}"
+                                                class="product-quantity" value="1" min="1" max="{{ $product->stock }}">
+                                        </div>
+                                        <div class="product-note">
+                                            <label class="form-label"
+                                                for="note-{{ $i }}-{{ $j }}">Add Note</label>
+                                            <textarea class="form-control d-none"
+                                                id="note-{{ $i }}-{{ $j }}"
+                                                name="suppliers[{{ $i }}][products][{{ $j }}][note]"
+                                                placeholder="leave a note">
+                                                                </textarea>
+                                        </div>
                                         <input type="hidden"
                                             name="suppliers[{{ $i }}][products][{{ $j }}][id]"
                                             value="{{ $product->id }}">

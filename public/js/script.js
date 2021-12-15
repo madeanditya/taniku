@@ -63,6 +63,63 @@ function loadAddress(result) {
     })
 }
 
+function loadAddressCheckout(result) {
+    $.each(result, function (i, data) {
+        if (data.default) {
+            $('.pick-address__modal').append(`
+            <div class="address-card">
+                <span>Utama</span>
+                <p class="fw-bold">`+ data.fullname + `</p>
+                <p>`+ data.phone_number + `</p>
+                <p>`+ data.address + `, ` + data.subdistrict + `, ` + data.city + `, ` + data.province + `
+                </p>
+                <p>`+ data.postal_code + `</p>
+            </div>
+            `);
+        }
+    });
+
+    $.each(result, function (i, data) {
+        if (!data.default) {
+            $('.pick-address__modal').append(`
+            <div>
+            <input type="radio" id="address-`+ data.id + `" name="active_address" value="` + data.id + `" hidden ` + +` {{ $active_address == ` + data.id + ` ? 'checked' : '' }}>
+                <label for="address-`+ data.id + `" class="address-card address-card__checkout">
+                    <p class="fw-bold">`+ data.fullname + `</p>
+                    <p>`+ data.phone_number + `</p>
+                    <p>`+ data.address + `, ` + data.subdistrict + `, ` + data.city + `, ` + data.province + `
+                    </p>
+                    <p>`+ data.postal_code + `</p>
+                </label>
+            </div>
+            `);
+        }
+    })
+}
+
+function loadDefaultAddress(result) {
+    $.each(result, function (i, data) {
+        if (data.default) {
+            $('.address').append(`
+            <h3 class="fw-bold mb-3">Alamat Penerima</h3>
+                <div class="address-card">
+                <p class="fw-bold">`+ data.fullname + `</p>
+                <p>`+ data.phone_number + `</p>
+                <p>`+ data.address + `, ` + data.subdistrict + `, ` + data.city + `, ` + data.province + `
+                </p>
+                <p>`+ data.postal_code + `</p>
+                    <div class="address-card__footer">
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#editAddressModal">
+                            Ubah alamat</button>
+                    </div>
+                </div>
+            `);
+            return;
+        }
+    })
+}
+
 
 
 $(document).ready(function () {
@@ -168,11 +225,53 @@ $(document).ready(function () {
     })
     // end tombol tambah alamat clicked
 
+    // tambah alamat checkout page (form submited)
+    $('.address-modal__checkout').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function (result) {
+                $('.pick-address__modal').html('')
+                loadAddressCheckout(result)
+                $('.address-modal__checkout')[0].reset();
+                $('.address-back__btn').click()
+            }
+        })
+
+    })
+    // end tambah alamat checkout page (form submited)
+
+    // ubah alamat checkout page
+    $('.change-address__modal').on('submit', function (e) {
+        e.preventDefault();
+        const addressId = $('input[name="active_address"]:checked').val();
+        $.ajax({
+            type: 'get',
+            url: '/address/default/' + addressId,
+            success: function (result) {
+                $('.pick-address__modal').html('')
+                loadAddressCheckout(result)
+                $('.address').html('')
+                loadDefaultAddress(result)
+                $('#editAddressModal').modal('hide')
+            }
+        });
+    })
+    // end ubah alamat checkout page
+
+    // toggle add note textarea
+    $('.product-note label').on('click', function () {
+        const id = $(this).attr('for')
+        $('#' + id).toggleClass('d-none')
+    })
+    // end toggle add note textarea
+
 })
 
 // Counting change action inside /cart/show page
-$(document).ready(function()
-{
+$(document).ready(function () {
     let cartShow = document.querySelector('.cart-show')
     if (cartShow) {
         let productQuantities = cartShow.querySelectorAll('.product-quantity')
@@ -181,7 +280,7 @@ $(document).ready(function()
         let summaryPrice = cartShow.querySelector('.summary-price')
         let summaryWeight = cartShow.querySelector('.summary-weight')
         let sumaaryItem = cartShow.querySelector('.summary-item')
-    
+
         function cartShowCountTotal() {
             let totalPrice = 0
             let totalWeight = 0
@@ -198,23 +297,23 @@ $(document).ready(function()
             summaryWeight.innerHTML = totalWeight + ' gram'
             summaryPrice.innerHTML = 'Rp ' + totalPrice
         };
-        
+
         productQuantities.forEach(element => {
             element.addEventListener('change', function () {
                 cartShowCountTotal()
             })
-        })   
+        })
     }
 })
 
 // Counting change action inside /cart/checkout page
-$(document).ready(function() {
+$(document).ready(function () {
     let cartCheckout = document.querySelector('.cart-checkout')
     if (cartCheckout) {
 
         // suppliers
         let supllierShippers = cartCheckout.querySelectorAll('.supplier-shipper')
-        
+
         // products
         let subtotalProductQuantities = cartCheckout.querySelectorAll('.subtotal-product-quantity')
         let subtotalProductPrices = cartCheckout.querySelectorAll('.subtotal-product-price')
@@ -241,14 +340,14 @@ $(document).ready(function() {
 
             let subtotalProductPrice = parseInt(subtotalProductPrices[i].innerHTML)
             let subtotalProductWeight = parseInt(subtotalProductWeights[i].innerHTML)
-            
+
             let subsummary = subsummaries[i]
             let subsummaryEstimation = subsummaryEstimations[i]
             let subsummaryShippingCost = subsummaryShippingCosts[i]
             let subsummaryBill = subsummaryBills[i]
 
             // counting subsummary
-            supplierShipper.addEventListener('change', function() {
+            supplierShipper.addEventListener('change', function () {
                 if (supplierShipper.value == 'pengiriman') {
                     subsummary.style.display = 'none'
                     summaryShippingCostContainer.style.display = 'none'
@@ -287,8 +386,8 @@ $(document).ready(function() {
                             break
                         }
                         else if (j == supllierShippers.length - 1) {
-                            summaryShippingCostContainer.style.display = 'block'
-                            summaryBillContainer.style.display = 'block'
+                            summaryShippingCostContainer.style.display = 'flex'
+                            summaryBillContainer.style.display = 'flex'
                             summaryShippingCost.innerHTML = totalShippingCost
                             summaryBill.innerHTML = totalBill
                         }
@@ -300,8 +399,7 @@ $(document).ready(function() {
 })
 
 // Counting change action inside /cart/checkoutOne page
-$(document).ready(function()
-{
+$(document).ready(function () {
     let cartCheckoutOne = document.querySelector('.cart-checkout-one')
     if (cartCheckoutOne) {
 
@@ -338,8 +436,8 @@ $(document).ready(function()
             }
             else {
                 subsummary.style.display = 'block'
-                summaryShippingCostContainer.style.display = 'inline'
-                summaryBillContainer.style.display = 'inline'
+                summaryShippingCostContainer.style.display = 'flex'
+                summaryBillContainer.style.display = 'flex'
                 if (supplierShipper.value == 'instan') {
                     subsummaryEstimation.innerHTML = 'arrive in 3 to 6 hours'
                     summaryShippingCost.innerHTML = 10000 + (50 * productWeight * parseInt(productQuantity.value))
@@ -363,11 +461,11 @@ $(document).ready(function()
             }
         }
 
-        supplierShipper.addEventListener('change', function() {
+        supplierShipper.addEventListener('change', function () {
             count()
         })
 
-        productQuantity.addEventListener('change', function() {
+        productQuantity.addEventListener('change', function () {
             count()
         })
     }

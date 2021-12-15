@@ -51,84 +51,92 @@ if (count($suppliers) != 0) {
             {{-- Cart --}}
             <div class="products">
                 @csrf
-                    <h3 class="fw-bold">Detail Barang</h3>
-                
-                    {{-- suppliers --}}
-                    @php $i = 0 @endphp
-                    @foreach ($suppliers as $supplier)
-                        <div class="checkout-item__header mt-5">
-                            <span class="cart-supplier__header">
-                                <img
-                                src="https://avatars.dicebear.com/api/gridy/{{ $supplier['username'] }}.svg"
+                <h3 class="fw-bold">Detail Barang</h3>
+
+                {{-- suppliers --}}
+                @php $i = 0 @endphp
+                @foreach ($suppliers as $supplier)
+                    <div class="checkout-item__header mt-5">
+                        <span class="cart-supplier__header">
+                            <img src="https://avatars.dicebear.com/api/gridy/{{ $supplier['username'] }}.svg"
                                 alt="{{ $supplier['username'] }}">{{ $supplier['username'] }}
-                            </span>
-                            <input type="hidden" name="orders[{{ $i }}][username]"
-                                value="{{ auth()->user()->username }}">
-                            <input type="hidden" name="orders[{{ $i }}][supplier]"
-                                value="{{ $supplier['username'] }}">
-                            <input type="hidden" name="orders[{{ $i }}][address_id]"
-                                value="{{ $active_address }}">
-                            <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman"
-                                name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
-                                <option value="pengiriman">Pengiriman</option>
-                                <option value="instan">Instan</option>
-                                <option value="same day">Same Day</option>
-                                <option value="reguler">Reguler</option>
-                                <option value="kargo">Kargo</option>
-                            </select>
-                        </div>
-                        
-                        {{-- products --}}
-                        @php $j = 0; $subtotalWeight = 0; $subtotalPrice = 0;  $subtotalQuantity = 0; @endphp
-                        @foreach ($supplier['products'] as $product)
-                            <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
-                                <div class="col-2 cart-img-wrapper">
-                                    <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product['name'] }}">
-                                </div>
-                                <div class="col-6">
-                                    <div class="row">
-                                        <div class="col cart-item-content">
-                                            <p>{{ $product['name'] }}</p>
-                                            <p><span>Rp. {{ $product['price'] }}</span></p>
-                                            <p>{{ $product['weight'] }} gram</p>
-                                            <p>Quantity: {{ $product['quantity'] }}</p>
-                                        </div>
+                        </span>
+                        <input type="hidden" name="orders[{{ $i }}][username]"
+                            value="{{ auth()->user()->username }}">
+                        <input type="hidden" name="orders[{{ $i }}][supplier]"
+                            value="{{ $supplier['username'] }}">
+                        <input type="hidden" name="orders[{{ $i }}][address_id]"
+                            value="{{ $active_address }}">
+                        <select class="supplier-shipper form-select mt-3" aria-label="Pengiriman"
+                            name="orders[{{ $i }}][shipper]" id="shipper-{{ $i }}">
+                            <option value="pengiriman">Pengiriman</option>
+                            <option value="instan">Instan</option>
+                            <option value="same day">Same Day</option>
+                            <option value="reguler">Reguler</option>
+                            <option value="kargo">Kargo</option>
+                        </select>
+                    </div>
+
+                    {{-- products --}}
+                    @php
+                        $j = 0;
+                        $subtotalWeight = 0;
+                        $subtotalPrice = 0;
+                        $subtotalQuantity = 0;
+                    @endphp
+                    @foreach ($supplier['products'] as $product)
+                        <div class="row mt-4 cart-item-card align-items-center" style="border: 2px solid #E1E1E1;">
+                            <div class="col-2 cart-img-wrapper">
+                                <img src="{{ asset('img/tumbnail.png') }}" alt="{{ $product['name'] }}">
+                            </div>
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col cart-item-content">
+                                        <p>{{ $product['name'] }}</p>
+                                        <p><span>Rp. {{ $product['price'] }}</span></p>
+                                        <p>{{ $product['weight'] }} gram</p>
+                                        <p>Quantity: {{ $product['quantity'] }}</p>
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <input type="hidden"
-                                        name="orders[{{ $i }}][order_details][{{ $j }}][product_id]"
-                                        value="{{ $product['id'] }}">
-                                    @if (isset($product['note']))
-                                        <label for="note-{{ $i }}-{{ $j }}">Note: </label>
-                                        <input type="text" id="note-{{ $i }}-{{ $j }}"
-                                            name="orders[{{ $i }}][order_details][{{ $j }}][note]"
-                                            value="{{ $product['note'] }}"
-                                            readonly>
-                                    @else
-                                        <input type="hidden" id="note-{{ $i }}-{{ $j }}"
-                                            name="orders[{{ $i }}][order_details][{{ $j }}][note]">
-                                        @endif
-                                    <input type="hidden"
-                                        name="orders[{{ $i }}][order_details][{{ $j }}][quantity]"
-                                        value="{{ $product['quantity'] }}">
-                                </div>
                             </div>
-                            @php $j = $j + 1; $subtotalWeight += (int)$product['weight'] * (int)$product['quantity']; $subtotalPrice += (int)$product['price'] * (int)$product['quantity']; $subtotalQuantity += (int)$product['quantity'] @endphp
-                        @endforeach
-                    
-                        {{-- subsummary --}}
-                        <div class="subsummary" style="display: none">
-                            <div>Estimation: <span class="subsummary-estimation"> ... </span></div>
-                            <div>Shipping cost: Rp. <span class="subsummary-shipping-cost"> ... </span></div>
-                            <div>Subtotal bill: Rp. <span class="subsummary-bill"> ... </span></div>
+                            <div class="col-4">
+                                <input type="hidden"
+                                    name="orders[{{ $i }}][order_details][{{ $j }}][product_id]"
+                                    value="{{ $product['id'] }}">
+                                @if (isset($product['note']))
+                                    <label for="note-{{ $i }}-{{ $j }}">Note: </label>
+                                    <input type="text" id="note-{{ $i }}-{{ $j }}"
+                                        name="orders[{{ $i }}][order_details][{{ $j }}][note]"
+                                        value="{{ $product['note'] }}" readonly>
+                                @else
+                                    <input type="hidden" id="note-{{ $i }}-{{ $j }}"
+                                        name="orders[{{ $i }}][order_details][{{ $j }}][note]">
+                                @endif
+                                <input type="hidden"
+                                    name="orders[{{ $i }}][order_details][{{ $j }}][quantity]"
+                                    value="{{ $product['quantity'] }}">
+                            </div>
                         </div>
-
-                        <div style="display: none" class="subtotal-product-quantity">{{ $subtotalQuantity }}</div>
-                        <div style="display: none" class="subtotal-product-weight">{{ $subtotalWeight }}</div>
-                        <div style="display: none" class="subtotal-product-price">{{ $subtotalPrice }}</div>
-                        @php $i = $i + 1 @endphp
+                        @php
+                            $j = $j + 1;
+                            $subtotalWeight += (int) $product['weight'] * (int) $product['quantity'];
+                            $subtotalPrice += (int) $product['price'] * (int) $product['quantity'];
+                            $subtotalQuantity += (int) $product['quantity'];
+                        @endphp
                     @endforeach
+
+                    {{-- subsummary --}}
+                    <div class="subsummary" style="display: none">
+                        <div>Estimation: <span class="subsummary-estimation"> ... </span></div>
+                        <div>Shipping cost: Rp. <span class="subsummary-shipping-cost"> ... </span></div>
+                        <div>Subtotal bill: Rp. <span class="subsummary-bill"> ... </span></div>
+                    </div>
+
+                    <div style="display: none" class="subtotal-product-quantity">{{ $subtotalQuantity }}</div>
+                    <div style="display: none" class="subtotal-product-weight">{{ $subtotalWeight }}</div>
+                    <div style="display: none" class="subtotal-product-price">{{ $subtotalPrice }}</div>
+                    @php $i = $i + 1 @endphp
+                @endforeach
             </div>
         </div>
 
@@ -168,7 +176,7 @@ if (count($suppliers) != 0) {
 <div class="modal fade" id="editAddressModal" tabindex="-1" aria-labelledby="editAddressModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg  modal-dialog-scrollable">
-        <form action="" method="post" class="modal-content">
+        <form action="" method="post" class="modal-content change-address__modal">
             @csrf
             <div class="modal-header border-0">
                 <h5 class="modal-title fw-bold">Pilih alamat pengiriman</h5>
@@ -179,14 +187,15 @@ if (count($suppliers) != 0) {
                     data-bs-target="#createAddressModal">
                     Tambah alamat
                 </button>
-                <div>
+                <div class="pick-address__modal">
                     @foreach ($addresses as $address)
                         @if ($address->default == 1)
                             <div class="address-card ">
                                 <span>Utama</span>
                                 <p class="fw-bold">{{ $address->fullname }}</p>
                                 <p>{{ $address->phone_number }}</p>
-                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
+                                </p>
                                 <p>{{ $address->postal_code }}</p>
                             </div>
                         @break
@@ -202,7 +211,8 @@ if (count($suppliers) != 0) {
                                 <label for="address-{{ $address->id }}" class="address-card address-card__checkout">
                                     <p class="fw-bold">{{ $address->fullname }}</p>
                                     <p>{{ $address->phone_number }}</p>
-                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}</p>
+                                    <p>{{ $address->address . ', ' . $address->subdistrict . ', ' . $address->city . ', ' . $address->province }}
+                                    </p>
                                     <p>{{ $address->postal_code }}</p>
                                 </label>
                             </div>
@@ -226,7 +236,8 @@ if (count($suppliers) != 0) {
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
-            <form class="modal-content" action="/address/store" method="post" style="padding: 1rem">
+            <form class="modal-content address-modal__checkout" action="/address/store" method="post"
+                style="padding: 1rem">
                 <div class="modal-header border-0">
                     <h5 class="modal-title fw-bold">Tambah alamat</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -262,10 +273,9 @@ if (count($suppliers) != 0) {
                         <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="">
                     </div>
                     <input type="hidden" id="username" name="username" value="{{ auth()->user()['username'] }}">
-                    <input type="hidden" name="type" value="1">
                 </div>
                 <div class="modal-footer border-0 justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-secondary address-back__btn" data-bs-toggle="modal"
                         data-bs-target="#editAddressModal" style="border-radius: 10px;">
                         Kembali
                     </button>
