@@ -44,7 +44,7 @@
                         <li><a class="dropdown-item" href="/user/settings">Settings</a></li>
                         <li><a class="dropdown-item" href="/wishlist/show">Wishlist</a></li>
                         <li><a class="dropdown-item" href="/cart/show">Shopping Cart</a></li>
-                        <li><a class="dropdown-item" href="/order/show">Order</a></li>
+                        <li><a class="dropdown-item" href="/order/show/all">Order</a></li>
                     </ul>
                 </li>
             </ul>
