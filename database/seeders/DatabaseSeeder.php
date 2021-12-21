@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'yande554@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'yande',
-            'role' => 'supplier',
+            'role' => 'user',
             'fullname' => 'I Wayan Pande Putra Yudha',
             'phone_number'=> '081222333444'
         ]);
@@ -127,7 +127,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'nyomanhendradinata20@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'hendra',
-            'role' => 'supplier',
+            'role' => 'user',
             'fullname' => 'Nyoman Hendradinata Dharma',
             'phone_number'=> '081222333444'
         ]);
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'agusarinegara@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'gusari',
-            'role' => 'supplier',
+            'role' => 'user',
             'fullname' => 'I Komang Ari Negara',
             'phone_number'=> '081222333444'
         ]);
@@ -169,7 +169,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'indrapputra13@gmail.com',
             'password' => Hash::make('12345'),
             'username' => 'indra',
-            'role' => 'supplier',
+            'role' => 'user',
             'fullname' => 'Indra Permana Putra',
             'phone_number'=> '081222333444'
         ]);
@@ -273,7 +273,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
             'weight' => rand(1, 1000),
-            'supplier' => 'yande'
+            'supplier' => 'anditya'
         ]);
 
         Product::create([
@@ -283,7 +283,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'rempah-rempah',
             'weight' => rand(1, 1000),
-            'supplier' => 'yande'
+            'supplier' => 'anditya'
         ]);
 
         Product::create([
@@ -293,7 +293,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'biji-bijian',
             'weight' => rand(1, 1000),
-            'supplier' => 'hendra'
+            'supplier' => 'cahaya'
         ]);
 
         Product::create([
@@ -303,7 +303,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
             'weight' => rand(1, 1000),
-            'supplier' => 'hendra'
+            'supplier' => 'cahaya'
         ]);
 
         Product::create([
@@ -313,7 +313,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'rempah-rempah',
             'weight' => rand(1, 1000),
-            'supplier' => 'gusari'
+            'supplier' => 'ayutriana'
         ]);
 
         Product::create([
@@ -323,7 +323,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'buah-buahan',
             'weight' => rand(1, 1000),
-            'supplier' => 'gusari'
+            'supplier' => 'ayutriana'
         ]);
 
         Product::create([
@@ -333,7 +333,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'umbi-umbian',
             'weight' => rand(1, 1000),
-            'supplier' => 'indra'
+            'supplier' => 'dewayu'
         ]);
 
         Product::create([
@@ -343,7 +343,7 @@ class DatabaseSeeder extends Seeder
             'stock' => rand(0, 100),
             'category' => 'biji-bijian',
             'weight' => rand(1, 1000),
-            'supplier' => 'indra'
+            'supplier' => 'dewayu'
         ]);
     }
 }

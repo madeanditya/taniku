@@ -12,16 +12,18 @@
                         Home
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        My Store
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/{{ auth()->user()->username }}">Stall</a></li>
-                        <li><a class="dropdown-item" href="/product/show">Product Management</a></li>
-                        <li><a class="dropdown-item" href="/customer_order/show/need_action">Customer Orders</a></li>
-                    </ul>
-                </li>
+                @can('supplier')                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            My Store
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/{{ auth()->user()->username }}">Stall</a></li>
+                            <li><a class="dropdown-item" href="/product/show">Product Management</a></li>
+                            <li><a class="dropdown-item" href="/customer_order/show/need_action">Customer Orders</a></li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </div>
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">

@@ -27,60 +27,84 @@ use App\Http\Controllers\ProfileController;
 //     return view('welcome');
 // });
 
+// main routes
 Route::get('/', [HomeController::class, 'main']);
 Route::get('/taniku', [HomeController::class, 'taniku']);
 Route::get('/{username}', [HomeController::class, 'user']);
 Route::get('/home/product/{id}', [HomeController::class, 'product']);
 
-Route::get('/user/register', [UserController::class, 'register'])->middleware('guest');
-Route::post('/user/register', [UserController::class, 'store'])->middleware('guest');
-Route::get('/user/login', [UserController::class, 'login'])->name('login')->middleware('guest');
-Route::post('/user/login', [UserController::class, 'authenticate'])->middleware('guest');
-Route::post('/user/logout', [UserController::class, 'logout'])->middleware('auth');
-Route::get('/user/settings', [UserController::class, 'settings'])->middleware('auth');
+// user management
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/user/register', [UserController::class, 'register']);
+    Route::post('/user/register', [UserController::class, 'store']);
+    Route::get('/user/login', [UserController::class, 'login'])->name('login');
+    Route::post('/user/login', [UserController::class, 'authenticate']);
+});
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/user/logout', [UserController::class, 'logout']);
+    Route::get('/user/settings', [UserController::class, 'settings']);
+});
 
-Route::get('/address/create', [AddressController::class, 'create'])->middleware('auth');
-Route::post('/address/store', [AddressController::class, 'store'])->middleware('auth');
-Route::get('/address/show', [AddressController::class, 'show'])->middleware('auth');
-Route::get('/address/edit/{id}', [AddressController::class, 'edit'])->middleware('auth'); // cek session
-Route::post('/address/update/{id}', [AddressController::class, 'update'])->middleware('auth');
-Route::get('/address/destroy/{id}', [AddressController::class, 'destroy'])->middleware('auth'); // cek session
-Route::get('/address/default/{id}', [AddressController::class, 'default'])->middleware('auth'); // cek session
+// address management
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/address/create', [AddressController::class, 'create']);
+    Route::post('/address/store', [AddressController::class, 'store']);
+    Route::get('/address/show', [AddressController::class, 'show']);
+    Route::get('/address/edit/{id}', [AddressController::class, 'edit']); // cek session
+    Route::post('/address/update/{id}', [AddressController::class, 'update']);
+    Route::get('/address/destroy/{id}', [AddressController::class, 'destroy']); // cek session
+    Route::get('/address/default/{id}', [AddressController::class, 'default']); // cek session
+});
 
-Route::get('/product/create'  , [ProductController::class, 'create'])->middleware('auth');
-Route::post('/product/store', [ProductController::class, 'store'])->middleware('auth');
-Route::get('/product/show' , [ProductController::class, 'show'])->middleware('auth');
-Route::get('/product/edit/{id}' , [ProductController::class, 'edit'])->middleware('auth'); // cek session
-Route::post('/product/update/{id}', [ProductController::class, 'update'])->middleware('auth');
-Route::get('/product/destroy/{id}', [ProductController::class, 'destroy'])->middleware('auth'); // cek session
+// order management
+Route::group(['middleware' => 'auth'], function() {
+    Route::post('/order/store', [OrderController::class, 'store']);
+    Route::get('/order/show/{status}', [OrderController::class, 'show']);
+    Route::get('/order/pay/{id}', [OrderController::class, 'pay']); // cek session
+    Route::get('/order/cancel/{id}', [OrderController::class, 'cancel']); // cek session
+    Route::get('/order/confirm/{id}', [OrderController::class, 'confirm']); // cek session
+    Route::get('/order/complaint/{id}', [OrderController::class, 'complaint']); // cek session
+    Route::get('/order/apply_cancel_request/{id}', [OrderController::class, 'apply_cancel_request']); // cek session
+    Route::get('/order/cancel_cancel_request/{id}', [OrderController::class, 'cancel_cancel_request']); // cek session
+    Route::get('/order/accept_cancel_request/{id}', [OrderController::class, 'accept_cancel_request']); // cek session
+    Route::get('/order/reject_cancel_request/{id}', [OrderController::class, 'reject_cancel_request']); // cek session
+});
 
-Route::get('/customer_order/show/{status}', [CustomerOrderController::class, 'show'])->middleware('auth');
-Route::get('/customer_order/accept/{id}', [CustomerOrderController::class, 'accept'])->middleware('auth'); // cek session
-Route::get('/customer_order/reject/{id}', [CustomerOrderController::class, 'reject'])->middleware('auth'); // cek session
-Route::get('/customer_order/deliver/{id}', [CustomerOrderController::class, 'deliver'])->middleware('auth'); // cek session
-Route::get('/customer_order/arrive/{id}', [CustomerOrderController::class, 'arrive'])->middleware('auth'); // cek session
-Route::get('/customer_order/apply_cancel_request/{id}', [CustomerOrderController::class, 'apply_cancel_request'])->middleware('auth'); // cek session
-Route::get('/customer_order/cancel_cancel_request/{id}', [CustomerOrderController::class, 'cancel_cancel_request'])->middleware('auth'); // cek session
-Route::get('/customer_order/accept_cancel_request/{id}', [CustomerOrderController::class, 'accept_cancel_request'])->middleware('auth'); // cek session
-Route::get('/customer_order/reject_cancel_request/{id}', [CustomerOrderController::class, 'reject_cancel_request'])->middleware('auth'); // cek session
+// cart management
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/cart/store/{id}', [CartController::class, 'store']);
+    Route::get('/cart/show', [CartController::class, 'show']);
+    Route::get('/cart/destroy/{id}', [CartController::class, 'destroy']); // cek session
+    Route::post('/cart/checkout', [CartController::class, 'checkout']);
+    Route::get('/cart/checkout/{product_id}/', [CartController::class, 'checkoutOne']);
+});
 
-Route::post('/order/store', [OrderController::class, 'store'])->middleware('auth');
-Route::get('/order/show/{status}', [OrderController::class, 'show'])->middleware('auth');
-Route::get('/order/pay/{id}', [OrderController::class, 'pay'])->middleware('auth'); // cek session
-Route::get('/order/cancel/{id}', [OrderController::class, 'cancel'])->middleware('auth'); // cek session
-Route::get('/order/confirm/{id}', [OrderController::class, 'confirm'])->middleware('auth'); // cek session
-Route::get('/order/complaint/{id}', [OrderController::class, 'complaint'])->middleware('auth'); // cek session
-Route::get('/order/apply_cancel_request/{id}', [OrderController::class, 'apply_cancel_request'])->middleware('auth'); // cek session
-Route::get('/order/cancel_cancel_request/{id}', [OrderController::class, 'cancel_cancel_request'])->middleware('auth'); // cek session
-Route::get('/order/accept_cancel_request/{id}', [OrderController::class, 'accept_cancel_request'])->middleware('auth'); // cek session
-Route::get('/order/reject_cancel_request/{id}', [OrderController::class, 'reject_cancel_request'])->middleware('auth'); // cek session
+// wishlist management
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/wishlist/store/{id}', [WishlistController::class, 'store']);
+    Route::get('/wishlist/show', [WishlistController::class, 'show']);
+    Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy']); // cek session
+});
 
-Route::get('/cart/store/{id}', [CartController::class, 'store'])->middleware('auth');
-Route::get('/cart/show', [CartController::class, 'show'])->middleware('auth');
-Route::get('/cart/destroy/{id}', [CartController::class, 'destroy'])->middleware('auth'); // cek session
-Route::post('/cart/checkout', [CartController::class, 'checkout'])->middleware('auth');
-Route::get('/cart/checkout/{product_id}/', [CartController::class, 'checkoutOne'])->middleware('auth');
+// product management
+Route::group(['middleware' => ['auth', 'supplier']], function() {
+    Route::get('/product/create', [ProductController::class, 'create']);
+    Route::post('/product/store', [ProductController::class, 'store']);
+    Route::get('/product/show', [ProductController::class, 'show']);
+    Route::get('/product/edit/{id}', [ProductController::class, 'edit']); // cek session
+    Route::post('/product/update/{id}', [ProductController::class, 'update']);
+    Route::get('/product/destroy/{id}', [ProductController::class, 'destroy']); // cek session
+});
 
-Route::get('/wishlist/store/{id}', [WishlistController::class, 'store'])->middleware('auth');
-Route::get('/wishlist/show', [WishlistController::class, 'show'])->middleware('auth');
-Route::get('/wishlist/destroy/{id}', [WishlistController::class, 'destroy'])->middleware('auth'); // cek session
+// customer order management
+Route::group(['middleware' => ['auth', 'supplier']], function() {
+    Route::get('/customer_order/show/{status}', [CustomerOrderController::class, 'show']);
+    Route::get('/customer_order/accept/{id}', [CustomerOrderController::class, 'accept']); // cek session
+    Route::get('/customer_order/reject/{id}', [CustomerOrderController::class, 'reject']); // cek session
+    Route::get('/customer_order/deliver/{id}', [CustomerOrderController::class, 'deliver']); // cek session
+    Route::get('/customer_order/arrive/{id}', [CustomerOrderController::class, 'arrive']); // cek session
+    Route::get('/customer_order/apply_cancel_request/{id}', [CustomerOrderController::class, 'apply_cancel_request']); // cek session
+    Route::get('/customer_order/cancel_cancel_request/{id}', [CustomerOrderController::class, 'cancel_cancel_request']); // cek session
+    Route::get('/customer_order/accept_cancel_request/{id}', [CustomerOrderController::class, 'accept_cancel_request']); // cek session
+    Route::get('/customer_order/reject_cancel_request/{id}', [CustomerOrderController::class, 'reject_cancel_request']); // cek session    
+});
