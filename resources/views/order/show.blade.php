@@ -9,19 +9,21 @@
 @section('content')
 
     <div class="order-container">
+
         {{-- menu bar --}}
         <div class="status">
             <h3>Status</h3>
+            <a class="btn btn-outline-success rounded-pill {{ $showing === 'need_action' ? 'btn-active' : '' }}"
+                href="/order/show/need_action">Butuh Tindakan</a>
             <a class="btn btn-outline-success rounded-pill {{ $showing === 'all' ? 'btn-active' : '' }}"
                 href="/order/show/all">Semua</a>
+            <a class="btn btn-outline-success rounded-pill {{ $showing === 'waiting' ? 'btn-active' : '' }}"
+                href="/order/show/waiting">Menunggu</a>
             <a class="btn btn-outline-success rounded-pill {{ $showing === 'in_progress' ? 'btn-active' : '' }}"
                 href="/order/show/in_progress">Berlangsung</a>
-            <a class="btn btn-outline-success rounded-pill {{ $showing === 'succeed' ? 'btn-active' : '' }}"
-                href="/order/show/succeed">Berhasil</a>
-            <a class="btn btn-outline-success rounded-pill {{ $showing === 'failed' ? 'btn-active' : '' }}"
-                href="/order/show/failed">Tidak Berhasil</a>
+            <a class="btn btn-outline-success rounded-pill {{ $showing === 'finished' ? 'btn-active' : '' }}"
+                href="/order/show/finished">Selesai</a>
         </div>
-
 
         {{-- orders --}}
         <div class="orders px-4 mt-5">
@@ -40,10 +42,47 @@
                         <div class="row">
                             <div class="col cart-item-content">
                                 <p>{{ $order->fullname }}</p>
-                                <p>Status: {{ $order->status }}</p>
+                                <p>
+                                    Status: {{ $order->status }}
+                                    @if ($order->in_cancel_request != 0)
+                                         (in cancel request)
+                                    @endif
+                                </p>
+                                
+                                {{-- action --}}
+                                @if ($order->status == 'waiting_payment')
+                                    <a href="/order/pay/{{ $order->id }}" class="cancel-pesanan__btn">Bayar Pesanan</a>
+                                    <a href="/order/cancel/{{ $order->id }}" class="cancel-pesanan__btn">Batalkan Pesanan</a>
+                                
+                                @elseif ($order->status == 'waiting_feedback')
+                                    <a href="/order/cancel/{{ $order->id }}" class="cancel-pesanan__btn">Batalkan Pesanan</a>
+                                
+                                @elseif ($order->status == 'packing')
+                                    @if ($order->in_cancel_request == 2)
+                                        <a href="/order/accept_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Teriman Pengajuan Pembatalan</a>
+                                        <a href="/order/reject_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Tolak Pengajuan Pembatalan</a>
+                                    @elseif ($order->in_cancel_request == 1)
+                                        <a href="/order/cancel_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Batalkan Pengajuan Pembatalan</a>
+                                    @else
+                                        <a href="/order/apply_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Ajukan Pembatalan</a>
+                                    @endif
+                                
+                                @elseif ($order->status == 'delivering')
+                                    @if ($order->in_cancel_request == 2)
+                                        <a href="/order/accept_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Teriman Pengajuan Pembatalan</a>
+                                        <a href="/order/reject_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Tolak Pengajuan Pembatalan</a>
+                                    @elseif ($order->in_cancel_request == 1)
+                                        <a href="/order/cancel_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Batalkan Pengajuan Pembatalan</a>
+                                    @else
+                                        <a href="/order/apply_cancel_request/{{ $order->id }}" class="cancel-pesanan__btn">Ajukan Pembatalan</a>
+                                    @endif
+
+                                @elseif ($order->status == 'arrived')
+                                    <a href="/order/confirm/{{ $order->id }}" class="cancel-pesanan__btn">Konfirmasi Penerimaan</a>
+                                    <a href="/order/complaint/{{ $order->id }}" class="cancel-pesanan__btn">Ajukan Keluhan</a>
+                                @endif
 
                             </div>
-                            <a href="/order/reject/{{ $order->id }}" class="cancel-pesanan__btn">Batalkan Pemesanan</a>
                         </div>
                     </div>
                     <div class="col-2 d-flex justify-content-center align-items-center">

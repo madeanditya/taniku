@@ -19,7 +19,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/{{ auth()->user()->username }}">Stall</a></li>
                         <li><a class="dropdown-item" href="/product/show">Product Management</a></li>
-                        <li><a class="dropdown-item" href="/customer_order/show/pending">Customer Orders</a></li>
+                        <li><a class="dropdown-item" href="/customer_order/show/need_action">Customer Orders</a></li>
                     </ul>
                 </li>
             </ul>
@@ -44,7 +44,7 @@
                         <li><a class="dropdown-item" href="/user/settings">Settings</a></li>
                         <li><a class="dropdown-item" href="/wishlist/show">Wishlist</a></li>
                         <li><a class="dropdown-item" href="/cart/show">Shopping Cart</a></li>
-                        <li><a class="dropdown-item" href="/order/show/all">Order</a></li>
+                        <li><a class="dropdown-item" href="/order/show/need_action">Order</a></li>
                     </ul>
                 </li>
             </ul>

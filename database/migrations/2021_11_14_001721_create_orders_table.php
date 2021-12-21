@@ -15,7 +15,8 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('status')->default("pending");
+            $table->string('status')->default('waiting_payment');
+            $table->integer('in_cancel_request')->default('0');  // 0: none, 1: user request, 2: supplier request
             $table->text('note')->nullable();
             $table->char('username');
             $table->char('supplier');
