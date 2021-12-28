@@ -23,7 +23,8 @@ class WishlistController extends Controller
             DB::table('wishlists')->insert($wishlist);
         }
         
-        return back();
+        // return back();
+        return $wishlist;
     }
 
     public function show() {

@@ -470,3 +470,50 @@ $(document).ready(function () {
         })
     }
 })
+
+$(document).ready(function () {
+
+    // add product to wishlist
+    let wishlistBtn = document.querySelectorAll('.wishlist-btn')
+    if (wishlistBtn) {
+        wishlistBtn.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault()
+                productId = event.target.querySelector('input')
+                if (productId == null) {
+                    productId = event.target.nextElementSibling.value
+                }
+                else {
+                    productId = productId.value
+                }
+    
+                $.ajax({
+                    url: '/wishlist/store/' + productId,
+                    type: 'get',
+                    success: function() {
+                        console.log('success')
+                    }
+                })                
+            })
+        })
+    }
+
+    // add product to cart
+    let keranjangBtn = document.querySelectorAll('.keranjang-btn')
+    if (keranjangBtn) {
+        keranjangBtn.forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault()
+                productId = event.target.querySelector('input').value
+
+                $.ajax({
+                    url: '/cart/store/' + productId,
+                    type: 'get',
+                    success: function(result) {
+                        console.log(result)
+                    }
+                })
+            })
+        })
+    }
+})
