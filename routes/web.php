@@ -106,5 +106,5 @@ Route::group(['middleware' => ['auth', 'supplier']], function() {
     Route::get('/customer_order/apply_cancel_request/{id}', [CustomerOrderController::class, 'apply_cancel_request']); // cek session
     Route::get('/customer_order/cancel_cancel_request/{id}', [CustomerOrderController::class, 'cancel_cancel_request']); // cek session
     Route::get('/customer_order/accept_cancel_request/{id}', [CustomerOrderController::class, 'accept_cancel_request']); // cek session
-    Route::get('/customer_order/reject_cancel_request/{id}', [CustomerOrderController::class, 'reject_cancel_request']); // cek session    
+    Route::get('/customer_order/reject_cancel_request/{id}', [CustomerOrderController::class, 'reject_cancel_request']); // cek session
 });

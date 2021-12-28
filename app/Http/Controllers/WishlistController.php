@@ -22,7 +22,7 @@ class WishlistController extends Controller
         if (!Wishlist::exist(auth()->user()->username, $id)) {
             DB::table('wishlists')->insert($wishlist);
         }
-        
+
         // return back();
         return $wishlist;
     }

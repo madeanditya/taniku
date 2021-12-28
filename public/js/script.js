@@ -471,6 +471,7 @@ $(document).ready(function () {
     }
 })
 
+// home main page
 $(document).ready(function () {
 
     // add product to wishlist
@@ -486,17 +487,21 @@ $(document).ready(function () {
                 else {
                     productId = productId.value
                 }
-    
+
                 $.ajax({
                     url: '/wishlist/store/' + productId,
                     type: 'get',
-                    success: function() {
-                        console.log('success')
+                    success: function(result) {
+                        console.log(result)
                     }
-                })                
+                })
             })
         })
     }
+
+    // remove product from wistlist
+    // load wishlist data
+    // update wishlist view
 
     // add product to cart
     let keranjangBtn = document.querySelectorAll('.keranjang-btn')

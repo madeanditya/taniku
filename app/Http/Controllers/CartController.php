@@ -24,7 +24,8 @@ class CartController extends Controller
             DB::table('carts')->insert($cart);
         }
 
-        return back();
+        // return back();
+        return $cart;
     }
 
     public function show() {
